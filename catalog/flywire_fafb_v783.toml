@@ -1,0 +1,87 @@
+# FlyWire FAFB whole-brain connectome, materialization 783 — graph-level files only.
+#
+# Every file is pinned: Zenodo files by record id + official md5, GitHub files by commit SHA
+# (never a moving branch) + git blob SHA-1 from the GitHub contents API.
+# Sizes and checksums were read from the Zenodo / GitHub APIs on 2026-09-16 (see docs/DATASET.md).
+# `biobrain download` writes the sha256 of what it actually received to flywire_fafb_v783.lock.json.
+
+[dataset]
+id = "flywire_fafb_v783"
+title = "FlyWire FAFB whole-brain connectome, materialization 783 (Buhmann et al. 2021 synapses, cleft score > 50)"
+version = "783"
+license = "Zenodo record: CC BY 4.0; flywire.ai guidelines: CC BY-NC 4.0 for the public release. BioBrain applies the stricter CC BY-NC 4.0."
+citations = [
+    "Dorkenwald S. et al. Neuronal wiring diagram of an adult brain. Nature 634, 124-138 (2024). doi:10.1038/s41586-024-07558-y",
+    "Schlegel P. et al. Whole-brain annotation and multi-connectome cell typing of Drosophila. Nature 634, 139-152 (2024). doi:10.1038/s41586-024-07686-5",
+    "Buhmann J. et al. Automatic detection of synaptic partners in a whole-brain Drosophila electron microscopy data set. Nature Methods 18, 771-774 (2021). doi:10.1038/s41592-021-01183-7",
+    "Heinrich L. et al. Synaptic cleft segmentation in non-isotropic volume electron microscopy of the complete Drosophila brain. MICCAI 2018. doi:10.1007/978-3-030-00934-2_36",
+    "Eckstein N. et al. Neurotransmitter classification from electron microscopy images at synaptic sites in Drosophila melanogaster. Cell (2024). doi:10.1016/j.cell.2024.03.016",
+    "Zheng Z. et al. A complete electron microscopy volume of the brain of adult Drosophila melanogaster. Cell 174, 730-743 (2018). doi:10.1016/j.cell.2018.06.019",
+]
+
+[[files]]
+id = "root_ids"
+filename = "proofread_root_ids_783.npy"
+url = "https://zenodo.org/api/records/10676866/files/proofread_root_ids_783.npy/content"
+size = 1114168
+md5 = "e0e6c19732fd8c7a4e39a2d170105421"
+format = "NumPy .npy, dtype <u8, shape (139255,)"
+purpose = "Node set: the canonical list of proofread neurons of release 783."
+
+[[files]]
+id = "connections"
+filename = "proofread_connections_783.feather"
+url = "https://zenodo.org/api/records/10676866/files/proofread_connections_783.feather/content"
+size = 852022274
+md5 = "f48f972d262323a102aed49af1396b8a"
+format = "Arrow IPC (Feather v2, ZSTD); one row per (pre neuron, post neuron, neuropil), no synapse threshold"
+purpose = "Edges: synapse counts and mean neurotransmitter probabilities between proofread neurons."
+
+[[files]]
+id = "neuropil_counts_pre"
+filename = "per_neuron_neuropil_count_pre_783.feather"
+url = "https://zenodo.org/api/records/10676866/files/per_neuron_neuropil_count_pre_783.feather/content"
+size = 16853770
+md5 = "90fcdb42c1ba05ed92820840fa1e6ba0"
+format = "Arrow IPC; pre_pt_root_id, neuropil, count — per segment, including unproofread fragments"
+purpose = "Completeness audit: each neuron's output synapses with ALL partners, and official synapse totals."
+
+[[files]]
+id = "neuropil_counts_post"
+filename = "per_neuron_neuropil_count_post_783.feather"
+url = "https://zenodo.org/api/records/10676866/files/per_neuron_neuropil_count_post_783.feather/content"
+size = 233843050
+md5 = "bb5999f10920ade803d9f37097a43a56"
+format = "Arrow IPC; post_pt_root_id, neuropil, count — per segment, including unproofread fragments"
+purpose = "Completeness audit: each neuron's input synapses with ALL partners."
+
+[[files]]
+id = "annotations"
+filename = "Supplemental_file1_neuron_annotations.tsv"
+subdir = "annotations/v3.1.0"
+url = "https://raw.githubusercontent.com/flyconnectome/flywire_annotations/8587524c1748ce5ef2080822a2fc890fc03bf597/supplemental_files/Supplemental_file1_neuron_annotations.tsv"
+size = 31718505
+git_blob_sha1 = "afea3e15a5671f5da0b9f7dd2e932d328c3b57a0"
+format = "TSV, 31 columns, one row per 783 neuron"
+purpose = "Neuron annotations used for analysis (latest systematic release, tag v3.1.0)."
+
+[[files]]
+id = "annotations_paper"
+filename = "Supplemental_file1_neuron_annotations.tsv"
+subdir = "annotations/v2.1.0"
+url = "https://raw.githubusercontent.com/flyconnectome/flywire_annotations/ebd66db2596fcc39c6950fb54ea3efa00f7fe8a0/supplemental_files/Supplemental_file1_neuron_annotations.tsv"
+size = 27015208
+git_blob_sha1 = "1a3168731618ee62a47392252d3af7664e739e9e"
+format = "TSV (tag v2.1.0)"
+purpose = "Annotation version matching the 2024 papers; used only to validate against published counts."
+
+[[files]]
+id = "synapses"
+filename = "flywire_synapses_783.feather"
+url = "https://zenodo.org/api/records/10676866/files/flywire_synapses_783.feather/content"
+size = 9492998242
+md5 = "f8f1b97c9d4b0ea9b4c8b287f6b99091"
+format = "Arrow IPC; 130,054,535 synapses with coordinates, cleft/connection scores, per-synapse NT probabilities"
+purpose = "NOT needed for the graph. Only for re-thresholding cleft scores, spatial delays or synapse-level QC."
+required = false
+large = true

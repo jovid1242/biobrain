@@ -1,0 +1,28 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Secrets — only .env.example is tracked
+.env
+
+# Data: large, licensed separately (FlyWire terms), rebuilt by `biobrain download` + `biobrain preprocess`
+data/raw/*
+data/processed/*
+data/cache/*
+!data/*/.gitkeep
+
+# Heavy binary artifacts anywhere (reports stay tracked as JSON/MD)
+*.npy
+*.npz
+*.feather
+*.parquet
+*.csv.gz
+checkpoints/
+
+# OS / editors
+.DS_Store
+.vscode/
+.idea/
