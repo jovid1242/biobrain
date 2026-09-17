@@ -365,6 +365,27 @@ def step_bench() -> None:
 
 
 
+def step_environment() -> None:
+    import platform
+
+    import llvmlite
+    import llvmlite.binding as llvm
+    import numba
+
+    from . import compiled, energy
+
+    freeze = subprocess.run([__import__("sys").executable, "-m", "pip", "freeze"], capture_output=True, text=True).stdout.split()
+    _write("environment.json", {
+        "python": platform.python_version(), "numpy": np.__version__, "numba": numba.__version__, "llvmlite": llvmlite.__version__,
+        "installation": "pip install numba==0.67.0 llvmlite==0.49.0 numpy==2.5.3 into the project .venv (PyPI wheels "
+                        "cp314-macosx_12_0_arm64); pip freeze before/after differed only by numba and llvmlite; pinned in requirements.lock",
+        "numba_requires": "numpy>=1.22,<2.6; llvmlite>=0.49.0dev0,<0.50 (PyPI metadata)",
+        "compiled_backend": {"parallel": False, "fastmath": False, "threads": 1, "cache": "on-disk (__pycache__)",
+                             "llvm_host_cpu": llvm.get_host_cpu_name(), "numba_opt_level": numba.config.OPT,
+                             "clock_ns_per_call": float(compiled.clock_cost_ns(1_000_000))},
+        "pip_freeze": freeze, "power": energy.power_state(), "run": runinfo.collect()})
+
+
 # ---- profile after compilation ----------------------------------------------------------------------------------------------
 def step_profile_compiled(sizes=PROFILE_SIZES, rates=PROFILE_RATES, steps: int = 500) -> None:
     """Phase timers inside the compiled kernels (clock_gettime_nsec_np), same grid and step count as profile-numpy."""
@@ -712,7 +733,7 @@ def step_full_probe(rates=(0.0001, 0.001, 0.01), seeds=BENCH_SEEDS, on_steps: in
                                       "run": runinfo.collect()})
 
 
-STEPS = {"freeze-baseline": step_freeze_baseline, "profile-numpy": step_profile_numpy, "check-ts": step_check_ts,
+STEPS = {"freeze-baseline": step_freeze_baseline, "environment": step_environment, "profile-numpy": step_profile_numpy, "check-ts": step_check_ts,
          "check-ed": step_check_ed, "baseline-rss": step_baseline_rss, "bench": step_bench,
          "profile-compiled": step_profile_compiled, "equivalence": step_equivalence, "long-equivalence": step_long_equivalence,
          "full-build": step_full_build, "full-estimate": step_full_estimate, "full-calibrate": step_full_calibrate,
