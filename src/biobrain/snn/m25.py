@@ -65,7 +65,126 @@ def m2_unchanged() -> dict:
             "unchanged": not changed and set(now) == set(frozen)}
 
 
-STEPS = {"freeze-baseline": step_freeze_baseline}
+# ---- profile before optimisation (NumPy engine, unchanged) ------------------------------------------------------------
+PROFILE_SIZES = ("expand_1k", "expand_10k", "expand_50k")
+PROFILE_RATES = (0.00001, 0.0001, 0.001, 0.01, 0.1)
+NUMPY_MODES = (("time_step", "sparse"), ("event_driven", "sparse"), ("event_driven", "auto"))
+
+
+def _bytecode_ops(fn, steps: int) -> dict:
+    """Executed bytecode instructions per step inside the engine's own functions (sys.monitoring). Nearly every
+    operator, subscript and call there acts on a NumPy array, so this counts NumPy dispatches from Python."""
+    import dis
+    import sys
+
+    from . import engine
+
+    mon = sys.monitoring
+    tool = mon.PROFILER_ID
+    codes = [engine.run_time_step.__code__, engine.run_event_driven.__code__, engine.gather.__code__, engine._lazy.__code__]
+    # Python 3.14 folds subscripts into BINARY_OP ("[]"), so the operator's argrepr separates them
+    names = {c: {i.offset: (f"{i.opname}[]" if i.opname == "BINARY_OP" and i.argrepr == "[]" else i.opname)
+                 for i in dis.get_instructions(c)} for c in codes}
+    counts: dict[str, int] = {}
+
+    def on_instruction(code, offset):
+        op = names[code].get(offset, "?")
+        counts[op] = counts.get(op, 0) + 1
+
+    mon.use_tool_id(tool, "biobrain-m25")
+    try:
+        mon.register_callback(tool, mon.events.INSTRUCTION, on_instruction)
+        for c in codes:
+            mon.set_local_events(tool, c, mon.events.INSTRUCTION)
+        fn()
+    finally:
+        for c in codes:
+            mon.set_local_events(tool, c, 0)
+        mon.register_callback(tool, mon.events.INSTRUCTION, None)
+        mon.free_tool_id(tool)
+    groups = {"call": ("CALL", "CALL_KW", "CALL_FUNCTION_EX"), "operator": ("BINARY_OP",),
+              "subscript_read": ("BINARY_OP[]", "BINARY_SUBSCR", "BINARY_SLICE"), "subscript_write": ("STORE_SUBSCR", "STORE_SLICE"),
+              "compare": ("COMPARE_OP",)}
+    out = {g: sum(counts.get(op, 0) for op in ops) / steps for g, ops in groups.items()}
+    out["all_instructions"] = sum(counts.values()) / steps
+    return out
+
+
+def _cprofile(fn, steps: int) -> dict:
+    import cProfile
+    import pstats
+
+    prof = cProfile.Profile()
+    prof.enable()
+    fn()
+    prof.disable()
+    stats = pstats.Stats(prof).stats
+    total_calls = sum(nc for (_, _, _), (_, nc, _, _, _) in stats.items())
+    numpy_calls, rows = 0, []
+    for (file, _, func), (_, nc, tt, _, _) in stats.items():
+        is_numpy = "numpy" in func or "/numpy/" in file
+        numpy_calls += nc if is_numpy else 0
+        rows.append({"function": func if file == "~" else f"{Path(file).name}:{func}", "calls_per_step": nc / steps,
+                     "seconds_per_step": tt / steps, "numpy": is_numpy})
+    rows.sort(key=lambda r: -r["seconds_per_step"])
+    return {"python_visible_calls_per_step": total_calls / steps, "numpy_function_calls_per_step": numpy_calls / steps,
+            "top_by_own_time": rows[:12],
+            "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"}
+
+
+def _temporary_memory(fn) -> dict:
+    import tracemalloc
+
+    tracemalloc.start()
+    try:
+        before, _ = tracemalloc.get_traced_memory()
+        tracemalloc.reset_peak()
+        result = fn()
+        after, peak = tracemalloc.get_traced_memory()
+    finally:
+        tracemalloc.stop()
+    persistent = sum(v for k, v in result.memory.items() if k in ("neuron_state", "event_buffers", "instrumentation", "decay_table"))
+    return {"peak_traced_bytes_above_start": peak - before, "retained_bytes_after_run": after - before,
+            "engine_persistent_arrays_bytes": persistent,
+            "transient_peak_bytes": max(peak - after, 0),
+            "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"}
+
+
+def step_profile_numpy(sizes=PROFILE_SIZES, rates=PROFILE_RATES, steps: int = 500, count_steps: int = 200) -> None:
+    from ..connectome.store import Connectome
+    from . import engine
+    from .pipeline import BASE, gains
+
+    conn = Connectome.load("flywire_fafb_v783")
+    g = gains()
+    rows = []
+    for name in sizes:
+        for rate in rates:
+            cfg = BASE.replace(weights={"gain": g[name]}, inputs={"rate": rate}, run={"steps": steps, "seed": 1})
+            net, sched, meta = experiments.load_prepared(experiments.prepare(conn, name, cfg))
+            p = cfg.neuron
+            for mode, agg in NUMPY_MODES:
+                run = lambda k, **kw: engine.run(net, sched, p, k, mode, aggregation=agg, **kw)
+                run(50)  # warm-up
+                timed = run(steps, profile=True)
+                total = sum(timed.phases.values())
+                row = {"subgraph": name, "neurons": net.n, "input_rate": rate, "mode": mode, "aggregation": agg, "steps": steps,
+                       "wall_s": timed.wall_s, "phases_s": timed.phases, "phase_share": {k: v / total for k, v in timed.phases.items()},
+                       "spikes": timed.counters["spikes"], "synaptic_events": timed.counters["synaptic_events"],
+                       "neuron_updates": timed.counters["neuron_updates"],
+                       "cprofile": _cprofile(lambda: run(count_steps), count_steps),
+                       "bytecode_ops": _bytecode_ops(lambda: run(count_steps), count_steps),
+                       "memory": _temporary_memory(lambda: run(count_steps))}
+                rows.append(row)
+                _log(f"{name} {rate:g} {mode}/{agg}: {1e6 * timed.wall_s / steps:.1f} us/step, "
+                     f"{row['cprofile']['python_visible_calls_per_step']:.0f} calls + "
+                     f"{row['bytecode_ops']['operator'] + row['bytecode_ops']['subscript_read'] + row['bytecode_ops']['subscript_write']:.0f} "
+                     f"operator/subscript ops per step, transient {row['memory']['transient_peak_bytes'] / 2**20:.1f} MiB")
+    _write("profile/profile_numpy.json", {"rows": rows, "gains": g, "run": runinfo.collect(),
+                                          "note": "NumPy engine of Milestone 2, unchanged; phase timers add a small cost per phase"})
+
+
+STEPS = {"freeze-baseline": step_freeze_baseline, "profile-numpy": step_profile_numpy}
 
 
 def run_step(name: str) -> int:
