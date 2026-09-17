@@ -55,6 +55,14 @@ def step_calibrate(conn: Connectome, names=(*SIZES, "expand_50k", *NEUROPILS)) -
         _log(f"{name}: stable gains {result['widest_stable_range']} -> baseline {result['baseline_gain']}")
 
 
+def step_calibrate_pb_glutamate(conn: Connectome) -> None:
+    """neuropil_PB is DEAD at every gain under glutamate = -1; does the sign assumption alone explain it?"""
+    result = experiments.calibrate(conn, "neuropil_PB", BASE.replace(signs={"glutamate": 1.0}), log=_log)
+    result["variant"] = "glutamate = +1"
+    experiments._write(_exp_dir() / "calibration_variant_neuropil_PB_glutamate_plus.json", result)
+    _log(f"neuropil_PB with glutamate=+1: stable {result['widest_stable_range']} -> baseline {result['baseline_gain']}")
+
+
 def step_equivalence(conn: Connectome, names=(*SIZES, "expand_50k", "neuropil_LO_R")) -> None:
     g = gains()
     rows = []
@@ -130,7 +138,8 @@ def step_baseline_rss() -> None:
 
 
 STEPS_ORDER = {
-    "subgraphs": step_subgraphs, "calibrate": step_calibrate, "equivalence": step_equivalence, "baseline-rss": step_baseline_rss,
+    "subgraphs": step_subgraphs, "calibrate": step_calibrate, "calibrate-pb-glutamate": step_calibrate_pb_glutamate,
+    "equivalence": step_equivalence, "baseline-rss": step_baseline_rss,
     "bench": step_bench, "bench-50k": step_bench_50k, "bench-neuropils": step_bench_neuropils, "patterns": step_patterns,
     "sensitivity": step_sensitivity, "nulls": step_nulls, "profile": step_profile,
 }
