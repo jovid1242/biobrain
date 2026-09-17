@@ -8,7 +8,7 @@ import time
 
 import numpy as np
 
-from .. import paths
+from .. import paths, runinfo
 from ..connectome.store import Connectome
 from . import experiments, subgraph
 from .config import SimConfig
@@ -63,6 +63,16 @@ def step_calibrate_pb_glutamate(conn: Connectome) -> None:
     experiments._write(_exp_dir() / "calibration_variant_neuropil_PB_glutamate_plus.json", result)
     _log(f"neuropil_PB with glutamate=+1: stable {result['widest_stable_range']} -> baseline {result['baseline_gain']}")
 
+
+def step_baseline_regime(conn: Connectome, names=(*SIZES, "expand_50k", *NEUROPILS)) -> None:
+    """Regime at the baseline gain itself (not always a calibration grid point), with the calibration's probe."""
+    g = gains()
+    out, probe = {}, None
+    for name in names:
+        if name in g:
+            result = experiments.calibrate(conn, name, BASE, gains=(g[name],), log=_log)
+            out[name], probe = {"baseline_gain": g[name], "rows": result["rows"]}, result["probe"]
+    experiments._write(_exp_dir() / "baseline_regime.json", {"subgraphs": out, "probe": probe, "run": runinfo.collect()})
 
 def step_equivalence(conn: Connectome, names=(*SIZES, "expand_50k", "neuropil_LO_R")) -> None:
     g = gains()
@@ -196,7 +206,7 @@ def step_baseline_rss() -> None:
 
 
 STEPS_ORDER = {
-    "subgraphs": step_subgraphs, "calibrate": step_calibrate, "calibrate-pb-glutamate": step_calibrate_pb_glutamate, "long-equivalence": step_long_equivalence,
+    "subgraphs": step_subgraphs, "calibrate": step_calibrate, "calibrate-pb-glutamate": step_calibrate_pb_glutamate, "long-equivalence": step_long_equivalence, "baseline-regime": step_baseline_regime,
     "equivalence": step_equivalence, "baseline-rss": step_baseline_rss,
     "bench": step_bench, "bench-50k": step_bench_50k, "bench-neuropils": step_bench_neuropils, "patterns": step_patterns,
     "sensitivity": step_sensitivity, "nulls": step_nulls, "profile": step_profile, "energy": step_energy,

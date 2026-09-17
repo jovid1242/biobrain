@@ -325,7 +325,7 @@ def profile_phases(conn: Connectome, subgraph_name: str, base: SimConfig, rates,
             engine.run(net, sched, base.neuron, min(steps, 50), mode, aggregation=aggregation)  # warm-up
             res = engine.run(net, sched, base.neuron, steps, mode, aggregation=aggregation, profile=True)
             total = sum(res.phases.values())
-            rows.append({"subgraph": subgraph_name, "input_rate": rate, "mode": mode, "aggregation": aggregation,
+            rows.append({"subgraph": subgraph_name, "input_rate": rate, "mode": mode, "aggregation": aggregation, "steps": steps,
                          "wall_s": res.wall_s, "phases_s": res.phases, "phase_share": {k: v / total for k, v in res.phases.items()},
                          "spikes": res.counters["spikes"], "synaptic_events": res.counters["synaptic_events"],
                          "neuron_updates": res.counters["neuron_updates"]})
