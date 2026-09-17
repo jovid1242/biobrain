@@ -120,7 +120,7 @@ def make_record(kind: str, cfg: SimConfig, meta: dict, res: engine.RunResult, ex
         "kind": kind, "backend": backend,
         "variant": variant if backend != "numpy" and cfg.run.mode == "event_driven" else None,
         "timestamp_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
-        "mode": cfg.run.mode, "aggregation": cfg.run.aggregation if cfg.run.mode == "event_driven" else None,
+        "mode": cfg.run.mode, "aggregation": cfg.run.aggregation if cfg.run.mode == "event_driven" and backend == "numpy" else None,
         "seed": cfg.run.seed,
         "config": cfg.to_dict(), "config_hash": cfg.digest(), "model_hash": cfg.model_hash, "stimulus_hash": cfg.stimulus_hash,
         "dataset": meta["dataset"], "subgraph": meta["subgraph"], "topology": meta["topology"],

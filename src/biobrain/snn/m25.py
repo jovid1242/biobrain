@@ -308,7 +308,7 @@ BACKENDS = {  # label -> (backend, mode, NumPy aggregation)
     "numpy_time_step": ("numpy", "time_step", "sparse"),
     "numpy_event_driven": ("numpy", "event_driven", "auto"),
     "compiled_time_step": ("numba", "time_step", "sparse"),
-    "compiled_event_driven": ("numba", "event_driven", "sparse"),
+    "compiled_event_driven": ("numba", "event_driven", "auto"),  # aggregation is NumPy-only; kept equal so config_hash matches
 }
 
 
