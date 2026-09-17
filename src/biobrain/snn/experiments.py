@@ -206,7 +206,7 @@ CALIBRATION_GAINS = tuple(float(g) for g in np.geomspace(0.003, 3.0, 19))
 
 
 def calibrate(conn: Connectome, subgraph_name: str, base: SimConfig, gains=CALIBRATION_GAINS, seeds=(1, 2, 3),
-              on_steps: int = 300, off_steps: int = 300, rate: float = 0.01, log=print) -> dict:
+              on_steps: int = 300, off_steps: int = 300, rate: float = 0.01, log=print, backend: str = "numpy") -> dict:
     """Gain sweep under a fixed probe input; the baseline is the geometric middle of the widest contiguous gain range
     in which every seed is STABLE. Time-step mode only (the regime does not depend on the execution mode)."""
     rows = []
@@ -218,7 +218,7 @@ def calibrate(conn: Connectome, subgraph_name: str, base: SimConfig, gains=CALIB
         net = network.build(conn, sub, cfg)
         for seed in seeds:
             sched = generate(cfg.inputs, net.n, steps, seed)
-            res = engine.run(net, sched, cfg.neuron, steps, "time_step", record_voltage_every=10)
+            res = engine.run(net, sched, cfg.neuron, steps, "time_step", record_voltage_every=10, backend=backend)
             external_on = int(sched.indptr[on_steps])
             cls = metrics.classify(res, cfg.neuron, on_steps, external_on)
             summary = metrics.summarize(res, cfg.neuron)

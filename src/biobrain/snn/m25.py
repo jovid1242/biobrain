@@ -364,11 +364,367 @@ def step_bench() -> None:
     bench_matrix(Connectome.load("flywire_fafb_v783"), "matrix", {n: g[n] for n in BENCH_SIZES}, BENCH_RATES, BENCH_SEEDS, BENCH_STEPS)
 
 
+
+# ---- profile after compilation ----------------------------------------------------------------------------------------------
+def step_profile_compiled(sizes=PROFILE_SIZES, rates=PROFILE_RATES, steps: int = 500) -> None:
+    """Phase timers inside the compiled kernels (clock_gettime_nsec_np), same grid and step count as profile-numpy."""
+    from ..connectome.store import Connectome
+    from . import compiled, engine
+    from .pipeline import BASE, gains
+
+    conn = Connectome.load("flywire_fafb_v783")
+    g = gains()
+    variant = selected_variant()
+    compiled.warmup("float32", variants=(variant,))
+    clock_ns = float(compiled.clock_cost_ns(1_000_000))
+    rows = []
+    for name in sizes:
+        for rate in rates:
+            cfg = BASE.replace(weights={"gain": g[name]}, inputs={"rate": rate}, run={"steps": steps, "seed": 1})
+            net, sched, _ = experiments.load_prepared(experiments.prepare(conn, name, cfg))
+            for mode in ("time_step", "event_driven"):
+                run = lambda k, **kw: engine.run(net, sched, cfg.neuron, k, mode, backend="numba", variant=variant, **kw)
+                run(50)
+                plain = min(run(steps).wall_s for _ in range(3))
+                timed = run(steps, profile=True)
+                total = sum(timed.phases.values())
+                timer_calls = steps * (6 if mode == "time_step" else 7)
+                rows.append({"subgraph": name, "neurons": net.n, "input_rate": rate, "mode": mode, "backend": "numba",
+                             "variant": variant if mode == "event_driven" else None, "steps": steps, "wall_s": timed.wall_s,
+                             "wall_s_without_timers": plain, "phases_s": timed.phases,
+                             "phase_share": {k: v / total for k, v in timed.phases.items()},
+                             "timer_overhead_s_estimate": timer_calls * clock_ns * 1e-9,
+                             "spikes": timed.counters["spikes"], "synaptic_events": timed.counters["synaptic_events"],
+                             "neuron_updates": timed.counters["neuron_updates"],
+                             "unique_targets": timed.extra.get("unique_targets")})
+                _log(f"{name} {rate:g} {mode}: {1e6 * plain / steps:.1f} us/step; " +
+                     ", ".join(f"{k} {100 * v:.0f}%" for k, v in rows[-1]["phase_share"].items()))
+    _write("profile/profile_compiled.json", {"rows": rows, "clock_ns_per_call": clock_ns, "variant": variant,
+                                             "run": runinfo.collect()})
+
+
+# ---- equivalence on real subgraphs ---------------------------------------------------------------------------------------------
+def _cross_mode(a, b, dtype: str) -> dict:
+    """Different modes: identical rasters and counters, potentials within the M2 absolute and the M2.5 relative tolerance."""
+    from . import metrics
+
+    cmp = metrics.compare(a, b, metrics.V_TOLERANCE[dtype])
+    fa, fb = a.final_v.astype(np.float64), b.final_v.astype(np.float64)
+    scale = np.maximum(1.0, np.maximum(np.abs(fa), np.abs(fb)))
+    rel_ok = bool(np.all(np.abs(fa - fb) <= metrics.V_TOLERANCE[dtype] * scale)) if a.n else True
+    return {**cmp, "within_m2_absolute_tolerance": cmp["equivalent"],
+            "within_m25_relative_tolerance": bool(cmp["spikes_equal"] and cmp["raster_equal"] is not False and
+                                                  (rel_ok if dtype == "float32" else cmp["max_abs_final_v_difference"] <= 1e-9))}
+
+
+def step_equivalence(sizes=("expand_1k", "expand_10k", "expand_50k", "full"), rates=(0.0001, 0.001, 0.01, 0.1), steps: int = 1000) -> None:
+    from ..connectome.store import Connectome
+    from . import engine
+    from .pipeline import BASE, gains
+
+    conn = Connectome.load("flywire_fafb_v783")
+    g = {**gains(), **full_gain()}
+    variant = selected_variant()
+    rows = []
+    for name in sizes:
+        if name not in g:
+            _log(f"skip {name}: no calibrated gain yet")
+            continue
+        for rate in rates:
+            for dtype in ("float32", "float64"):
+                cfg = BASE.replace(weights={"gain": g[name]}, neuron={"dtype": dtype}, inputs={"rate": rate},
+                                   run={"steps": steps, "seed": 1})
+                net, sched, _ = experiments.load_prepared(experiments.prepare(conn, name, cfg))
+                kw = dict(record_spikes=True, record_voltage_every=100)
+                runs = {"numpy_time_step": engine.run(net, sched, cfg.neuron, steps, "time_step", **kw),
+                        "numpy_event_driven": engine.run(net, sched, cfg.neuron, steps, "event_driven", aggregation="auto", **kw),
+                        "compiled_time_step": engine.run(net, sched, cfg.neuron, steps, "time_step", backend="numba", **kw),
+                        "compiled_event_driven": engine.run(net, sched, cfg.neuron, steps, "event_driven", backend="numba",
+                                                            variant=variant, **kw)}
+                row = {"subgraph": name, "neurons": net.n, "input_rate": rate, "dtype": dtype, "steps": steps,
+                       "spikes": runs["numpy_time_step"].counters["spikes"],
+                       "same_mode_numpy_vs_compiled": {
+                           "time_step": _identical(runs["numpy_time_step"], runs["compiled_time_step"]),
+                           "event_driven": _identical(runs["numpy_event_driven"], runs["compiled_event_driven"])},
+                       "cross_mode": {
+                           "compiled_time_step_vs_compiled_event_driven": _cross_mode(runs["compiled_time_step"], runs["compiled_event_driven"], dtype),
+                           "numpy_time_step_vs_compiled_event_driven": _cross_mode(runs["numpy_time_step"], runs["compiled_event_driven"], dtype)}}
+                row["voltage_records_identical"] = (runs["numpy_time_step"].voltage == runs["compiled_time_step"].voltage and
+                                                    runs["numpy_event_driven"].voltage == runs["compiled_event_driven"].voltage)
+                rows.append(row)
+                same = [v["identical"] for v in row["same_mode_numpy_vs_compiled"].values()]
+                cross = row["cross_mode"]["compiled_time_step_vs_compiled_event_driven"]
+                _log(f"{name} {rate:g} {dtype}: same-mode bit-identical {same}, voltage {row['voltage_records_identical']}; "
+                     f"compiled TS vs ED: spikes {cross['spikes_equal']}, |dv| {cross['max_abs_final_v_difference']:.2g}, "
+                     f"M2 tol {cross['within_m2_absolute_tolerance']}, M2.5 tol {cross['within_m25_relative_tolerance']}")
+    _write("experiments/equivalence.json", {"rows": rows, "variant": variant, "criteria": "docs/MILESTONE25_PLAN.md §3",
+                                            "run": runinfo.collect()})
+
+
+def step_long_equivalence(name: str = "expand_10k", steps: int = 40_000, rate: float = 0.001) -> None:
+    from ..connectome.store import Connectome
+    from . import engine, metrics
+    from .pipeline import BASE, gains
+
+    conn = Connectome.load("flywire_fafb_v783")
+    g = gains()
+    variant = selected_variant()
+    rows = []
+    for dtype in ("float64", "float32"):
+        cfg = BASE.replace(weights={"gain": g[name]}, neuron={"dtype": dtype}, inputs={"rate": rate}, run={"steps": steps, "seed": 1})
+        net, sched, _ = experiments.load_prepared(experiments.prepare(conn, name, cfg))
+        runs = {"numpy_time_step": engine.run(net, sched, cfg.neuron, steps, "time_step", record_spikes=True),
+                "compiled_time_step": engine.run(net, sched, cfg.neuron, steps, "time_step", backend="numba", record_spikes=True),
+                "numpy_event_driven": engine.run(net, sched, cfg.neuron, steps, "event_driven", aggregation="auto", record_spikes=True),
+                "compiled_event_driven": engine.run(net, sched, cfg.neuron, steps, "event_driven", backend="numba", variant=variant,
+                                                    record_spikes=True)}
+        for a, b in (("numpy_time_step", "compiled_time_step"), ("numpy_event_driven", "compiled_event_driven"),
+                     ("compiled_time_step", "compiled_event_driven")):
+            ra, rb = runs[a], runs[b]
+            rows.append({"dtype": dtype, "a": a, "b": b, "first_divergent_step": metrics.first_divergent_step(ra.raster, rb.raster),
+                         "spikes_a": ra.counters["spikes"], "spikes_b": rb.counters["spikes"],
+                         "bit_identical": _identical(ra, rb)["identical"],
+                         "wall_s": {a: ra.wall_s, b: rb.wall_s}})
+            _log(f"{dtype} {a} vs {b}: first divergent step {rows[-1]['first_divergent_step']}, bit-identical {rows[-1]['bit_identical']}")
+    _write("experiments/long_equivalence.json", {"subgraph": name, "steps": steps, "input_rate": rate, "variant": variant,
+                                                 "rows": rows, "run": runinfo.collect()})
+
+
+# ---- full connectome ----------------------------------------------------------------------------------------------------------
+FULL = "full"
+FULL_DIR = "full_connectome"
+
+
+def full_gain() -> dict[str, float]:
+    path = results_dir() / FULL_DIR / "calibration.json"
+    if not path.is_file():
+        return {}
+    data = json.loads(path.read_text())
+    return {FULL: data["baseline_gain"]} if data["baseline_gain"] is not None else {}
+
+
+def _build_full_worker() -> None:
+    """Isolated process: extract the full subgraph and build its network; prints peak RSS (JSON)."""
+    import resource
+    import sys as _sys
+
+    from ..connectome.store import Connectome
+    from . import network, subgraph
+    from .pipeline import BASE
+
+    t0 = time.perf_counter()
+    conn = Connectome.load("flywire_fafb_v783")
+    sub = subgraph.load(conn, FULL)
+    t1 = time.perf_counter()
+    peak_sub = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    net = network.build(conn, sub, BASE.replace(weights={"gain": 0.03}))
+    t2 = time.perf_counter()
+    peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    scale = 1 if _sys.platform == "darwin" else 1024
+    print(json.dumps({"peak_rss_after_subgraph": peak_sub * scale, "peak_rss_after_network_build": peak * scale,
+                      "subgraph_s": t1 - t0, "network_build_s": t2 - t1, "neurons": net.n, "simulated_edges": net.m,
+                      "network_arrays_bytes": sum(net.memory().values())}))
+
+
+def step_full_build() -> None:
+    import sys as _sys
+
+    from ..connectome.store import Connectome
+    from . import subgraph
+
+    conn = Connectome.load("flywire_fafb_v783")
+    path = subgraph.manifests_dir(FULL) / f"{FULL}.json"
+    if not path.is_file():
+        t0 = time.perf_counter()
+        subgraph.save(subgraph.build(conn, FULL, subgraph.CANONICAL[FULL]))
+        _log(f"full subgraph extracted in {time.perf_counter() - t0:.1f}s")
+    manifest = json.loads(path.read_text())
+    proc = subprocess.run([_sys.executable, "-c", "from biobrain.snn import m25; m25._build_full_worker()"], capture_output=True,
+                          text=True, timeout=3600, cwd=paths.project_root())
+    if proc.returncode != 0:
+        raise RuntimeError(proc.stderr[-2000:])
+    build = json.loads(proc.stdout.strip().splitlines()[-1])
+    _write(f"{FULL_DIR}/build.json", {"manifest": {k: manifest[k] for k in ("neurons", "edges", "synapses", "weak_components",
+                                                                          "largest_weak_component", "strong_components",
+                                                                          "largest_strong_component", "sha256")},
+                                      "isolated_build": build, "run": runinfo.collect()})
+    _log(f"full: {manifest['neurons']:,} neurons, {manifest['edges']:,} edges; build peak RSS "
+         f"{build['peak_rss_after_network_build'] / 2**20:.0f} MiB in {build['subgraph_s'] + build['network_build_s']:.1f}s")
+
+
+def _fit(rows: list[dict], columns) -> tuple[np.ndarray, dict]:
+    from scipy.optimize import nnls
+
+    y = np.array([r["y"] for r in rows])
+    X = np.array([[r[c] for c in columns] for r in rows], dtype=float)
+    coef, _ = nnls(X / y[:, None], np.ones_like(y))
+    rel = np.abs(X @ coef - y) / y
+    return coef, {"terms": list(columns), "seconds": coef.tolist(), "runs": len(rows),
+                  "median_abs_relative_error": float(np.median(rel)), "p90_abs_relative_error": float(np.quantile(rel, 0.9)),
+                  "max_abs_relative_error": float(rel.max())}
+
+
+def cost_models(records: list[dict]) -> dict:
+    """Per-step cost models fitted on isolated compiled and NumPy runs (relative least squares, non-negative terms).
+    TS: base + N + E; ED: base + A (updated neurons) + E. Empirical, not a physical law."""
+    out = {}
+    for label in BACKENDS:
+        rows = []
+        for r in records:
+            if r.get("backend_label") != label:
+                continue
+            m = r["metrics"]
+            steps = m["steps"]
+            rows.append({"y": m["wall_s"] / steps, "base": 1.0, "N": m["neurons"], "A": m["neuron_updates"] / steps,
+                         "E": m["synaptic_events"] / steps})
+        if len(rows) >= 4:
+            _, model = _fit(rows, ("base", "N", "E") if label.endswith("time_step") else ("base", "A", "E"))
+            out[label] = model
+    return out
+
+
+def step_full_estimate() -> None:
+    """ESTIMATE before the full-connectome run: time from cost models fitted on the 1k-50k matrix, RAM from arrays."""
+    matrix = experiments.load_jsonl(results_dir() / "benchmarks" / "matrix.jsonl")
+    build = json.loads((results_dir() / FULL_DIR / "build.json").read_text())
+    models = cost_models(matrix)
+    n, m = build["isolated_build"]["neurons"], build["isolated_build"]["simulated_edges"]
+    empty = json.loads((results_dir() / "experiments" / "empty_process_rss.json").read_text())["median_bytes"]
+    worst_fraction = 1 / 3  # refractory-limited maximum spike fraction per step (ref = 2)
+    scenarios = []
+    for spike_fraction in (1e-5, 1e-4, 1e-3, 1e-2, 0.1, worst_fraction):
+        events = spike_fraction * n * m / n
+        touched = min(n, events) if spike_fraction < worst_fraction else n
+        row = {"spike_fraction_per_step": spike_fraction, "events_per_step": events}
+        for label, model in models.items():
+            c = model["seconds"]
+            row[f"{label}_s_per_step"] = c[0] + c[1] * (n if label.endswith("time_step") else touched) + c[2] * events
+        scenarios.append(row)
+    worst = scenarios[-1]
+    calib_s = 19 * 3 * 600 * worst["compiled_time_step_s_per_step"]
+    smoke_compiled_s = 5 * 3 * 1000 * (worst["compiled_time_step_s_per_step"] + worst["compiled_event_driven_s_per_step"])
+    realistic = next(r for r in scenarios if r["spike_fraction_per_step"] == 1e-2)
+    smoke_numpy_s = 5 * 3 * 1000 * (realistic["numpy_time_step_s_per_step"] + realistic["numpy_event_driven_s_per_step"])
+    net_bytes = (n + 1) * 8 + m * (4 + 4)
+    ram = {"numba_empty_worker": empty["numba"], "numpy_empty_worker": empty["numpy"], "network_arrays": net_bytes,
+           "neuron_state_and_buffers_upper": n * (4 + 4 + 4 + 8 + 1 + 4 + 4 + 4),
+           "input_schedule_at_10pct_input": int(0.1 * n * 1000 * 4 + 1001 * 8),
+           "build_peak_rss_measured": build["isolated_build"]["peak_rss_after_network_build"]}
+    ram["worker_upper_bytes"] = ram["numba_empty_worker"] + net_bytes + ram["neuron_state_and_buffers_upper"] + ram["input_schedule_at_10pct_input"]
+    decision = {"ram_below_8_gib": max(ram["worker_upper_bytes"], ram["build_peak_rss_measured"]) < 8 * 2**30,
+                "calibration_worst_case_s": calib_s, "smoke_compiled_worst_case_s": smoke_compiled_s,
+                "smoke_numpy_at_1pct_spikes_s": smoke_numpy_s}
+    decision["run_full_connectome"] = decision["ram_below_8_gib"] and calib_s + smoke_compiled_s < 3600
+    decision["include_numpy_backends"] = smoke_numpy_s < 1800
+    decision["include_10pct_input"] = decision["run_full_connectome"]
+    _write(f"{FULL_DIR}/estimate_before_run.json", {
+        "label": "ESTIMATE — made before the full-connectome run from the 1k-50k matrix; compared with measurements afterwards",
+        "neurons": n, "simulated_edges": m, "cost_models": models, "scenarios": scenarios, "ram_bytes": ram, "decision": decision,
+        "run": runinfo.collect()})
+    _log(f"estimate: worker <= {ram['worker_upper_bytes'] / 2**30:.2f} GiB, build {ram['build_peak_rss_measured'] / 2**30:.2f} GiB; "
+         f"calibration worst case {calib_s / 60:.1f} min, compiled smoke worst {smoke_compiled_s / 60:.1f} min, "
+         f"NumPy smoke at 1% spikes {smoke_numpy_s / 60:.1f} min -> {decision}")
+
+
+def step_full_calibrate() -> None:
+    from ..connectome.store import Connectome
+    from . import engine
+    from .pipeline import BASE
+
+    est = json.loads((results_dir() / FULL_DIR / "estimate_before_run.json").read_text())["decision"]
+    if not est["run_full_connectome"]:
+        raise SystemExit("ESTIMATE says the full-connectome run is not safe; not running (see estimate_before_run.json)")
+    conn = Connectome.load("flywire_fafb_v783")
+    spot = []
+    for gain in (0.03, 0.3):  # NumPy time-step spot check on the full brain before trusting compiled calibration
+        cfg = BASE.replace(weights={"gain": gain}, inputs={"rate": 0.01, "on_steps": 300}, run={"steps": 600, "seed": 1})
+        net, sched, _ = experiments.load_prepared(experiments.prepare(conn, FULL, cfg))
+        a = engine.run(net, sched, cfg.neuron, 600, "time_step", record_spikes=True, record_voltage_every=10)
+        b = engine.run(net, sched, cfg.neuron, 600, "time_step", backend="numba", record_spikes=True, record_voltage_every=10)
+        spot.append({"gain": gain, "spikes": a.counters["spikes"], "numpy_wall_s": a.wall_s, "compiled_wall_s": b.wall_s,
+                     **_identical(a, b), "voltage_records_identical": a.voltage == b.voltage})
+        _log(f"spot check gain {gain}: identical {spot[-1]['identical']}, NumPy {a.wall_s:.2f}s, compiled {b.wall_s:.2f}s")
+    if not all(s["identical"] and s["voltage_records_identical"] for s in spot):
+        raise SystemExit("compiled time-step differs from NumPy on the full brain; calibration not run")
+    t0 = time.perf_counter()
+    result = experiments.calibrate(conn, FULL, BASE, log=_log, backend="numba")
+    result.update(backend="numba (bit-identical to NumPy time-step: tests, spot check)", numpy_spot_check=spot,
+                  calibration_wall_s=time.perf_counter() - t0, run=runinfo.collect())
+    _write(f"{FULL_DIR}/calibration.json", result)
+    _log(f"full: stable gains {result['widest_stable_range']} -> baseline {result['baseline_gain']}")
+
+
+def step_full_regime() -> None:
+    from ..connectome.store import Connectome
+    from .pipeline import BASE
+
+    g = full_gain()
+    if not g:
+        raise SystemExit("no baseline gain for the full connectome (see calibration.json)")
+    result = experiments.calibrate(Connectome.load("flywire_fafb_v783"), FULL, BASE, gains=(g[FULL],), log=_log, backend="numba")
+    _write(f"{FULL_DIR}/baseline_regime.json", {"baseline_gain": g[FULL], "rows": result["rows"], "probe": result["probe"],
+                                                "run": runinfo.collect()})
+
+
+def step_full_smoke() -> None:
+    from ..connectome.store import Connectome
+
+    g = full_gain()
+    est = json.loads((results_dir() / FULL_DIR / "estimate_before_run.json").read_text())["decision"]
+    rates = (0.00001, 0.0001, 0.001, 0.01) + ((0.1,) if est["include_10pct_input"] else ())
+    backends = tuple(BACKENDS) if est["include_numpy_backends"] else ("compiled_time_step", "compiled_event_driven")
+    bench_matrix(Connectome.load("flywire_fafb_v783"), "full_smoke", {FULL: g[FULL]}, rates, BENCH_SEEDS, BENCH_STEPS, backends,
+                 order_seed=ORDER_SEED + 139_255)
+
+
+def step_full_probe(rates=(0.0001, 0.001, 0.01), seeds=BENCH_SEEDS, on_steps: int = 500, off_steps: int = 500) -> None:
+    """Activity over time with the input switched off halfway (self-sustained recurrent activity; not memory)."""
+    from ..connectome.store import Connectome
+    from . import engine, metrics
+    from .pipeline import BASE
+
+    g = full_gain()
+    variant = selected_variant()
+    conn = Connectome.load("flywire_fafb_v783")
+    steps = on_steps + off_steps
+    rows = []
+    for rate in rates:
+        for seed in seeds:
+            cfg = BASE.replace(weights={"gain": g[FULL]}, inputs={"rate": rate, "on_steps": on_steps}, run={"steps": steps, "seed": seed})
+            net, sched, _ = experiments.load_prepared(experiments.prepare(conn, FULL, cfg))
+            res = engine.run(net, sched, cfg.neuron, steps, "event_driven", backend="numba", variant=variant)
+            summary = metrics.summarize(res, cfg.neuron)
+            cls = metrics.classify(res, cfg.neuron, on_steps, int(sched.indptr[on_steps]))
+            off = res.spikes_per_step[on_steps:]
+            silent_after = np.flatnonzero(off == 0)
+            rows.append({"input_rate": rate, "seed": seed, "on_steps": on_steps, "off_steps": off_steps,
+                         "spikes_per_step": res.spikes_per_step.tolist(), "events_per_step": res.events_per_step.tolist(),
+                         "unique_targets_per_step": res.extra["_unique_targets_per_step"].tolist(),
+                         "updates_per_step": res.updates_per_step.tolist(),
+                         "population_rate_hz_on": float(res.spikes_per_step[:on_steps].sum() / (net.n * on_steps / 1000)),
+                         "population_rate_hz_last_third_off": float(off[-(off_steps // 3):].sum() / (net.n * (off_steps // 3) / 1000)),
+                         "first_silent_step_after_input_off": int(silent_after[0]) if silent_after.size else None,
+                         "classification": cls, "summary": summary})
+            _log(f"probe {rate:g} s{seed}: on {rows[-1]['population_rate_hz_on']:.2f} Hz, last third off "
+                 f"{rows[-1]['population_rate_hz_last_third_off']:.2f} Hz, regime {cls['regime']}, self-sustained {cls['self_sustained']}")
+    _write(f"{FULL_DIR}/probe.json", {"rows": rows, "gain": g[FULL], "variant": variant,
+                                      "note": "self-sustained = recurrent activity that persists without external input; not memory",
+                                      "run": runinfo.collect()})
+
+
 STEPS = {"freeze-baseline": step_freeze_baseline, "profile-numpy": step_profile_numpy, "check-ts": step_check_ts,
-         "check-ed": step_check_ed, "baseline-rss": step_baseline_rss, "bench": step_bench}
+         "check-ed": step_check_ed, "baseline-rss": step_baseline_rss, "bench": step_bench,
+         "profile-compiled": step_profile_compiled, "equivalence": step_equivalence, "long-equivalence": step_long_equivalence,
+         "full-build": step_full_build, "full-estimate": step_full_estimate, "full-calibrate": step_full_calibrate,
+         "full-regime": step_full_regime, "full-smoke": step_full_smoke, "full-probe": step_full_probe}
 
 
 def run_step(name: str) -> int:
+    if name in ("summary", "figures"):
+        from . import report25
+
+        print(getattr(report25, name)())
+        return 0
     if name not in STEPS:
         raise SystemExit(f"unknown step {name!r}; steps: {', '.join(STEPS)}")
     STEPS[name]()
