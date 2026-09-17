@@ -398,7 +398,7 @@ def figures() -> list[str]:
 
     def save(fig, name):
         fig.tight_layout()
-        fig.savefig(fig_dir / name, dpi=130)
+        fig.savefig(fig_dir / name, dpi=130, bbox_inches="tight")
         plt.close(fig)
         made.append(name)
 
@@ -441,7 +441,7 @@ def figures() -> list[str]:
                 for backend, ls in (("numpy", ":"), ("numba", "-.")):
                     if backend in empty:
                         ax.axhline(empty[backend] / MIB, color="gray", ls=ls, lw=1, label=f"empty {backend} worker")
-            ax.set(xscale="log", yscale="log", xlabel="neurons", title=f"input {rate:g}")
+            ax.set(xscale="log", yscale="linear" if fname.startswith("4") else "log", xlabel="neurons", title=f"input {rate:g}")
             _plain_log_axes(ax)
         axes[0].set_ylabel(ylabel)
         axes[0].legend(fontsize=6)
@@ -513,6 +513,7 @@ def figures() -> list[str]:
                     bottom += vals
             ax.set_xticks(x, [f"{k[0].replace('expand_', '')}\n{k[1]:g}" for k in keys], fontsize=6)
             ax.set(title=f"{mode}: left bar NumPy, right bar compiled", ylabel="share of timed step")
-        axes[0].legend(fontsize=6, ncol=2)
+        handles, labels = axes[0].get_legend_handles_labels()
+        fig.legend(handles, labels, fontsize=7, ncol=3, loc="upper center", bbox_to_anchor=(0.5, 0.0))
         save(fig, "8_phase_shares_before_after.png")
     return made
