@@ -119,7 +119,8 @@ def make_record(kind: str, cfg: SimConfig, meta: dict, res: engine.RunResult, ex
         "config": cfg.to_dict(), "config_hash": cfg.digest(), "model_hash": cfg.model_hash, "stimulus_hash": cfg.stimulus_hash,
         "dataset": meta["dataset"], "subgraph": meta["subgraph"], "topology": meta["topology"],
         "network": {k: v for k, v in meta["network"].items() if k != "signs"}, "input": meta["input"],
-        "metrics": summary, "memory": res.memory, "engine_extra": res.extra, "phases": res.phases,
+        "metrics": summary, "memory": res.memory, "engine_extra": {k: v for k, v in res.extra.items() if not k.startswith("_")},
+        "phases": res.phases,
         "run": runinfo.collect(), **(extra or {}),
     }
 

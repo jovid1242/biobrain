@@ -278,7 +278,15 @@ def run_event_driven(net: Network, schedule: InputSchedule, p: NeuronParams, ste
     return result
 
 
-def run(net: Network, schedule: InputSchedule, p: NeuronParams, steps: int, mode: str, **kw) -> RunResult:
+def run(net: Network, schedule: InputSchedule, p: NeuronParams, steps: int, mode: str, backend: str = "numpy", **kw) -> RunResult:
+    """backend "numpy": the two loops above; "numba": compiled.py (same model, same arithmetic order)."""
+    if backend == "numba":
+        from . import compiled
+
+        return compiled.run(net, schedule, p, steps, mode, **kw)
+    if backend != "numpy":
+        raise ValueError(f"unknown backend {backend!r}")
+    kw.pop("variant", None)
     if mode == "time_step":
         kw.pop("aggregation", None)
         return run_time_step(net, schedule, p, steps, **kw)

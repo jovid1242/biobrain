@@ -1,0 +1,5589 @@
+{
+ "rows": [
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 1e-05,
+   "mode": "time_step",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.0013187500007916242,
+   "phases_s": {
+    "leak": 0.00019870100368279964,
+    "synaptic_input": 0.0002314369921805337,
+    "external_input": 0.00011371000437065959,
+    "refractory": 0.0002162379678338766,
+    "threshold": 0.00045550905633717775,
+    "record": 6.586397648788989e-05,
+    "reset_and_gather": 2.2667001758236438e-05,
+    "deliver": 1.4456993085332215e-05
+   },
+   "phase_share": {
+    "leak": 0.15069283035294528,
+    "synaptic_input": 0.17551947274374077,
+    "external_input": 0.08623651657751426,
+    "refractory": 0.1639926864922864,
+    "threshold": 0.34545345860671384,
+    "record": 0.04995057322963656,
+    "reset_and_gather": 0.017190424744993462,
+    "deliver": 0.01096403725216943
+   },
+   "spikes": 11,
+   "synaptic_events": 1132,
+   "neuron_updates": 500000,
+   "cprofile": {
+    "python_visible_calls_per_step": 23.505,
+    "numpy_function_calls_per_step": 11.3,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_time_step",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 2.910435e-06,
+      "numpy": false
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 4.4614000000000005e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:ravel",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.7769e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:<lambda>",
+      "calls_per_step": 6.05,
+      "seconds_per_step": 1.93025e-07,
+      "numpy": false
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 1.03,
+      "seconds_per_step": 1.9204000000000002e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.4248500000000002e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:nonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.39175e-07,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method builtins.len>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 1.0186e-07,
+      "numpy": false
+     },
+     {
+      "function": "<method 'ravel' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 9.204000000000001e-08,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 0.025,
+      "seconds_per_step": 8.148000000000001e-08,
+      "numpy": false
+     },
+     {
+      "function": "<method 'pop' of 'list' objects>",
+      "calls_per_step": 0.99,
+      "seconds_per_step": 6.478e-08,
+      "numpy": false
+     },
+     {
+      "function": "<method 'append' of 'list' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 6.221e-08,
+      "numpy": false
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 12.26,
+    "operator": 4.225,
+    "subscript_read": 4.185,
+    "subscript_write": 2.155,
+    "compare": 3.02,
+    "all_instructions": 126.855
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 49515,
+    "retained_bytes_after_run": 14462,
+    "engine_persistent_arrays_bytes": 18400,
+    "transient_peak_bytes": 35053,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 1e-05,
+   "mode": "event_driven",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.0003331659972900525,
+   "phases_s": {
+    "aggregate": 0.00018325098062632605,
+    "leak": 6.85820123180747e-05,
+    "input": 1.5917998098302633e-05,
+    "refractory_threshold": 1.9083003280684352e-05,
+    "reset_and_schedule": 4.51239975518547e-05,
+    "record": 1.0420044418424368e-06
+   },
+   "phase_share": {
+    "aggregate": 0.550303251210349,
+    "leak": 0.20595199122095617,
+    "input": 0.047801796619677456,
+    "refractory_threshold": 0.05730631679200797,
+    "reset_and_schedule": 0.1355075016544064,
+    "record": 0.0031291425026030123
+   },
+   "spikes": 11,
+   "synaptic_events": 1132,
+   "neuron_updates": 935,
+   "cprofile": {
+    "python_visible_calls_per_step": 3.555,
+    "numpy_function_calls_per_step": 1.69,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 7.087900000000001e-07,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 0.04,
+      "seconds_per_step": 1.8998500000000002e-07,
+      "numpy": false
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 0.025,
+      "seconds_per_step": 1.0456000000000002e-07,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 0.04,
+      "seconds_per_step": 7.063e-08,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 0.025,
+      "seconds_per_step": 6.209e-08,
+      "numpy": false
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 0.165,
+      "seconds_per_step": 4.998500000000001e-08,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.04,
+      "seconds_per_step": 4.0005e-08,
+      "numpy": true
+     },
+     {
+      "function": "<method 'argsort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.025,
+      "seconds_per_step": 3.8755000000000005e-08,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:<lambda>",
+      "calls_per_step": 1.175,
+      "seconds_per_step": 3.4735e-08,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:run",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 3.2290000000000007e-08,
+      "numpy": false
+     },
+     {
+      "function": "<method 'disable' of '_lsprof.Profiler' objects>",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 3.0830000000000005e-08,
+      "numpy": false
+     },
+     {
+      "function": "_arraysetops_impl.py:unique",
+      "calls_per_step": 0.025,
+      "seconds_per_step": 2.8345e-08,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 1.945,
+    "operator": 4.53,
+    "subscript_read": 4.485,
+    "subscript_write": 1.31,
+    "compare": 0.22,
+    "all_instructions": 72.68
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 68763,
+    "retained_bytes_after_run": 14016,
+    "engine_persistent_arrays_bytes": 23848,
+    "transient_peak_bytes": 54747,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 1e-05,
+   "mode": "event_driven",
+   "aggregation": "auto",
+   "steps": 500,
+   "wall_s": 0.0003285830025561154,
+   "phases_s": {
+    "aggregate": 0.00016258399409707636,
+    "leak": 8.691601397003978e-05,
+    "input": 1.7166996258310974e-05,
+    "refractory_threshold": 1.9331993826199323e-05,
+    "reset_and_schedule": 4.141699901083484e-05,
+    "record": 1.0420044418424368e-06
+   },
+   "phase_share": {
+    "aggregate": 0.49499172893630017,
+    "leak": 0.2646183486032052,
+    "input": 0.05226542259424755,
+    "refractory_threshold": 0.05885682106015109,
+    "reset_and_schedule": 0.1260952657829608,
+    "record": 0.003172413023135143
+   },
+   "spikes": 11,
+   "synaptic_events": 1132,
+   "neuron_updates": 935,
+   "cprofile": {
+    "python_visible_calls_per_step": 3.48,
+    "numpy_function_calls_per_step": 1.63,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 6.6356e-07,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 0.04,
+      "seconds_per_step": 1.8481000000000002e-07,
+      "numpy": false
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 0.01,
+      "seconds_per_step": 7.355000000000001e-08,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 0.04,
+      "seconds_per_step": 7.062500000000001e-08,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 0.025,
+      "seconds_per_step": 6.105e-08,
+      "numpy": false
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 0.165,
+      "seconds_per_step": 5.208e-08,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:<lambda>",
+      "calls_per_step": 1.175,
+      "seconds_per_step": 3.8480000000000004e-08,
+      "numpy": false
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 0.05,
+      "seconds_per_step": 3.4785000000000003e-08,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:run",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 3.25e-08,
+      "numpy": false
+     },
+     {
+      "function": "<method 'disable' of '_lsprof.Profiler' objects>",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 3.0205e-08,
+      "numpy": false
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.035,
+      "seconds_per_step": 2.667e-08,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:ravel",
+      "calls_per_step": 0.05,
+      "seconds_per_step": 2.2715000000000002e-08,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 1.96,
+    "operator": 4.55,
+    "subscript_read": 4.5,
+    "subscript_write": 1.325,
+    "compare": 0.22,
+    "all_instructions": 72.93
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 69974,
+    "retained_bytes_after_run": 13815,
+    "engine_persistent_arrays_bytes": 23848,
+    "transient_peak_bytes": 56159,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.0001,
+   "mode": "time_step",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.001687167001364287,
+   "phases_s": {
+    "leak": 0.0002072640199912712,
+    "synaptic_input": 0.00023966896696947515,
+    "external_input": 0.00015476495900657028,
+    "refractory": 0.00023397206678055227,
+    "threshold": 0.0004799419912160374,
+    "record": 6.643004599027336e-05,
+    "reset_and_gather": 0.0001740799707476981,
+    "deliver": 0.0001307949860347435
+   },
+   "phase_share": {
+    "leak": 0.122865570246534,
+    "synaptic_input": 0.14207513826250417,
+    "external_input": 0.09174426387814215,
+    "refractory": 0.13869803069516531,
+    "threshold": 0.28450836010272723,
+    "record": 0.03937955793022904,
+    "reset_and_gather": 0.103194152440528,
+    "deliver": 0.07753492644417008
+   },
+   "spikes": 124,
+   "synaptic_events": 13336,
+   "neuron_updates": 500000,
+   "cprofile": {
+    "python_visible_calls_per_step": 24.57,
+    "numpy_function_calls_per_step": 11.945,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_time_step",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 3.3445100000000006e-06,
+      "numpy": false
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 4.4441000000000005e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:ravel",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.7307e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 1.12,
+      "seconds_per_step": 2.1256000000000002e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 0.135,
+      "seconds_per_step": 2.0871500000000003e-07,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:<lambda>",
+      "calls_per_step": 6.27,
+      "seconds_per_step": 2.0036000000000003e-07,
+      "numpy": false
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.54755e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:nonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.36875e-07,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method builtins.len>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 9.679500000000001e-08,
+      "numpy": false
+     },
+     {
+      "function": "<method 'ravel' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 9.206500000000001e-08,
+      "numpy": true
+     },
+     {
+      "function": "<method 'pop' of 'list' objects>",
+      "calls_per_step": 0.99,
+      "seconds_per_step": 6.268e-08,
+      "numpy": false
+     },
+     {
+      "function": "<method 'append' of 'list' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 6.240500000000001e-08,
+      "numpy": false
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 12.92,
+    "operator": 5.04,
+    "subscript_read": 5.02,
+    "subscript_write": 2.855,
+    "compare": 3.13,
+    "all_instructions": 139.335
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 68475,
+    "retained_bytes_after_run": 14140,
+    "engine_persistent_arrays_bytes": 18400,
+    "transient_peak_bytes": 54335,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.0001,
+   "mode": "event_driven",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.0019050419941777363,
+   "phases_s": {
+    "aggregate": 0.0006390849885065109,
+    "leak": 0.0005983289956930093,
+    "input": 0.00013554700854001567,
+    "refractory_threshold": 0.00015374999929917976,
+    "reset_and_schedule": 0.0003701680034282617,
+    "record": 7.913004083093256e-06
+   },
+   "phase_share": {
+    "aggregate": 0.3355143179189479,
+    "leak": 0.3141177597524245,
+    "input": 0.07116105515564593,
+    "refractory_threshold": 0.08071747431504171,
+    "reset_and_schedule": 0.19433513135066655,
+    "record": 0.0041542615072734344
+   },
+   "spikes": 124,
+   "synaptic_events": 13336,
+   "neuron_updates": 9244,
+   "cprofile": {
+    "python_visible_calls_per_step": 12.87,
+    "numpy_function_calls_per_step": 7.975,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 2.1529800000000003e-06,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 0.185,
+      "seconds_per_step": 7.24365e-07,
+      "numpy": false
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 0.14,
+      "seconds_per_step": 5.1936e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'argsort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.13,
+      "seconds_per_step": 4.1020500000000004e-07,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 0.185,
+      "seconds_per_step": 2.6353000000000003e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 0.135,
+      "seconds_per_step": 2.454e-07,
+      "numpy": false
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 0.805,
+      "seconds_per_step": 2.0047e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.19,
+      "seconds_per_step": 1.9374500000000002e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.19,
+      "seconds_per_step": 1.40405e-07,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 0.18,
+      "seconds_per_step": 1.08095e-07,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:unique",
+      "calls_per_step": 0.14,
+      "seconds_per_step": 9e-08,
+      "numpy": true
+     },
+     {
+      "function": "getlimits.py:__init__",
+      "calls_per_step": 0.37,
+      "seconds_per_step": 7.872e-08,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 5.13,
+    "operator": 6.375,
+    "subscript_read": 6.57,
+    "subscript_write": 2.625,
+    "compare": 1.08,
+    "all_instructions": 114.085
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 98603,
+    "retained_bytes_after_run": 13627,
+    "engine_persistent_arrays_bytes": 33760,
+    "transient_peak_bytes": 84976,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.0001,
+   "mode": "event_driven",
+   "aggregation": "auto",
+   "steps": 500,
+   "wall_s": 0.0015307089997804724,
+   "phases_s": {
+    "aggregate": 0.00040945401997305453,
+    "leak": 0.0005229129674262367,
+    "input": 0.00013291603681864217,
+    "refractory_threshold": 0.00014858500799164176,
+    "reset_and_schedule": 0.0003086620199610479,
+    "record": 8.053946658037603e-06
+   },
+   "phase_share": {
+    "aggregate": 0.2675148964620075,
+    "leak": 0.34164277676129917,
+    "input": 0.08684007994357798,
+    "refractory_threshold": 0.09707733002916027,
+    "reset_and_schedule": 0.201662907881739,
+    "record": 0.0052620089222160955
+   },
+   "spikes": 124,
+   "synaptic_events": 13336,
+   "neuron_updates": 9244,
+   "cprofile": {
+    "python_visible_calls_per_step": 12.495,
+    "numpy_function_calls_per_step": 7.675,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 1.96955e-06,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 0.185,
+      "seconds_per_step": 7.047750000000001e-07,
+      "numpy": false
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 0.185,
+      "seconds_per_step": 2.5748e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 0.135,
+      "seconds_per_step": 2.25195e-07,
+      "numpy": false
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 0.065,
+      "seconds_per_step": 1.9436000000000003e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 0.805,
+      "seconds_per_step": 1.9249000000000002e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.19,
+      "seconds_per_step": 1.3916e-07,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 0.255,
+      "seconds_per_step": 1.3791500000000003e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:ravel",
+      "calls_per_step": 0.255,
+      "seconds_per_step": 1.04e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'astype' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.325,
+      "seconds_per_step": 1.0353500000000001e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.115,
+      "seconds_per_step": 9.1045e-08,
+      "numpy": true
+     },
+     {
+      "function": "getlimits.py:__init__",
+      "calls_per_step": 0.37,
+      "seconds_per_step": 7.7085e-08,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 5.205,
+    "operator": 6.455,
+    "subscript_read": 6.645,
+    "subscript_write": 2.7,
+    "compare": 1.08,
+    "all_instructions": 115.295
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 82444,
+    "retained_bytes_after_run": 14035,
+    "engine_persistent_arrays_bytes": 33760,
+    "transient_peak_bytes": 68409,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.001,
+   "mode": "time_step",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.0038661669968860224,
+   "phases_s": {
+    "leak": 0.00022003790945746005,
+    "synaptic_input": 0.0002421580720692873,
+    "external_input": 0.0004764279947266914,
+    "refractory": 0.0002562039444455877,
+    "threshold": 0.0005480460968101397,
+    "record": 5.496095400303602e-05,
+    "reset_and_gather": 0.0012620799243450165,
+    "deliver": 0.0008060020991251804
+   },
+   "phase_share": {
+    "leak": 0.05691739107255764,
+    "synaptic_input": 0.06263923213653733,
+    "external_input": 0.12323803003143902,
+    "refractory": 0.06627248975550086,
+    "threshold": 0.1417635447221067,
+    "record": 0.014216796189460413,
+    "reset_and_gather": 0.3264632753323672,
+    "deliver": 0.20848924076003086
+   },
+   "spikes": 1378,
+   "synaptic_events": 146843,
+   "neuron_updates": 500000,
+   "cprofile": {
+    "python_visible_calls_per_step": 32.53,
+    "numpy_function_calls_per_step": 17.335,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_time_step",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 6.167880000000001e-06,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 0.725,
+      "seconds_per_step": 1.31247e-06,
+      "numpy": false
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 4.83895e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 1.92,
+      "seconds_per_step": 3.8452000000000006e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:ravel",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.8911e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.52875e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:<lambda>",
+      "calls_per_step": 7.45,
+      "seconds_per_step": 2.35965e-07,
+      "numpy": false
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.46,
+      "seconds_per_step": 1.97075e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.46,
+      "seconds_per_step": 1.6790500000000002e-07,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 0.46,
+      "seconds_per_step": 1.39785e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:nonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.375e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+      "calls_per_step": 0.475,
+      "seconds_per_step": 1.3042000000000003e-07,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 17.28,
+    "operator": 10.66,
+    "subscript_read": 9.475,
+    "subscript_write": 6.93,
+    "compare": 3.72,
+    "all_instructions": 214.915
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 76932,
+    "retained_bytes_after_run": 13732,
+    "engine_persistent_arrays_bytes": 18400,
+    "transient_peak_bytes": 63200,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.001,
+   "mode": "event_driven",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.014113707999058533,
+   "phases_s": {
+    "aggregate": 0.004797827969014179,
+    "leak": 0.004665985114115756,
+    "input": 0.0010473359579918906,
+    "refractory_threshold": 0.0008739979675738141,
+    "reset_and_schedule": 0.0026842590887099504,
+    "record": 4.401090700412169e-05
+   },
+   "phase_share": {
+    "aggregate": 0.33994800603674546,
+    "leak": 0.3306063381148504,
+    "input": 0.07420853204186147,
+    "refractory_threshold": 0.06192674440929046,
+    "reset_and_schedule": 0.1901920057964176,
+    "record": 0.0031183736008346214
+   },
+   "spikes": 1378,
+   "synaptic_events": 146843,
+   "neuron_updates": 85969,
+   "cprofile": {
+    "python_visible_calls_per_step": 71.2,
+    "numpy_function_calls_per_step": 48.935,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 1.0044560000000001e-05,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 0.89,
+      "seconds_per_step": 3.5039850000000005e-06,
+      "numpy": false
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 1.14,
+      "seconds_per_step": 3.2946450000000004e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'argsort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.715,
+      "seconds_per_step": 3.2289600000000005e-06,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.425,
+      "seconds_per_step": 2.028145e-06,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 0.725,
+      "seconds_per_step": 1.6851650000000003e-06,
+      "numpy": false
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 0.89,
+      "seconds_per_step": 1.213645e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.175,
+      "seconds_per_step": 1.144745e-06,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 4.72,
+      "seconds_per_step": 1.037775e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.31,
+      "seconds_per_step": 9.3579e-07,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:unique",
+      "calls_per_step": 1.14,
+      "seconds_per_step": 5.86025e-07,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 0.885,
+      "seconds_per_step": 4.899050000000001e-07,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 22.99,
+    "operator": 16.86,
+    "subscript_read": 17.475,
+    "subscript_write": 9.63,
+    "compare": 5.54,
+    "all_instructions": 337.595
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 126574,
+    "retained_bytes_after_run": 14341,
+    "engine_persistent_arrays_bytes": 35272,
+    "transient_peak_bytes": 112233,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.001,
+   "mode": "event_driven",
+   "aggregation": "auto",
+   "steps": 500,
+   "wall_s": 0.012660708001931198,
+   "phases_s": {
+    "aggregate": 0.0022108579796622507,
+    "leak": 0.005673002131516114,
+    "input": 0.0012496219205786474,
+    "refractory_threshold": 0.000993833971733693,
+    "reset_and_schedule": 0.0024841309859766625,
+    "record": 4.905301466351375e-05
+   },
+   "phase_share": {
+    "aggregate": 0.1746264348912673,
+    "leak": 0.4480867366743115,
+    "input": 0.09870241461008013,
+    "refractory_threshold": 0.07849879320796366,
+    "reset_and_schedule": 0.1962111279306613,
+    "record": 0.0038744926857160996
+   },
+   "spikes": 1378,
+   "synaptic_events": 146843,
+   "neuron_updates": 85969,
+   "cprofile": {
+    "python_visible_calls_per_step": 68.675,
+    "numpy_function_calls_per_step": 46.915,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 9.254990000000001e-06,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 0.89,
+      "seconds_per_step": 3.4858400000000004e-06,
+      "numpy": false
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.425,
+      "seconds_per_step": 2.2435550000000002e-06,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 0.725,
+      "seconds_per_step": 1.564185e-06,
+      "numpy": false
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 0.89,
+      "seconds_per_step": 1.2371150000000002e-06,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 0.635,
+      "seconds_per_step": 1.116825e-06,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 4.72,
+      "seconds_per_step": 1.042405e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.31,
+      "seconds_per_step": 9.87435e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.425,
+      "seconds_per_step": 9.8394e-07,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 1.39,
+      "seconds_per_step": 7.171550000000001e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.39,
+      "seconds_per_step": 4.4497000000000005e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:ravel",
+      "calls_per_step": 1.39,
+      "seconds_per_step": 4.3849e-07,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 23.495,
+    "operator": 17.37,
+    "subscript_read": 17.98,
+    "subscript_write": 10.135,
+    "compare": 5.54,
+    "all_instructions": 345.685
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 99186,
+    "retained_bytes_after_run": 13933,
+    "engine_persistent_arrays_bytes": 35272,
+    "transient_peak_bytes": 85253,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.01,
+   "mode": "time_step",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.0066869580041384324,
+   "phases_s": {
+    "leak": 0.00024162695626728237,
+    "synaptic_input": 0.00025459795870119706,
+    "external_input": 0.0007017349344096147,
+    "refractory": 0.0002789060599752702,
+    "threshold": 0.0006641900035901926,
+    "reset_and_gather": 0.002846850016794633,
+    "deliver": 0.001650277066801209,
+    "record": 4.848400567425415e-05
+   },
+   "phase_share": {
+    "leak": 0.03613563471716037,
+    "synaptic_input": 0.03807546549228654,
+    "external_input": 0.10494539868327553,
+    "refractory": 0.04171077457318227,
+    "threshold": 0.09933050402694038,
+    "reset_and_gather": 0.4257502303991166,
+    "deliver": 0.24680114416567728,
+    "record": 0.0072508479423610125
+   },
+   "spikes": 6161,
+   "synaptic_events": 632165,
+   "neuron_updates": 500000,
+   "cprofile": {
+    "python_visible_calls_per_step": 41.195,
+    "numpy_function_calls_per_step": 24.095,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_time_step",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 9.19027e-06,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 3.5461800000000003e-06,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 6.4816e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 3.0,
+      "seconds_per_step": 6.2363e-07,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 5.252050000000001e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 4.4656500000000003e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 4.2395500000000007e-07,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 4.00665e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:ravel",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 3.2040000000000004e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+      "calls_per_step": 1.015,
+      "seconds_per_step": 2.7806e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:<lambda>",
+      "calls_per_step": 8.0,
+      "seconds_per_step": 2.669e-07,
+      "numpy": false
+     },
+     {
+      "function": "fromnumeric.py:cumsum",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.2392e-07,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 21.085,
+    "operator": 15.02,
+    "subscript_read": 11.005,
+    "subscript_write": 8.995,
+    "compare": 3.995,
+    "all_instructions": 260.9
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 168723,
+    "retained_bytes_after_run": 13579,
+    "engine_persistent_arrays_bytes": 18400,
+    "transient_peak_bytes": 155144,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.01,
+   "mode": "event_driven",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.04502841599605745,
+   "phases_s": {
+    "aggregate": 0.019379874000151176,
+    "leak": 0.014823370067460928,
+    "input": 0.0030155389322317205,
+    "refractory_threshold": 0.0015383910140371881,
+    "reset_and_schedule": 0.006213371954800095,
+    "record": 5.7329030823893845e-05
+   },
+   "phase_share": {
+    "aggregate": 0.43039725948346935,
+    "leak": 0.3292042999502838,
+    "input": 0.06697049177348188,
+    "refractory_threshold": 0.034165303471551785,
+    "reset_and_schedule": 0.13798945552878966,
+    "record": 0.0012731897924235615
+   },
+   "spikes": 6161,
+   "synaptic_events": 632165,
+   "neuron_updates": 307594,
+   "cprofile": {
+    "python_visible_calls_per_step": 104.075,
+    "numpy_function_calls_per_step": 73.995,
+    "top_by_own_time": [
+     {
+      "function": "<method 'argsort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 2.5341905000000002e-05,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 1.9188045e-05,
+      "numpy": false
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 1.4064135000000002e-05,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 1.99,
+      "seconds_per_step": 1.070161e-05,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 5.6387700000000006e-06,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 5.017469999999999e-06,
+      "numpy": false
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 3.6538900000000004e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 3.3841099999999998e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 3.13985e-06,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 6.995,
+      "seconds_per_step": 1.748715e-06,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 1.6893e-06,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:unique",
+      "calls_per_step": 1.99,
+      "seconds_per_step": 1.159995e-06,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 31.12,
+    "operator": 22.065,
+    "subscript_read": 20.98,
+    "subscript_write": 11.995,
+    "compare": 7.0,
+    "all_instructions": 422.375
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 274464,
+    "retained_bytes_after_run": 14086,
+    "engine_persistent_arrays_bytes": 59536,
+    "transient_peak_bytes": 260378,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.01,
+   "mode": "event_driven",
+   "aggregation": "auto",
+   "steps": 500,
+   "wall_s": 0.025838832996669225,
+   "phases_s": {
+    "aggregate": 0.0032947460567811504,
+    "leak": 0.015048325039970223,
+    "input": 0.0025635859565227292,
+    "refractory_threshold": 0.001335176100837998,
+    "reset_and_schedule": 0.0035457319681881927,
+    "record": 5.114287341712043e-05
+   },
+   "phase_share": {
+    "aggregate": 0.12751202797474362,
+    "leak": 0.5823946399512072,
+    "input": 0.09921494360119035,
+    "refractory_threshold": 0.05167348541805164,
+    "reset_and_schedule": 0.1372255907213268,
+    "record": 0.001979312333480335
+   },
+   "spikes": 6161,
+   "synaptic_events": 632165,
+   "neuron_updates": 307594,
+   "cprofile": {
+    "python_visible_calls_per_step": 99.1,
+    "numpy_function_calls_per_step": 70.015,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 1.5647485e-05,
+      "numpy": false
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 1.3943575000000001e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 7.373095000000001e-06,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 4.9842250000000005e-06,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 3.736505e-06,
+      "numpy": false
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 3.24317e-06,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 6.995,
+      "seconds_per_step": 1.567325e-06,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 1.516895e-06,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 1.08592e-06,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:union1d",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 1.0820900000000001e-06,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 1.078865e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 9.23635e-07,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 32.115,
+    "operator": 23.065,
+    "subscript_read": 21.975,
+    "subscript_write": 12.99,
+    "compare": 7.0,
+    "all_instructions": 438.305
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 198388,
+    "retained_bytes_after_run": 13831,
+    "engine_persistent_arrays_bytes": 59536,
+    "transient_peak_bytes": 184557,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.1,
+   "mode": "time_step",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.013754874998994637,
+   "phases_s": {
+    "leak": 0.0002501640119589865,
+    "synaptic_input": 0.00025906092196237296,
+    "external_input": 0.0008427980574197136,
+    "refractory": 0.0003373659565113485,
+    "threshold": 0.0009217171464115381,
+    "reset_and_gather": 0.006413659917598125,
+    "deliver": 0.004675887001212686,
+    "record": 5.388898716773838e-05
+   },
+   "phase_share": {
+    "leak": 0.018187738417940476,
+    "synaptic_input": 0.018834572751154157,
+    "external_input": 0.061274163647532146,
+    "refractory": 0.024527603791198595,
+    "threshold": 0.06701183844545948,
+    "reset_and_gather": 0.4662939643853677,
+    "deliver": 0.3399522136855044,
+    "record": 0.003917904875843067
+   },
+   "spikes": 29951,
+   "synaptic_events": 2990429,
+   "neuron_updates": 500000,
+   "cprofile": {
+    "python_visible_calls_per_step": 41.195,
+    "numpy_function_calls_per_step": 24.095,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_time_step",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 1.5608885e-05,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 8.352895e-06,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.09755e-06,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 9.375750000000001e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 8.904050000000001e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 3.0,
+      "seconds_per_step": 6.32755e-07,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 5.346e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 5.2145e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:ravel",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 3.3389000000000003e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+      "calls_per_step": 1.015,
+      "seconds_per_step": 2.7812e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:<lambda>",
+      "calls_per_step": 8.0,
+      "seconds_per_step": 2.7477e-07,
+      "numpy": false
+     },
+     {
+      "function": "fromnumeric.py:cumsum",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.21225e-07,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 21.085,
+    "operator": 15.02,
+    "subscript_read": 11.005,
+    "subscript_write": 8.995,
+    "compare": 3.995,
+    "all_instructions": 260.9
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 522342,
+    "retained_bytes_after_run": 13885,
+    "engine_persistent_arrays_bytes": 18400,
+    "transient_peak_bytes": 508457,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.1,
+   "mode": "event_driven",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.11281304200383602,
+   "phases_s": {
+    "aggregate": 0.0818028849826078,
+    "leak": 0.015825504997337703,
+    "input": 0.003683450850076042,
+    "refractory_threshold": 0.0021781370960525237,
+    "reset_and_schedule": 0.009272359020542353,
+    "record": 5.0246053433511406e-05
+   },
+   "phase_share": {
+    "aggregate": 0.7251219926643431,
+    "leak": 0.1402813815310895,
+    "input": 0.03265106384519546,
+    "refractory_threshold": 0.01930757224175569,
+    "reset_and_schedule": 0.08219259566584208,
+    "record": 0.0004453940517742526
+   },
+   "spikes": 29951,
+   "synaptic_events": 2990429,
+   "neuron_updates": 484435,
+   "cprofile": {
+    "python_visible_calls_per_step": 104.075,
+    "numpy_function_calls_per_step": 73.995,
+    "top_by_own_time": [
+     {
+      "function": "<method 'argsort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.000125915795,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 2.63167e-05,
+      "numpy": false
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 1.99,
+      "seconds_per_step": 2.232627e-05,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 1.456543e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 1.0512065e-05,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 9.32048e-06,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 5.562665e-06,
+      "numpy": false
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 4.782015e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 4.505885e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.2278950000000004e-06,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 1.6671100000000002e-06,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 6.995,
+      "seconds_per_step": 1.6529550000000001e-06,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 31.12,
+    "operator": 22.065,
+    "subscript_read": 20.98,
+    "subscript_write": 11.995,
+    "compare": 7.0,
+    "all_instructions": 422.375
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 834753,
+    "retained_bytes_after_run": 13627,
+    "engine_persistent_arrays_bytes": 156016,
+    "transient_peak_bytes": 821126,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.1,
+   "mode": "event_driven",
+   "aggregation": "auto",
+   "steps": 500,
+   "wall_s": 0.04197491700324463,
+   "phases_s": {
+    "aggregate": 0.009099824004806578,
+    "leak": 0.019662029008031823,
+    "input": 0.0037630380029440857,
+    "refractory_threshold": 0.0021420540069811977,
+    "reset_and_schedule": 0.007256958015204873,
+    "record": 5.088896432425827e-05
+   },
+   "phase_share": {
+    "aggregate": 0.21679259314279659,
+    "leak": 0.46842469182355473,
+    "input": 0.08964994996850813,
+    "refractory_threshold": 0.05103191474693171,
+    "reset_and_schedule": 0.1728884806578308,
+    "record": 0.0012123696603780318
+   },
+   "spikes": 29951,
+   "synaptic_events": 2990429,
+   "neuron_updates": 484435,
+   "cprofile": {
+    "python_visible_calls_per_step": 99.1,
+    "numpy_function_calls_per_step": 70.015,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 3.021016e-05,
+      "numpy": false
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 1.732499e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 1.1648465000000001e-05,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 8.570920000000001e-06,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 5.58735e-06,
+      "numpy": false
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 5.02327e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.241035e-06,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 1.60223e-06,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 6.995,
+      "seconds_per_step": 1.563275e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 1.4062300000000002e-06,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 1.09802e-06,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 1.0891550000000001e-06,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 32.115,
+    "operator": 23.065,
+    "subscript_read": 21.975,
+    "subscript_write": 12.99,
+    "compare": 7.0,
+    "all_instructions": 438.305
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 554867,
+    "retained_bytes_after_run": 13729,
+    "engine_persistent_arrays_bytes": 156016,
+    "transient_peak_bytes": 541138,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 1e-05,
+   "mode": "time_step",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.0038603329958277754,
+   "phases_s": {
+    "leak": 0.0003697489373735152,
+    "synaptic_input": 0.0006918589715496637,
+    "external_input": 0.00019305503519717604,
+    "refractory": 0.00024325896083610132,
+    "threshold": 0.0014010170925757848,
+    "record": 6.818304245825857e-05,
+    "reset_and_gather": 0.00030350100132636726,
+    "deliver": 0.0005894599598832428
+   },
+   "phase_share": {
+    "leak": 0.09578782043250347,
+    "synaptic_input": 0.17923422147517631,
+    "external_input": 0.050013182394563725,
+    "refractory": 0.0630191010816274,
+    "threshold": 0.36294999152614205,
+    "record": 0.01766362081775451,
+    "reset_and_gather": 0.07862551173951648,
+    "deliver": 0.15270655053271606
+   },
+   "spikes": 310,
+   "synaptic_events": 73860,
+   "neuron_updates": 5000000,
+   "cprofile": {
+    "python_visible_calls_per_step": 25.24,
+    "numpy_function_calls_per_step": 12.325,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_time_step",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 7.750415e-06,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 0.215,
+      "seconds_per_step": 5.6351e-07,
+      "numpy": false
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 5.24785e-07,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 4.78855e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:ravel",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.8208500000000003e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 1.17,
+      "seconds_per_step": 2.2646000000000003e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:<lambda>",
+      "calls_per_step": 6.43,
+      "seconds_per_step": 2.11195e-07,
+      "numpy": false
+     },
+     {
+      "function": "fromnumeric.py:nonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.38295e-07,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method builtins.len>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 1.00515e-07,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.085,
+      "seconds_per_step": 9.853500000000002e-08,
+      "numpy": true
+     },
+     {
+      "function": "<method 'ravel' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 9.6855e-08,
+      "numpy": true
+     },
+     {
+      "function": "<method 'pop' of 'list' objects>",
+      "calls_per_step": 0.99,
+      "seconds_per_step": 6.983000000000001e-08,
+      "numpy": false
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 13.365,
+    "operator": 5.64,
+    "subscript_read": 5.66,
+    "subscript_write": 3.385,
+    "compare": 3.21,
+    "all_instructions": 148.55
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 638236,
+    "retained_bytes_after_run": 85732,
+    "engine_persistent_arrays_bytes": 162400,
+    "transient_peak_bytes": 552504,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 1e-05,
+   "mode": "event_driven",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.004527042001427617,
+   "phases_s": {
+    "aggregate": 0.0021497819834621623,
+    "leak": 0.0011008739893441088,
+    "input": 0.0003478360449662432,
+    "refractory_threshold": 0.00025484198704361916,
+    "reset_and_schedule": 0.0006609099800698459,
+    "record": 1.2548014638014138e-05
+   },
+   "phase_share": {
+    "aggregate": 0.4749018695111723,
+    "leak": 0.24319076057832328,
+    "input": 0.07683941409342847,
+    "refractory_threshold": 0.0562963765665435,
+    "reset_and_schedule": 0.1459996350924325,
+    "record": 0.0027719441580999525
+   },
+   "spikes": 310,
+   "synaptic_events": 73860,
+   "neuron_updates": 38839,
+   "cprofile": {
+    "python_visible_calls_per_step": 20.25,
+    "numpy_function_calls_per_step": 12.945,
+    "top_by_own_time": [
+     {
+      "function": "<method 'argsort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.21,
+      "seconds_per_step": 5.0610500000000004e-06,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 4.351285e-06,
+      "numpy": false
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 0.23,
+      "seconds_per_step": 1.692975e-06,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 0.305,
+      "seconds_per_step": 1.448955e-06,
+      "numpy": false
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.32,
+      "seconds_per_step": 6.781e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.295,
+      "seconds_per_step": 6.7354e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 0.215,
+      "seconds_per_step": 6.133699999999999e-07,
+      "numpy": false
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 0.305,
+      "seconds_per_step": 4.5063000000000006e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 1.305,
+      "seconds_per_step": 3.34915e-07,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.02,
+      "seconds_per_step": 2.64585e-07,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 0.3,
+      "seconds_per_step": 1.68735e-07,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:unique",
+      "calls_per_step": 0.23,
+      "seconds_per_step": 1.46455e-07,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 7.635,
+    "operator": 7.805,
+    "subscript_read": 8.21,
+    "subscript_write": 3.675,
+    "compare": 1.76,
+    "all_instructions": 146.89
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 973268,
+    "retained_bytes_after_run": 85780,
+    "engine_persistent_arrays_bytes": 284528,
+    "transient_peak_bytes": 887488,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 1e-05,
+   "mode": "event_driven",
+   "aggregation": "auto",
+   "steps": 500,
+   "wall_s": 0.0032896670018089935,
+   "phases_s": {
+    "aggregate": 0.0009460729779675603,
+    "leak": 0.0010835889770532958,
+    "input": 0.0003570869885152206,
+    "refractory_threshold": 0.00026220102154184133,
+    "reset_and_schedule": 0.0006204230157891288,
+    "record": 2.0169019990134984e-05
+   },
+   "phase_share": {
+    "aggregate": 0.28760021234598454,
+    "leak": 0.3294042078717756,
+    "input": 0.10855219006845683,
+    "refractory_threshold": 0.0797074551635205,
+    "reset_and_schedule": 0.18860467980875767,
+    "record": 0.006131254741504861
+   },
+   "spikes": 310,
+   "synaptic_events": 73860,
+   "neuron_updates": 38839,
+   "cprofile": {
+    "python_visible_calls_per_step": 20.0,
+    "numpy_function_calls_per_step": 12.745,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 4.482485e-06,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 0.305,
+      "seconds_per_step": 1.520965e-06,
+      "numpy": false
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.32,
+      "seconds_per_step": 6.952050000000001e-07,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 0.18,
+      "seconds_per_step": 6.1455e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 0.215,
+      "seconds_per_step": 5.956350000000001e-07,
+      "numpy": false
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 0.305,
+      "seconds_per_step": 4.787650000000001e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.35,
+      "seconds_per_step": 3.1644000000000005e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 1.305,
+      "seconds_per_step": 3.1610500000000006e-07,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.02,
+      "seconds_per_step": 2.9124500000000004e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'argsort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.16,
+      "seconds_per_step": 2.86685e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.245,
+      "seconds_per_step": 2.5127e-07,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 0.35,
+      "seconds_per_step": 2.087e-07,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 7.685,
+    "operator": 7.86,
+    "subscript_read": 8.26,
+    "subscript_write": 3.725,
+    "compare": 1.76,
+    "all_instructions": 147.7
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 735799,
+    "retained_bytes_after_run": 85678,
+    "engine_persistent_arrays_bytes": 284528,
+    "transient_peak_bytes": 650121,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.0001,
+   "mode": "time_step",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.008445667001069523,
+   "phases_s": {
+    "leak": 0.00044294403051026165,
+    "synaptic_input": 0.0007432249112753198,
+    "external_input": 0.0005427250798675232,
+    "refractory": 0.00029142998391762376,
+    "threshold": 0.001710084980004467,
+    "reset_and_gather": 0.0019041679915972054,
+    "deliver": 0.0027513709501363337,
+    "record": 5.9386075008660555e-05
+   },
+   "phase_share": {
+    "leak": 0.05244837331344362,
+    "synaptic_input": 0.08800420576277732,
+    "external_input": 0.06426330559793132,
+    "refractory": 0.034507810329071124,
+    "threshold": 0.20248873277661023,
+    "reset_and_gather": 0.22546982642423646,
+    "deliver": 0.32578592503047943,
+    "record": 0.00703182076545049
+   },
+   "spikes": 2050,
+   "synaptic_events": 382208,
+   "neuron_updates": 5000000,
+   "cprofile": {
+    "python_visible_calls_per_step": 33.14,
+    "numpy_function_calls_per_step": 17.82,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_time_step",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 1.3072820000000001e-05,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 0.74,
+      "seconds_per_step": 2.12971e-06,
+      "numpy": false
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 9.66205e-07,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 5.2615e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 2.0,
+      "seconds_per_step": 4.40755e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.5,
+      "seconds_per_step": 3.3563500000000003e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:ravel",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 3.1012000000000003e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.5,
+      "seconds_per_step": 2.4186500000000006e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:<lambda>",
+      "calls_per_step": 7.48,
+      "seconds_per_step": 2.34395e-07,
+      "numpy": false
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 0.5,
+      "seconds_per_step": 2.1064500000000002e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+      "calls_per_step": 0.515,
+      "seconds_per_step": 1.4896e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:nonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.4488e-07,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 17.53,
+    "operator": 10.905,
+    "subscript_read": 9.525,
+    "subscript_write": 7.02,
+    "compare": 3.735,
+    "all_instructions": 217.355
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 611187,
+    "retained_bytes_after_run": 85579,
+    "engine_persistent_arrays_bytes": 162400,
+    "transient_peak_bytes": 525608,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.0001,
+   "mode": "event_driven",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.025381042003573384,
+   "phases_s": {
+    "aggregate": 0.010652219934854656,
+    "leak": 0.0081040109944297,
+    "input": 0.0019107479965896346,
+    "refractory_threshold": 0.0010305401156074367,
+    "reset_and_schedule": 0.0036377039359649643,
+    "record": 4.548502329271287e-05
+   },
+   "phase_share": {
+    "aggregate": 0.41969750940535056,
+    "leak": 0.3192980666336694,
+    "input": 0.07528347895314788,
+    "refractory_threshold": 0.040603284808974856,
+    "reset_and_schedule": 0.1433255500933635,
+    "record": 0.0017921101054938385
+   },
+   "spikes": 2050,
+   "synaptic_events": 382208,
+   "neuron_updates": 231083,
+   "cprofile": {
+    "python_visible_calls_per_step": 72.635,
+    "numpy_function_calls_per_step": 50.045,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 1.3554490000000001e-05,
+      "numpy": false
+     },
+     {
+      "function": "<method 'argsort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.72,
+      "seconds_per_step": 1.3312075e-05,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.44,
+      "seconds_per_step": 6.2112549999999995e-06,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 1.16,
+      "seconds_per_step": 5.618665e-06,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 0.9,
+      "seconds_per_step": 4.3390750000000005e-06,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 0.74,
+      "seconds_per_step": 2.52172e-06,
+      "numpy": false
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.335,
+      "seconds_per_step": 2.4062600000000003e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.22,
+      "seconds_per_step": 2.076e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.44,
+      "seconds_per_step": 1.4750050000000002e-06,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 0.9,
+      "seconds_per_step": 1.38963e-06,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 4.85,
+      "seconds_per_step": 1.13904e-06,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:unique",
+      "calls_per_step": 1.16,
+      "seconds_per_step": 6.5034e-07,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 23.41,
+    "operator": 17.155,
+    "subscript_read": 17.6,
+    "subscript_write": 9.755,
+    "compare": 5.6,
+    "all_instructions": 341.87
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 899194,
+    "retained_bytes_after_run": 85678,
+    "engine_persistent_arrays_bytes": 286688,
+    "transient_peak_bytes": 813516,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.0001,
+   "mode": "event_driven",
+   "aggregation": "auto",
+   "steps": 500,
+   "wall_s": 0.019934874995669816,
+   "phases_s": {
+    "aggregate": 0.004922273052216042,
+    "leak": 0.008740827979636379,
+    "input": 0.0019248330208938569,
+    "refractory_threshold": 0.0010187579173361883,
+    "reset_and_schedule": 0.0032818010076880455,
+    "record": 4.621502012014389e-05
+   },
+   "phase_share": {
+    "aggregate": 0.24691974684238568,
+    "leak": 0.4384728374532132,
+    "input": 0.09655687061468514,
+    "refractory_threshold": 0.051104732381532035,
+    "reset_and_schedule": 0.16462749331644597,
+    "record": 0.002318319391737969
+   },
+   "spikes": 2050,
+   "synaptic_events": 382208,
+   "neuron_updates": 231083,
+   "cprofile": {
+    "python_visible_calls_per_step": 71.86,
+    "numpy_function_calls_per_step": 49.425,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 1.3375240000000001e-05,
+      "numpy": false
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.44,
+      "seconds_per_step": 6.715235e-06,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 0.9,
+      "seconds_per_step": 4.308145e-06,
+      "numpy": false
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 2.779505e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.44,
+      "seconds_per_step": 2.7635600000000003e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'argsort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.565,
+      "seconds_per_step": 2.502925e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.335,
+      "seconds_per_step": 2.371875e-06,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 0.74,
+      "seconds_per_step": 2.336055e-06,
+      "numpy": false
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 0.9,
+      "seconds_per_step": 1.3293500000000002e-06,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 4.85,
+      "seconds_per_step": 1.1192050000000002e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.065,
+      "seconds_per_step": 1.0349800000000001e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.05,
+      "seconds_per_step": 1.0320750000000002e-06,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 23.565,
+    "operator": 17.315,
+    "subscript_read": 17.755,
+    "subscript_write": 9.91,
+    "compare": 5.6,
+    "all_instructions": 344.36
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 692642,
+    "retained_bytes_after_run": 85729,
+    "engine_persistent_arrays_bytes": 286688,
+    "transient_peak_bytes": 606913,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.001,
+   "mode": "time_step",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.0167613750018063,
+   "phases_s": {
+    "leak": 0.0004832869817619212,
+    "synaptic_input": 0.0007645080477232113,
+    "external_input": 0.0007308339554583654,
+    "refractory": 0.00031226400460582227,
+    "threshold": 0.0020770310729858465,
+    "reset_and_gather": 0.006193464971147478,
+    "deliver": 0.0061499039438785985,
+    "record": 4.9748021410778165e-05
+   },
+   "phase_share": {
+    "leak": 0.028833947831257135,
+    "synaptic_input": 0.04561220557661662,
+    "external_input": 0.04360313631493345,
+    "refractory": 0.01863034668461069,
+    "threshold": 0.12392017137320015,
+    "reset_and_gather": 0.3695155313758454,
+    "deliver": 0.3669165861628631,
+    "record": 0.002968074680673431
+   },
+   "spikes": 12881,
+   "synaptic_events": 2418966,
+   "neuron_updates": 5000000,
+   "cprofile": {
+    "python_visible_calls_per_step": 41.195,
+    "numpy_function_calls_per_step": 24.095,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_time_step",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 2.0360275000000004e-05,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 6.91496e-06,
+      "numpy": false
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.6364500000000002e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.4216550000000001e-06,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 6.4816e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 3.0,
+      "seconds_per_step": 6.292900000000001e-07,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 5.500750000000001e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 4.6516e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:ravel",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 3.2907e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+      "calls_per_step": 1.015,
+      "seconds_per_step": 2.8061e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:<lambda>",
+      "calls_per_step": 8.0,
+      "seconds_per_step": 2.63285e-07,
+      "numpy": false
+     },
+     {
+      "function": "fromnumeric.py:cumsum",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.2433e-07,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 21.085,
+    "operator": 15.02,
+    "subscript_read": 11.005,
+    "subscript_write": 8.995,
+    "compare": 3.995,
+    "all_instructions": 260.9
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 552763,
+    "retained_bytes_after_run": 85579,
+    "engine_persistent_arrays_bytes": 162400,
+    "transient_peak_bytes": 467184,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.001,
+   "mode": "event_driven",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.13825766599620692,
+   "phases_s": {
+    "aggregate": 0.06632609398366185,
+    "leak": 0.04892045798624167,
+    "input": 0.009387419049744494,
+    "refractory_threshold": 0.0021945389889879152,
+    "reset_and_schedule": 0.011375093992683105,
+    "record": 5.3395997383631766e-05
+   },
+   "phase_share": {
+    "aggregate": 0.4797304583802934,
+    "leak": 0.35383711484193,
+    "input": 0.06789832738908395,
+    "refractory_threshold": 0.015872896048724532,
+    "reset_and_schedule": 0.0822749950656375,
+    "record": 0.00038620827433065094
+   },
+   "spikes": 12881,
+   "synaptic_events": 2418966,
+   "neuron_updates": 1456301,
+   "cprofile": {
+    "python_visible_calls_per_step": 104.075,
+    "numpy_function_calls_per_step": 73.995,
+    "top_by_own_time": [
+     {
+      "function": "<method 'argsort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 7.775604000000001e-05,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 5.4895410000000004e-05,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 3.423826e-05,
+      "numpy": false
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 1.99,
+      "seconds_per_step": 1.9203605e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 1.4066880000000001e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 1.3063400000000001e-05,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 9.484085e-06,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 8.608360000000001e-06,
+      "numpy": false
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 7.60942e-06,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 1.95677e-06,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 6.995,
+      "seconds_per_step": 1.6834950000000001e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.5227050000000002e-06,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 31.12,
+    "operator": 22.065,
+    "subscript_read": 20.98,
+    "subscript_write": 11.995,
+    "compare": 7.0,
+    "all_instructions": 422.375
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 881071,
+    "retained_bytes_after_run": 85729,
+    "engine_persistent_arrays_bytes": 266120,
+    "transient_peak_bytes": 795342,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.001,
+   "mode": "event_driven",
+   "aggregation": "auto",
+   "steps": 500,
+   "wall_s": 0.093556207997608,
+   "phases_s": {
+    "aggregate": 0.010889528930420056,
+    "leak": 0.06240149606310297,
+    "input": 0.00979070601897547,
+    "refractory_threshold": 0.0022012079716660082,
+    "reset_and_schedule": 0.008221132018661592,
+    "record": 5.2012001106049865e-05
+   },
+   "phase_share": {
+    "aggregate": 0.11639573377566877,
+    "leak": 0.6669956037009399,
+    "input": 0.10465066198382812,
+    "refractory_threshold": 0.023528218593477153,
+    "reset_and_schedule": 0.08787383732510541,
+    "record": 0.0005559446209805921
+   },
+   "spikes": 12881,
+   "synaptic_events": 2418966,
+   "neuron_updates": 1456301,
+   "cprofile": {
+    "python_visible_calls_per_step": 99.325,
+    "numpy_function_calls_per_step": 70.195,
+    "top_by_own_time": [
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 6.422753e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 3.44012e-05,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 3.3472955e-05,
+      "numpy": false
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 1.3850365e-05,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 8.87518e-06,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 7.546655e-06,
+      "numpy": false
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.95,
+      "seconds_per_step": 4.16413e-06,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 1.97612e-06,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 6.995,
+      "seconds_per_step": 1.625385e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.504165e-06,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:union1d",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 1.4341550000000002e-06,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 1.04,
+      "seconds_per_step": 1.40304e-06,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 32.07,
+    "operator": 23.02,
+    "subscript_read": 21.93,
+    "subscript_write": 12.945,
+    "compare": 7.0,
+    "all_instructions": 437.585
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 702496,
+    "retained_bytes_after_run": 85611,
+    "engine_persistent_arrays_bytes": 266120,
+    "transient_peak_bytes": 616885,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.01,
+   "mode": "time_step",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.04506908299663337,
+   "phases_s": {
+    "leak": 0.0004996339557692409,
+    "synaptic_input": 0.0007876150848460384,
+    "external_input": 0.0009124969365075231,
+    "refractory": 0.0004511550796451047,
+    "threshold": 0.0028262499399716035,
+    "reset_and_gather": 0.021154054025828373,
+    "deliver": 0.018380355912086088,
+    "record": 5.702206544810906e-05
+   },
+   "phase_share": {
+    "leak": 0.011086080868531172,
+    "synaptic_input": 0.017475922969316663,
+    "external_input": 0.020246852147658076,
+    "refractory": 0.01001041190143659,
+    "threshold": 0.06270998003121603,
+    "reset_and_gather": 0.46937473107997335,
+    "deliver": 0.4078307922848264,
+    "record": 0.0012652287170417562
+   },
+   "spikes": 72077,
+   "synaptic_events": 12454928,
+   "neuron_updates": 5000000,
+   "cprofile": {
+    "python_visible_calls_per_step": 41.195,
+    "numpy_function_calls_per_step": 24.095,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_time_step",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 4.742045e-05,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.8654245000000004e-05,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 7.753935000000001e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.9981100000000004e-06,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.4543650000000003e-06,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 3.0,
+      "seconds_per_step": 6.6994e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 6.51435e-07,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 6.01865e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:ravel",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 3.7528999999999997e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+      "calls_per_step": 1.015,
+      "seconds_per_step": 2.94125e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:<lambda>",
+      "calls_per_step": 8.0,
+      "seconds_per_step": 2.6126e-07,
+      "numpy": false
+     },
+     {
+      "function": "fromnumeric.py:cumsum",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.2775e-07,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 21.085,
+    "operator": 15.02,
+    "subscript_read": 11.005,
+    "subscript_write": 8.995,
+    "compare": 3.995,
+    "all_instructions": 260.9
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 1222980,
+    "retained_bytes_after_run": 85732,
+    "engine_persistent_arrays_bytes": 162400,
+    "transient_peak_bytes": 1137248,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.01,
+   "mode": "event_driven",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.5931802910054103,
+   "phases_s": {
+    "aggregate": 0.3939943189834594,
+    "leak": 0.13306036404537736,
+    "input": 0.026302797057724092,
+    "refractory_threshold": 0.005489970943017397,
+    "reset_and_schedule": 0.03427583002485335,
+    "record": 5.6343946198467165e-05
+   },
+   "phase_share": {
+    "aggregate": 0.6642074379797535,
+    "leak": 0.2243171519002124,
+    "input": 0.04434204404390349,
+    "refractory_threshold": 0.009255157648092795,
+    "reset_and_schedule": 0.05778322211390343,
+    "record": 9.498631413445349e-05
+   },
+   "spikes": 72077,
+   "synaptic_events": 12454928,
+   "neuron_updates": 3951922,
+   "cprofile": {
+    "python_visible_calls_per_step": 104.075,
+    "numpy_function_calls_per_step": 73.995,
+    "top_by_own_time": [
+     {
+      "function": "<method 'argsort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.00062629019,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.00017391374,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 1.99,
+      "seconds_per_step": 9.9556135e-05,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 9.6446085e-05,
+      "numpy": false
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 4.6720160000000004e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 4.2584215000000006e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 3.9565855000000004e-05,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 3.729731e-05,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 1.905173e-05,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 7.92916e-06,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 3.0146099999999998e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.7649900000000004e-06,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 31.12,
+    "operator": 22.065,
+    "subscript_read": 20.98,
+    "subscript_write": 11.995,
+    "compare": 7.0,
+    "all_instructions": 422.375
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 2304569,
+    "retained_bytes_after_run": 85831,
+    "engine_persistent_arrays_bytes": 489136,
+    "transient_peak_bytes": 2218738,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.01,
+   "mode": "event_driven",
+   "aggregation": "auto",
+   "steps": 500,
+   "wall_s": 0.2689784999965923,
+   "phases_s": {
+    "aggregate": 0.03561473703302909,
+    "leak": 0.17263688183447812,
+    "input": 0.027876657091837842,
+    "refractory_threshold": 0.005548219007323496,
+    "reset_and_schedule": 0.02724548698461149,
+    "record": 5.635104753309861e-05
+   },
+   "phase_share": {
+    "aggregate": 0.1324074568979734,
+    "leak": 0.6418244916226761,
+    "input": 0.10363904326807188,
+    "refractory_threshold": 0.020627010902576966,
+    "reset_and_schedule": 0.10129249698611119,
+    "record": 0.00020950032259047148
+   },
+   "spikes": 72077,
+   "synaptic_events": 12454928,
+   "neuron_updates": 3951922,
+   "cprofile": {
+    "python_visible_calls_per_step": 99.1,
+    "numpy_function_calls_per_step": 70.015,
+    "top_by_own_time": [
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.000198220625,
+      "numpy": true
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.00011151626000000001,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.00010899176,
+      "numpy": false
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 4.6112675e-05,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 3.370991e-05,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 1.8547280000000003e-05,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 7.871025000000001e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 6.398525000000001e-06,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 2.9003600000000004e-06,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:union1d",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 2.55461e-06,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 2.486855e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'astype' of 'numpy.ndarray' objects>",
+      "calls_per_step": 2.01,
+      "seconds_per_step": 2.16499e-06,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 32.115,
+    "operator": 23.065,
+    "subscript_read": 21.975,
+    "subscript_write": 12.99,
+    "compare": 7.0,
+    "all_instructions": 438.305
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 1481615,
+    "retained_bytes_after_run": 85678,
+    "engine_persistent_arrays_bytes": 489136,
+    "transient_peak_bytes": 1395937,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.1,
+   "mode": "time_step",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.16867929200088838,
+   "phases_s": {
+    "leak": 0.0005195100384298712,
+    "synaptic_input": 0.0007995329651748762,
+    "external_input": 0.001938195011462085,
+    "refractory": 0.0008893399790395051,
+    "threshold": 0.005439792039396707,
+    "reset_and_gather": 0.08832937096303795,
+    "deliver": 0.07070067393942736,
+    "record": 6.179306365083903e-05
+   },
+   "phase_share": {
+    "leak": 0.0030798882949423087,
+    "synaptic_input": 0.004739989680093597,
+    "external_input": 0.011490488513290707,
+    "refractory": 0.005272405899886682,
+    "threshold": 0.032249524724669756,
+    "reset_and_gather": 0.5236560905557958,
+    "deliver": 0.41914527536115975,
+    "record": 0.0003663369701614244
+   },
+   "spikes": 327375,
+   "synaptic_events": 55114423,
+   "neuron_updates": 5000000,
+   "cprofile": {
+    "python_visible_calls_per_step": 41.195,
+    "numpy_function_calls_per_step": 24.095,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_time_step",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.00015901293,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 0.00013581617,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 3.3890775e-05,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.021189e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 8.19897e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.4585250000000002e-06,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 3.0,
+      "seconds_per_step": 6.843799999999999e-07,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 6.2849e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:ravel",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 3.8852e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+      "calls_per_step": 1.015,
+      "seconds_per_step": 3.5454500000000003e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:<lambda>",
+      "calls_per_step": 8.0,
+      "seconds_per_step": 2.69685e-07,
+      "numpy": false
+     },
+     {
+      "function": "fromnumeric.py:cumsum",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.44575e-07,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 21.085,
+    "operator": 15.02,
+    "subscript_read": 11.005,
+    "subscript_write": 8.995,
+    "compare": 3.995,
+    "all_instructions": 260.9
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 6579014,
+    "retained_bytes_after_run": 85783,
+    "engine_persistent_arrays_bytes": 162400,
+    "transient_peak_bytes": 6493231,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.1,
+   "mode": "event_driven",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 2.1850487910051015,
+   "phases_s": {
+    "aggregate": 1.8270226959721185,
+    "leak": 0.17523616903054062,
+    "input": 0.039011555978504475,
+    "refractory_threshold": 0.014489145010884386,
+    "reset_and_schedule": 0.12923171106376685,
+    "record": 5.684794450644404e-05
+   },
+   "phase_share": {
+    "aggregate": 0.8361475772859007,
+    "leak": 0.08019785332211612,
+    "input": 0.017853865794602918,
+    "refractory_threshold": 0.006631041598171782,
+    "reset_and_schedule": 0.05914364520632599,
+    "record": 2.6016792882507188e-05
+   },
+   "spikes": 327375,
+   "synaptic_events": 55114423,
+   "neuron_updates": 4939605,
+   "cprofile": {
+    "python_visible_calls_per_step": 104.075,
+    "numpy_function_calls_per_step": 73.995,
+    "top_by_own_time": [
+     {
+      "function": "<method 'argsort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.0032412620750000005,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 1.99,
+      "seconds_per_step": 0.00029081345500000003,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.00024159018500000002,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.00023830726,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 0.00020789051500000002,
+      "numpy": false
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 0.0001798021,
+      "numpy": true
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 6.8041835e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 6.199515500000001e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 3.527089e-05,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 2.6109140000000003e-05,
+      "numpy": false
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 1.1435875000000002e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 8.462150000000002e-06,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 31.12,
+    "operator": 22.065,
+    "subscript_read": 20.98,
+    "subscript_write": 11.995,
+    "compare": 7.0,
+    "all_instructions": 422.375
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 12505758,
+    "retained_bytes_after_run": 85780,
+    "engine_persistent_arrays_bytes": 2269936,
+    "transient_peak_bytes": 12419978,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.1,
+   "mode": "event_driven",
+   "aggregation": "auto",
+   "steps": 500,
+   "wall_s": 0.5380649579965393,
+   "phases_s": {
+    "aggregate": 0.13791709794895723,
+    "leak": 0.22501428708346793,
+    "input": 0.04004759605595609,
+    "refractory_threshold": 0.01436890591867268,
+    "reset_and_schedule": 0.1206503599678399,
+    "record": 6.646102701779455e-05
+   },
+   "phase_share": {
+    "aggregate": 0.2563206541850859,
+    "leak": 0.41819187123246243,
+    "input": 0.07442895893445925,
+    "refractory_threshold": 0.02670479164491426,
+    "reset_and_schedule": 0.22423020535182778,
+    "record": 0.00012351865125032215
+   },
+   "spikes": 327375,
+   "synaptic_events": 55114423,
+   "neuron_updates": 4939605,
+   "cprofile": {
+    "python_visible_calls_per_step": 99.1,
+    "numpy_function_calls_per_step": 70.015,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.00034563158500000005,
+      "numpy": false
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.000260777695,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 0.00020435163500000003,
+      "numpy": false
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.00014712938,
+      "numpy": true
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 6.7493545e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 3.4125165e-05,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 2.3927425e-05,
+      "numpy": false
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 1.242225e-05,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 1.0295395000000001e-05,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 3.45463e-06,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:union1d",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 3.226655e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'astype' of 'numpy.ndarray' objects>",
+      "calls_per_step": 2.01,
+      "seconds_per_step": 2.726495e-06,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 32.115,
+    "operator": 23.065,
+    "subscript_read": 21.975,
+    "subscript_write": 12.99,
+    "compare": 7.0,
+    "all_instructions": 438.305
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 6874251,
+    "retained_bytes_after_run": 85831,
+    "engine_persistent_arrays_bytes": 2269936,
+    "transient_peak_bytes": 6788420,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 1e-05,
+   "mode": "time_step",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.094259334000526,
+   "phases_s": {
+    "leak": 0.001643550960579887,
+    "synaptic_input": 0.003299869000329636,
+    "external_input": 0.0005184279871173203,
+    "refractory": 0.0005693339844583534,
+    "threshold": 0.009133527048106771,
+    "reset_and_gather": 0.03548221496748738,
+    "deliver": 0.043542460101889446,
+    "record": 6.915795529494062e-05
+   },
+   "phase_share": {
+    "leak": 0.01743662617323431,
+    "synaptic_input": 0.03500869979662278,
+    "external_input": 0.005500063719300574,
+    "refractory": 0.006040131454893072,
+    "threshold": 0.09689866672875888,
+    "reset_and_gather": 0.376435007508454,
+    "deliver": 0.4619470997064423,
+    "record": 0.0007337049122940878
+   },
+   "spikes": 80543,
+   "synaptic_events": 18739905,
+   "neuron_updates": 25000000,
+   "cprofile": {
+    "python_visible_calls_per_step": 41.125,
+    "numpy_function_calls_per_step": 24.035,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_time_step",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.00010756083000000001,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 5.0456380000000006e-05,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 1.0356055000000001e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 8.5663e-06,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 3.4622450000000003e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 7.410250000000001e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 2.99,
+      "seconds_per_step": 6.95675e-07,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 6.815900000000001e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:ravel",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 4.14515e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+      "calls_per_step": 1.01,
+      "seconds_per_step": 3.3116e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:<lambda>",
+      "calls_per_step": 8.0,
+      "seconds_per_step": 2.82385e-07,
+      "numpy": false
+     },
+     {
+      "function": "fromnumeric.py:cumsum",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 2.45845e-07,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 21.06,
+    "operator": 13.88,
+    "subscript_read": 10.455,
+    "subscript_write": 8.435,
+    "compare": 3.995,
+    "all_instructions": 251.825
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 5077693,
+    "retained_bytes_after_run": 405885,
+    "engine_persistent_arrays_bytes": 802400,
+    "transient_peak_bytes": 4671808,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 1e-05,
+   "mode": "event_driven",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.9036693329981063,
+   "phases_s": {
+    "aggregate": 0.6367329921122291,
+    "leak": 0.1420700868984568,
+    "input": 0.056300339063454885,
+    "refractory_threshold": 0.008524755990947597,
+    "reset_and_schedule": 0.05997969897725852,
+    "record": 6.075195415178314e-05
+   },
+   "phase_share": {
+    "aggregate": 0.704608940157346,
+    "leak": 0.1572148052600667,
+    "input": 0.06230197387197439,
+    "refractory_threshold": 0.009433497805659266,
+    "reset_and_schedule": 0.06637355477234912,
+    "record": 6.722813260449153e-05
+   },
+   "spikes": 80543,
+   "synaptic_events": 18739905,
+   "neuron_updates": 7978604,
+   "cprofile": {
+    "python_visible_calls_per_step": 91.125,
+    "numpy_function_calls_per_step": 63.295,
+    "top_by_own_time": [
+     {
+      "function": "<method 'argsort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.0009341208050000001,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.435,
+      "seconds_per_step": 0.00016917896,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.00016113490000000001,
+      "numpy": false
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 1.43,
+      "seconds_per_step": 0.00014952214,
+      "numpy": true
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.435,
+      "seconds_per_step": 8.7067685e-05,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 5.942625e-05,
+      "numpy": false
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.99,
+      "seconds_per_step": 5.6784645e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.435,
+      "seconds_per_step": 4.303041000000001e-05,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 3.2595095e-05,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 1.0583805e-05,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 4.090795e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 3.914975000000001e-06,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 29.975,
+    "operator": 21.485,
+    "subscript_read": 20.43,
+    "subscript_write": 11.435,
+    "compare": 7.0,
+    "all_instructions": 409.38
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 9380055,
+    "retained_bytes_after_run": 405831,
+    "engine_persistent_arrays_bytes": 2092480,
+    "transient_peak_bytes": 8974224,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 1e-05,
+   "mode": "event_driven",
+   "aggregation": "auto",
+   "steps": 500,
+   "wall_s": 0.3842324590004864,
+   "phases_s": {
+    "aggregate": 0.07381804185570218,
+    "leak": 0.18020296406029956,
+    "input": 0.062301824989845045,
+    "refractory_threshold": 0.009364303004986141,
+    "reset_and_schedule": 0.05845541298913304,
+    "record": 8.962010178947821e-05
+   },
+   "phase_share": {
+    "aggregate": 0.19211832895647418,
+    "leak": 0.46899499713014986,
+    "input": 0.16214630200276908,
+    "refractory_threshold": 0.024371470712766633,
+    "reset_and_schedule": 0.15213565653618472,
+    "record": 0.0002332446616554849
+   },
+   "spikes": 80543,
+   "synaptic_events": 18739905,
+   "neuron_updates": 7978604,
+   "cprofile": {
+    "python_visible_calls_per_step": 86.375,
+    "numpy_function_calls_per_step": 59.495,
+    "top_by_own_time": [
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.435,
+      "seconds_per_step": 0.00022047937,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.000217044175,
+      "numpy": false
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.435,
+      "seconds_per_step": 0.00011230146,
+      "numpy": true
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.435,
+      "seconds_per_step": 0.0001122,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 7.881270000000001e-05,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 4.305009e-05,
+      "numpy": false
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.95,
+      "seconds_per_step": 2.477366e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 1.2068735e-05,
+      "numpy": true
+     },
+     {
+      "function": "getlimits.py:__init__",
+      "calls_per_step": 2.01,
+      "seconds_per_step": 5.842330000000001e-06,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 5.351895e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'astype' of 'numpy.ndarray' objects>",
+      "calls_per_step": 2.01,
+      "seconds_per_step": 4.82101e-06,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 4.4525050000000005e-06,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 30.925,
+    "operator": 22.44,
+    "subscript_read": 21.38,
+    "subscript_write": 12.385,
+    "compare": 7.0,
+    "all_instructions": 424.59
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 6155523,
+    "retained_bytes_after_run": 405627,
+    "engine_persistent_arrays_bytes": 2092480,
+    "transient_peak_bytes": 5749896,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.0001,
+   "mode": "time_step",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.1810492910008179,
+   "phases_s": {
+    "leak": 0.0016164040207513608,
+    "synaptic_input": 0.0032179239206016064,
+    "external_input": 0.0009206941031152382,
+    "refractory": 0.0008478459785692394,
+    "threshold": 0.01019789905694779,
+    "reset_and_gather": 0.08089410092361504,
+    "deliver": 0.0832815459871199,
+    "record": 7.162700785556808e-05
+   },
+   "phase_share": {
+    "leak": 0.008928039275299735,
+    "synaptic_input": 0.01777386765884377,
+    "external_input": 0.0050853579969002876,
+    "refractory": 0.004682988967419477,
+    "threshold": 0.056327033425498454,
+    "reset_and_gather": 0.44681014208958725,
+    "deliver": 0.459996946267842,
+    "record": 0.0003956243186090677
+   },
+   "spikes": 187045,
+   "synaptic_events": 45407898,
+   "neuron_updates": 25000000,
+   "cprofile": {
+    "python_visible_calls_per_step": 41.195,
+    "numpy_function_calls_per_step": 24.095,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_time_step",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.00019291006000000003,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 0.00013408732500000002,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.5684365000000002e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.0966865000000001e-05,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 8.05229e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.09419e-06,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 7.1282e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 3.0,
+      "seconds_per_step": 7.106300000000001e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:ravel",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 4.28665e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+      "calls_per_step": 1.015,
+      "seconds_per_step": 3.5703e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:<lambda>",
+      "calls_per_step": 8.0,
+      "seconds_per_step": 2.86385e-07,
+      "numpy": false
+     },
+     {
+      "function": "fromnumeric.py:cumsum",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.58095e-07,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 21.085,
+    "operator": 15.0,
+    "subscript_read": 10.995,
+    "subscript_write": 8.985,
+    "compare": 3.995,
+    "all_instructions": 260.74
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 5836630,
+    "retained_bytes_after_run": 405630,
+    "engine_persistent_arrays_bytes": 802400,
+    "transient_peak_bytes": 5431000,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.0001,
+   "mode": "event_driven",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 2.3227860830011196,
+   "phases_s": {
+    "aggregate": 1.626804457991966,
+    "leak": 0.4451317889688653,
+    "input": 0.08850199007429183,
+    "refractory_threshold": 0.015492899947275873,
+    "reset_and_schedule": 0.14674846598063596,
+    "record": 9.706304263090715e-05
+   },
+   "phase_share": {
+    "aggregate": 0.7003705874097144,
+    "leak": 0.19163779087480273,
+    "input": 0.038101807793033834,
+    "refractory_threshold": 0.0066699912109578945,
+    "reset_and_schedule": 0.06317803520602355,
+    "record": 4.1787505467678216e-05
+   },
+   "spikes": 187045,
+   "synaptic_events": 45407898,
+   "neuron_updates": 11526528,
+   "cprofile": {
+    "python_visible_calls_per_step": 103.845,
+    "numpy_function_calls_per_step": 73.805,
+    "top_by_own_time": [
+     {
+      "function": "<method 'argsort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.0025292325200000003,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.985,
+      "seconds_per_step": 0.0005414101950000001,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 1.98,
+      "seconds_per_step": 0.00032445439,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.000296264575,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 0.00017697074499999999,
+      "numpy": false
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.985,
+      "seconds_per_step": 0.00015285143500000001,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 0.000141653765,
+      "numpy": true
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.985,
+      "seconds_per_step": 0.00013897794000000002,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 4.909175e-05,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.7214500000000002e-05,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 8.520840000000001e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 7.392275e-06,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 31.1,
+    "operator": 22.055,
+    "subscript_read": 20.97,
+    "subscript_write": 11.985,
+    "compare": 7.0,
+    "all_instructions": 422.145
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 10270494,
+    "retained_bytes_after_run": 405729,
+    "engine_persistent_arrays_bytes": 2345256,
+    "transient_peak_bytes": 9864765,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.0001,
+   "mode": "event_driven",
+   "aggregation": "auto",
+   "steps": 500,
+   "wall_s": 0.8779001249931753,
+   "phases_s": {
+    "aggregate": 0.1421278650232125,
+    "leak": 0.5295848339665099,
+    "input": 0.0853048711142037,
+    "refractory_threshold": 0.013626371925056446,
+    "reset_and_schedule": 0.10719213589618448,
+    "record": 6.367207242874429e-05
+   },
+   "phase_share": {
+    "aggregate": 0.16189532463541736,
+    "leak": 0.6032406706665085,
+    "input": 0.09716926233825368,
+    "refractory_threshold": 0.015521558042468703,
+    "reset_and_schedule": 0.12210065659145937,
+    "record": 7.252772589229996e-05
+   },
+   "spikes": 187045,
+   "synaptic_events": 45407898,
+   "neuron_updates": 11526528,
+   "cprofile": {
+    "python_visible_calls_per_step": 99.02,
+    "numpy_function_calls_per_step": 69.945,
+    "top_by_own_time": [
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.985,
+      "seconds_per_step": 0.0005944754100000001,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.00036265691000000004,
+      "numpy": false
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.985,
+      "seconds_per_step": 0.000350967945,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 0.00014662027500000001,
+      "numpy": false
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.985,
+      "seconds_per_step": 0.00014272817,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 4.6639345e-05,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.537577e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.965,
+      "seconds_per_step": 2.4210775e-05,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 7.946055e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'astype' of 'numpy.ndarray' objects>",
+      "calls_per_step": 2.01,
+      "seconds_per_step": 5.10665e-06,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 4.9479000000000005e-06,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:union1d",
+      "calls_per_step": 0.985,
+      "seconds_per_step": 3.85556e-06,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 32.065,
+    "operator": 23.025,
+    "subscript_read": 21.935,
+    "subscript_write": 12.95,
+    "compare": 7.0,
+    "all_instructions": 437.595
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 6713587,
+    "retained_bytes_after_run": 405866,
+    "engine_persistent_arrays_bytes": 2345256,
+    "transient_peak_bytes": 6307721,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.001,
+   "mode": "time_step",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.1893213749935967,
+   "phases_s": {
+    "leak": 0.0015974740745150484,
+    "synaptic_input": 0.0032414509405498393,
+    "external_input": 0.0010372119650128298,
+    "refractory": 0.000859334017150104,
+    "threshold": 0.01033832506800536,
+    "reset_and_gather": 0.08697012298216578,
+    "deliver": 0.08521100000507431,
+    "record": 6.558094173669815e-05
+   },
+   "phase_share": {
+    "leak": 0.008437935007375875,
+    "synaptic_input": 0.017121499999466373,
+    "external_input": 0.005478603558751171,
+    "refractory": 0.004539043670264896,
+    "threshold": 0.054607530976949356,
+    "reset_and_gather": 0.4593803786955222,
+    "deliver": 0.4500886063985693,
+    "record": 0.000346401693100873
+   },
+   "spikes": 202349,
+   "synaptic_events": 46580779,
+   "neuron_updates": 25000000,
+   "cprofile": {
+    "python_visible_calls_per_step": 41.195,
+    "numpy_function_calls_per_step": 24.095,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_time_step",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.00021149793,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 0.00014801095500000002,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.8684955e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.1658115e-05,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 8.898500000000001e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.2100100000000001e-06,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 3.0,
+      "seconds_per_step": 7.1389e-07,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 6.8142e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:ravel",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 4.10875e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+      "calls_per_step": 1.015,
+      "seconds_per_step": 3.60765e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:<lambda>",
+      "calls_per_step": 8.0,
+      "seconds_per_step": 2.6652000000000003e-07,
+      "numpy": false
+     },
+     {
+      "function": "fromnumeric.py:cumsum",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.531e-07,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 21.085,
+    "operator": 15.02,
+    "subscript_read": 11.005,
+    "subscript_write": 8.995,
+    "compare": 3.995,
+    "all_instructions": 260.9
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 6028281,
+    "retained_bytes_after_run": 405681,
+    "engine_persistent_arrays_bytes": 802400,
+    "transient_peak_bytes": 5622600,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.001,
+   "mode": "event_driven",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 2.4702248749963474,
+   "phases_s": {
+    "aggregate": 1.6758580120804254,
+    "leak": 0.5227847479254706,
+    "input": 0.10780849902221235,
+    "refractory_threshold": 0.016442210056993645,
+    "reset_and_schedule": 0.14726395589968888,
+    "record": 6.624101661145687e-05
+   },
+   "phase_share": {
+    "aggregate": 0.6784235918171606,
+    "leak": 0.21163457994543147,
+    "input": 0.04364321357050392,
+    "refractory_threshold": 0.00665616246953417,
+    "reset_and_schedule": 0.059615636400272946,
+    "record": 2.6815797096901132e-05
+   },
+   "spikes": 202349,
+   "synaptic_events": 46580779,
+   "neuron_updates": 14805485,
+   "cprofile": {
+    "python_visible_calls_per_step": 104.075,
+    "numpy_function_calls_per_step": 73.995,
+    "top_by_own_time": [
+     {
+      "function": "<method 'argsort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.0030382354050000004,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.000770444745,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 1.99,
+      "seconds_per_step": 0.00040763498,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.00039104689000000006,
+      "numpy": false
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.00022455733000000002,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 0.00021214301000000002,
+      "numpy": false
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 0.00020474255,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 0.00016320789000000003,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 6.6442465e-05,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 3.1572120000000004e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.0077955000000001e-05,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 9.962925e-06,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 31.12,
+    "operator": 22.065,
+    "subscript_read": 20.98,
+    "subscript_write": 11.995,
+    "compare": 7.0,
+    "all_instructions": 422.375
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 10558437,
+    "retained_bytes_after_run": 405678,
+    "engine_persistent_arrays_bytes": 2409496,
+    "transient_peak_bytes": 10152759,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.001,
+   "mode": "event_driven",
+   "aggregation": "auto",
+   "steps": 500,
+   "wall_s": 1.0746209589997306,
+   "phases_s": {
+    "aggregate": 0.14871692499582423,
+    "leak": 0.6777263231342658,
+    "input": 0.11061025301023619,
+    "refractory_threshold": 0.015868167894950602,
+    "reset_and_schedule": 0.12163369989139028,
+    "record": 6.538107118103653e-05
+   },
+   "phase_share": {
+    "aggregate": 0.1383901483347702,
+    "leak": 0.630665584240415,
+    "input": 0.10292957120961761,
+    "refractory_threshold": 0.014766295825743526,
+    "reset_and_schedule": 0.11318755932419305,
+    "record": 6.0841065260620966e-05
+   },
+   "spikes": 202349,
+   "synaptic_events": 46580779,
+   "neuron_updates": 14805485,
+   "cprofile": {
+    "python_visible_calls_per_step": 99.1,
+    "numpy_function_calls_per_step": 70.015,
+    "top_by_own_time": [
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.000835602535,
+      "numpy": true
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.000510497065,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.00043967731000000003,
+      "numpy": false
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 0.000205995855,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 0.000179856465,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 6.3132865e-05,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.9311040000000004e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 2.6649715e-05,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 9.18128e-06,
+      "numpy": true
+     },
+     {
+      "function": "<method 'astype' of 'numpy.ndarray' objects>",
+      "calls_per_step": 2.01,
+      "seconds_per_step": 6.96807e-06,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 6.43467e-06,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:union1d",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 4.96761e-06,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 32.115,
+    "operator": 23.065,
+    "subscript_read": 21.975,
+    "subscript_write": 12.99,
+    "compare": 7.0,
+    "all_instructions": 438.305
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 6926630,
+    "retained_bytes_after_run": 405729,
+    "engine_persistent_arrays_bytes": 2409496,
+    "transient_peak_bytes": 6520901,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.01,
+   "mode": "time_step",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 0.3207772079986171,
+   "phases_s": {
+    "leak": 0.0016366790150641464,
+    "synaptic_input": 0.003247698965424206,
+    "external_input": 0.0016496270836796612,
+    "refractory": 0.001346113916952163,
+    "threshold": 0.012139341102738399,
+    "reset_and_gather": 0.1647347098623868,
+    "deliver": 0.13595112403709209,
+    "record": 7.066401303745806e-05
+   },
+   "phase_share": {
+    "leak": 0.005102249636435167,
+    "synaptic_input": 0.010124508662400777,
+    "external_input": 0.005142614471432125,
+    "refractory": 0.004196430198074181,
+    "threshold": 0.037843675001589694,
+    "reset_and_gather": 0.5135506753415993,
+    "deliver": 0.4238195558241571,
+    "record": 0.00022029086431177186
+   },
+   "spikes": 359762,
+   "synaptic_events": 77883935,
+   "neuron_updates": 25000000,
+   "cprofile": {
+    "python_visible_calls_per_step": 41.195,
+    "numpy_function_calls_per_step": 24.095,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_time_step",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.00030961472,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 0.00027083001,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 4.5832675e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.5007740000000001e-05,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.3961025e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.74481e-06,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 3.0,
+      "seconds_per_step": 7.57965e-07,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 7.4825e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:ravel",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 4.3239500000000005e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+      "calls_per_step": 1.015,
+      "seconds_per_step": 4.00855e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:<lambda>",
+      "calls_per_step": 8.0,
+      "seconds_per_step": 2.99635e-07,
+      "numpy": false
+     },
+     {
+      "function": "fromnumeric.py:cumsum",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 2.78335e-07,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 21.085,
+    "operator": 15.02,
+    "subscript_read": 11.005,
+    "subscript_write": 8.995,
+    "compare": 3.995,
+    "all_instructions": 260.9
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 9465377,
+    "retained_bytes_after_run": 405681,
+    "engine_persistent_arrays_bytes": 802400,
+    "transient_peak_bytes": 9059696,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.01,
+   "mode": "event_driven",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 4.156225124999764,
+   "phases_s": {
+    "aggregate": 2.9780174848929164,
+    "leak": 0.7454294850758743,
+    "input": 0.1575939669564832,
+    "refractory_threshold": 0.024839692014211323,
+    "reset_and_schedule": 0.25026251297822455,
+    "record": 8.060808613663539e-05
+   },
+   "phase_share": {
+    "aggregate": 0.7165200104758942,
+    "leak": 0.17935258780886962,
+    "input": 0.037917584912587385,
+    "refractory_threshold": 0.005976504997881391,
+    "reset_and_schedule": 0.060213917255535855,
+    "record": 1.939454923151353e-05
+   },
+   "spikes": 359762,
+   "synaptic_events": 77883935,
+   "neuron_updates": 20312242,
+   "cprofile": {
+    "python_visible_calls_per_step": 104.075,
+    "numpy_function_calls_per_step": 73.995,
+    "top_by_own_time": [
+     {
+      "function": "<method 'argsort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.004945177540000001,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.0009774763,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 1.99,
+      "seconds_per_step": 0.000592818745,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.0005487081100000001,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 0.0003458544650000001,
+      "numpy": false
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.00029723482000000004,
+      "numpy": true
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 0.000272965005,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 0.000252937925,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 8.261363000000001e-05,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 5.0556725000000005e-05,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 1.469061e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 1.4044190000000001e-05,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 31.12,
+    "operator": 22.065,
+    "subscript_read": 20.98,
+    "subscript_write": 11.995,
+    "compare": 7.0,
+    "all_instructions": 422.375
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 17975269,
+    "retained_bytes_after_run": 405627,
+    "engine_persistent_arrays_bytes": 3552208,
+    "transient_peak_bytes": 17569642,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.01,
+   "mode": "event_driven",
+   "aggregation": "auto",
+   "steps": 500,
+   "wall_s": 1.5634110829996644,
+   "phases_s": {
+    "aggregate": 0.23580481911631068,
+    "leak": 0.9324303658868303,
+    "input": 0.15954274695832282,
+    "refractory_threshold": 0.023614460995304398,
+    "reset_and_schedule": 0.21194815413764445,
+    "record": 7.016090239631012e-05
+   },
+   "phase_share": {
+    "aggregate": 0.15082717414571525,
+    "leak": 0.5964078160124342,
+    "input": 0.10204787912879541,
+    "refractory_threshold": 0.015104451360424351,
+    "reset_and_schedule": 0.13556780253169218,
+    "record": 4.4876820938630363e-05
+   },
+   "spikes": 359762,
+   "synaptic_events": 77883935,
+   "neuron_updates": 20312242,
+   "cprofile": {
+    "python_visible_calls_per_step": 99.1,
+    "numpy_function_calls_per_step": 70.015,
+    "top_by_own_time": [
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.00104818665,
+      "numpy": true
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.000665401665,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.00063497301,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 0.0003229149,
+      "numpy": false
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 0.000274369675,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 7.865542e-05,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 4.7281885e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 3.1136195e-05,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 1.4045465000000002e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'astype' of 'numpy.ndarray' objects>",
+      "calls_per_step": 2.01,
+      "seconds_per_step": 8.775565e-06,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 7.792135e-06,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:union1d",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 6.173995000000001e-06,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 32.115,
+    "operator": 23.065,
+    "subscript_read": 21.975,
+    "subscript_write": 12.99,
+    "compare": 7.0,
+    "all_instructions": 438.305
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 10796339,
+    "retained_bytes_after_run": 405678,
+    "engine_persistent_arrays_bytes": 3552208,
+    "transient_peak_bytes": 10390661,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.1,
+   "mode": "time_step",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 1.143070957994496,
+   "phases_s": {
+    "leak": 0.0019458038441371173,
+    "synaptic_input": 0.003485041088424623,
+    "external_input": 0.007213677090476267,
+    "refractory": 0.003623409014835488,
+    "threshold": 0.024589824854047038,
+    "reset_and_gather": 0.6632505921079428,
+    "deliver": 0.4388425310316961,
+    "record": 0.00011882896797033027
+   },
+   "phase_share": {
+    "leak": 0.0017022617522971903,
+    "synaptic_input": 0.003048843884178984,
+    "external_input": 0.006310793681253982,
+    "refractory": 0.0031698933052619906,
+    "threshold": 0.02151209561583199,
+    "reset_and_gather": 0.5802363473253861,
+    "deliver": 0.38391580842406214,
+    "record": 0.00010395601172765848
+   },
+   "spikes": 1462714,
+   "synaptic_events": 258221527,
+   "neuron_updates": 25000000,
+   "cprofile": {
+    "python_visible_calls_per_step": 41.195,
+    "numpy_function_calls_per_step": 24.095,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 0.00109469801,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:run_time_step",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.0009188496900000001,
+      "numpy": false
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 0.00015580035,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 4.577381e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 3.7387705e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 5.1258e-06,
+      "numpy": true
+     },
+     {
+      "function": "numeric.py:flatnonzero",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 8.898450000000001e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:_wrapfunc",
+      "calls_per_step": 3.0,
+      "seconds_per_step": 8.48405e-07,
+      "numpy": true
+     },
+     {
+      "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+      "calls_per_step": 1.015,
+      "seconds_per_step": 6.7457e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:ravel",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 5.07795e-07,
+      "numpy": true
+     },
+     {
+      "function": "fromnumeric.py:cumsum",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 3.2233e-07,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:<lambda>",
+      "calls_per_step": 8.0,
+      "seconds_per_step": 3.1452000000000004e-07,
+      "numpy": false
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 21.085,
+    "operator": 15.02,
+    "subscript_read": 11.005,
+    "subscript_write": 8.995,
+    "compare": 3.995,
+    "all_instructions": 260.9
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 44655646,
+    "retained_bytes_after_run": 405630,
+    "engine_persistent_arrays_bytes": 802400,
+    "transient_peak_bytes": 44250016,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.1,
+   "mode": "event_driven",
+   "aggregation": "sparse",
+   "steps": 500,
+   "wall_s": 12.331108332997246,
+   "phases_s": {
+    "aggregate": 10.436137922122725,
+    "leak": 0.8789916618916322,
+    "input": 0.20787850410852116,
+    "refractory_threshold": 0.06401903094956651,
+    "reset_and_schedule": 0.7439084709258168,
+    "record": 0.00017116000526584685
+   },
+   "phase_share": {
+    "aggregate": 0.8463261354962919,
+    "leak": 0.07128246310019015,
+    "input": 0.01685805729550283,
+    "refractory_threshold": 0.005191669510893513,
+    "reset_and_schedule": 0.06032779425298577,
+    "record": 1.3880344135841488e-05
+   },
+   "spikes": 1462714,
+   "synaptic_events": 258221527,
+   "neuron_updates": 24613136,
+   "cprofile": {
+    "python_visible_calls_per_step": 104.075,
+    "numpy_function_calls_per_step": 73.995,
+    "top_by_own_time": [
+     {
+      "function": "<method 'argsort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.01825586957,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:_unique1d",
+      "calls_per_step": 1.99,
+      "seconds_per_step": 0.001416906255,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.00122938634,
+      "numpy": false
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 0.0011416519950000002,
+      "numpy": false
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.00113049646,
+      "numpy": true
+     },
+     {
+      "function": "<method 'cumsum' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 0.000852567905,
+      "numpy": true
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.00036290311500000006,
+      "numpy": true
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 0.00035888355500000006,
+      "numpy": true
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 0.000172722945,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 0.00010489499500000001,
+      "numpy": false
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 5.0322325e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'flatten' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.99,
+      "seconds_per_step": 3.8678410000000006e-05,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 31.12,
+    "operator": 22.065,
+    "subscript_read": 20.98,
+    "subscript_write": 11.995,
+    "compare": 7.0,
+    "all_instructions": 422.375
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 82154610,
+    "retained_bytes_after_run": 405627,
+    "engine_persistent_arrays_bytes": 15253432,
+    "transient_peak_bytes": 81748983,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.1,
+   "mode": "event_driven",
+   "aggregation": "auto",
+   "steps": 500,
+   "wall_s": 2.8166624160003266,
+   "phases_s": {
+    "aggregate": 0.7422932589688571,
+    "leak": 1.113672450010199,
+    "input": 0.21415041907312116,
+    "refractory_threshold": 0.06051796491374262,
+    "reset_and_schedule": 0.6859291510190815,
+    "record": 9.875601972453296e-05
+   },
+   "phase_share": {
+    "aggregate": 0.2635365049010537,
+    "leak": 0.3953873237216004,
+    "input": 0.07602986054867848,
+    "refractory_threshold": 0.02148570361429276,
+    "reset_and_schedule": 0.24352554584750694,
+    "record": 3.506136686772046e-05
+   },
+   "spikes": 1462714,
+   "synaptic_events": 258221527,
+   "neuron_updates": 24613136,
+   "cprofile": {
+    "python_visible_calls_per_step": 99.1,
+    "numpy_function_calls_per_step": 70.015,
+    "top_by_own_time": [
+     {
+      "function": "engine.py:run_event_driven",
+      "calls_per_step": 0.005,
+      "seconds_per_step": 0.001774347555,
+      "numpy": false
+     },
+     {
+      "function": "<built-in method numpy._core._multiarray_umath._unique_hash>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.00121665538,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:gather",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 0.0011203947950000001,
+      "numpy": false
+     },
+     {
+      "function": "<method 'sort' of 'numpy.ndarray' objects>",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 0.00081964148,
+      "numpy": true
+     },
+     {
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 0.00036780228000000005,
+      "numpy": true
+     },
+     {
+      "function": "<method 'repeat' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.0,
+      "seconds_per_step": 0.00016530416000000003,
+      "numpy": true
+     },
+     {
+      "function": "engine.py:_lazy",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 9.650845500000002e-05,
+      "numpy": false
+     },
+     {
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "calls_per_step": 1.995,
+      "seconds_per_step": 5.5292505e-05,
+      "numpy": true
+     },
+     {
+      "function": "<built-in method numpy.arange>",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 4.824796e-05,
+      "numpy": true
+     },
+     {
+      "function": "<method 'astype' of 'numpy.ndarray' objects>",
+      "calls_per_step": 2.01,
+      "seconds_per_step": 1.1746865e-05,
+      "numpy": true
+     },
+     {
+      "function": "_methods.py:_clip",
+      "calls_per_step": 1.005,
+      "seconds_per_step": 9.714825e-06,
+      "numpy": true
+     },
+     {
+      "function": "_arraysetops_impl.py:union1d",
+      "calls_per_step": 0.995,
+      "seconds_per_step": 8.991805e-06,
+      "numpy": true
+     }
+    ],
+    "note": "cProfile sees function and method calls only; in-place operators and fancy indexing are C slots (see bytecode_ops)"
+   },
+   "bytecode_ops": {
+    "call": 32.115,
+    "operator": 23.065,
+    "subscript_read": 21.975,
+    "subscript_write": 12.99,
+    "compare": 7.0,
+    "all_instructions": 438.305
+   },
+   "memory": {
+    "peak_traced_bytes_above_start": 46127151,
+    "retained_bytes_after_run": 405678,
+    "engine_persistent_arrays_bytes": 15253432,
+    "transient_peak_bytes": 45721473,
+    "note": "tracemalloc sees NumPy data buffers; transient = peak during the run minus what the run retained"
+   }
+  }
+ ],
+ "gains": {
+  "expand_100": 0.06463304070095653,
+  "expand_10k": 0.03000000000000001,
+  "expand_1k": 0.030000000000000006,
+  "expand_50k": 0.07830471647047613,
+  "neuropil_LO_R": 0.5334838230116767,
+  "neuropil_SPS_R": 0.13924766500838337
+ },
+ "run": {
+  "timestamp_utc": "2026-09-17T11:29:24+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "9bb41e2542a910531832ffea3f70ba9a8ae60292",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m25",
+   "profile-numpy"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2",
+   "numba": "0.67.0",
+   "llvmlite": "0.49.0"
+  }
+ },
+ "note": "NumPy engine of Milestone 2, unchanged; phase timers add a small cost per phase"
+}

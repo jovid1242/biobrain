@@ -10,6 +10,8 @@ import subprocess
 import time
 from pathlib import Path
 
+import numpy as np
+
 from .. import paths, runinfo
 from ..connectome.store import sha256_file
 from . import experiments
@@ -184,7 +186,53 @@ def step_profile_numpy(sizes=PROFILE_SIZES, rates=PROFILE_RATES, steps: int = 50
                                           "note": "NumPy engine of Milestone 2, unchanged; phase timers add a small cost per phase"})
 
 
-STEPS = {"freeze-baseline": step_freeze_baseline, "profile-numpy": step_profile_numpy}
+
+# ---- compiled time-step first: control baseline on real subgraphs --------------------------------------------------------
+def _identical(a, b) -> dict:
+    """Bit-level comparison of two runs of the same mode (criteria of MILESTONE25_PLAN §3)."""
+    raster = a.raster is not None and b.raster is not None and np.array_equal(a.raster[0], b.raster[0]) \
+        and np.array_equal(a.raster[1], b.raster[1])
+    arrays = all(np.array_equal(getattr(a, f), getattr(b, f)) for f in ("spikes_per_step", "updates_per_step", "events_per_step", "spike_counts"))
+    v_bits = a.final_v.dtype == b.final_v.dtype and a.final_v.tobytes() == b.final_v.tobytes()
+    dv = float(np.max(np.abs(a.final_v.astype(np.float64) - b.final_v.astype(np.float64)))) if a.n else 0.0
+    return {"raster_identical": bool(raster), "per_step_and_per_neuron_counters_identical": bool(arrays),
+            "counters_identical": a.counters == b.counters, "final_v_bit_identical": bool(v_bits), "max_abs_final_v_difference": dv,
+            "identical": bool(raster and arrays and a.counters == b.counters and v_bits)}
+
+
+def step_check_ts(sizes=("expand_100", "expand_1k", "expand_10k", "expand_50k"), rates=(0.0001, 0.001, 0.01, 0.1),
+                  steps: int = 1000) -> None:
+    """Compiled time-step against NumPy time-step before any event-driven work: same arrays, same seed, in-process."""
+    from ..connectome.store import Connectome
+    from . import compiled, engine
+    from .pipeline import BASE, gains
+
+    conn = Connectome.load("flywire_fafb_v783")
+    g = gains()
+    compile_s = compiled.warmup("float32", modes=("time_step",))
+    rows = []
+    for name in sizes:
+        for rate in rates:
+            cfg = BASE.replace(weights={"gain": g[name]}, inputs={"rate": rate}, run={"steps": steps, "seed": 1})
+            net, sched, _ = experiments.load_prepared(experiments.prepare(conn, name, cfg))
+            p = cfg.neuron
+            numpy_run = engine.run(net, sched, p, steps, "time_step", record_spikes=True)
+            numba_run = engine.run(net, sched, p, steps, "time_step", backend="numba", record_spikes=True)
+            numpy_wall = min(numpy_run.wall_s, engine.run(net, sched, p, steps, "time_step").wall_s)
+            numba_wall = min(numba_run.wall_s, engine.run(net, sched, p, steps, "time_step", backend="numba").wall_s)
+            row = {"subgraph": name, "neurons": net.n, "edges": net.m, "input_rate": rate, "steps": steps, "dtype": p.dtype,
+                   "spikes": numpy_run.counters["spikes"], "synaptic_events": numpy_run.counters["synaptic_events"],
+                   "numpy_wall_s": numpy_wall, "compiled_wall_s": numba_wall, "compiled_speedup": numpy_wall / numba_wall,
+                   **_identical(numpy_run, numba_run)}
+            rows.append(row)
+            _log(f"{name} {rate:g}: NumPy {1e6 * numpy_wall / steps:.1f} us/step, compiled {1e6 * numba_wall / steps:.1f} us/step "
+                 f"({row['compiled_speedup']:.1f}x), identical {row['identical']}")
+    _write("experiments/check_compiled_time_step.json",
+           {"rows": rows, "compile_or_cache_load_s": compile_s, "run": runinfo.collect(),
+            "note": "in-process check (min of 2 runs each); the isolated benchmark matrix is separate"})
+
+
+STEPS = {"freeze-baseline": step_freeze_baseline, "profile-numpy": step_profile_numpy, "check-ts": step_check_ts}
 
 
 def run_step(name: str) -> int:
