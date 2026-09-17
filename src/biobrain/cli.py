@@ -146,7 +146,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.set_defaults(func=cmd_bench_memory)
 
     p = sub.add_parser("m2", help="Milestone 2 spiking-engine experiments, one step at a time")
-    p.add_argument("step", choices=["subgraphs", "calibrate", "calibrate-pb-glutamate", "equivalence", "baseline-rss", "bench", "bench-50k",
+    p.add_argument("step", choices=["subgraphs", "calibrate", "calibrate-pb-glutamate", "long-equivalence", "equivalence", "baseline-rss", "bench", "bench-50k",
                                     "bench-neuropils", "patterns", "sensitivity", "nulls", "profile", "energy", "estimate", "figures", "summary"])
     p.set_defaults(func=cmd_m2)
 

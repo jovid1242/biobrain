@@ -79,6 +79,32 @@ def step_equivalence(conn: Connectome, names=(*SIZES, "expand_50k", "neuropil_LO
     experiments._write(_exp_dir() / "equivalence.json", {"rows": rows, "tolerance": {"float64": 1e-9, "float32": 1e-4}})
 
 
+def step_long_equivalence(conn: Connectome, name: str = "expand_10k", steps: int = 40_000, rate: float = 0.001) -> None:
+    """The energy experiment's longest run showed different spike counts between modes in float32. Where does the
+    divergence start, and does it also happen in float64?"""
+    from . import engine, metrics, network
+    from .inputs import generate
+
+    g = gains()
+    sub = subgraph.load(conn, name)
+    rows = []
+    for dtype in ("float32", "float64"):
+        cfg = BASE.replace(weights={"gain": g[name]}, neuron={"dtype": dtype}, inputs={"rate": rate}, run={"steps": steps, "seed": 1})
+        net = network.build(conn, sub, cfg)
+        sched = generate(cfg.inputs, net.n, steps, 1)
+        ts = engine.run(net, sched, cfg.neuron, steps, "time_step")
+        ed = engine.run(net, sched, cfg.neuron, steps, "event_driven", aggregation="auto")
+        cmp = metrics.compare(ts, ed, metrics.V_TOLERANCE[dtype])
+        gap = np.abs(np.cumsum(ts.spikes_per_step.astype(np.int64) - ed.spikes_per_step.astype(np.int64)))
+        checkpoints = [c for c in (1_000, 2_000, 5_000, 10_000, 20_000, steps) if c <= steps]
+        rows.append({"subgraph": name, "dtype": dtype, "steps": steps, "input_rate": rate, "gain": g[name], **cmp,
+                     "spikes_time_step": ts.counters["spikes"], "spikes_event_driven": ed.counters["spikes"],
+                     "relative_spike_count_difference": abs(ts.counters["spikes"] - ed.counters["spikes"]) / max(ts.counters["spikes"], 1),
+                     "abs_cumulative_spike_count_difference": {str(c): int(gap[c - 1]) for c in checkpoints}})
+        _log(f"{dtype}: first divergent step {cmp['first_divergent_step']}, spikes {ts.counters['spikes']:,} vs {ed.counters['spikes']:,}")
+    experiments._write(_exp_dir() / "long_equivalence.json", {"rows": rows})
+
+
 def step_bench(conn: Connectome) -> None:
     g = gains()
     experiments.benchmark(conn, "main", {n: g[n] for n in SIZES}, RATES, SEEDS, STEPS, BASE, log=_log)
@@ -163,7 +189,7 @@ def step_baseline_rss() -> None:
 
 
 STEPS_ORDER = {
-    "subgraphs": step_subgraphs, "calibrate": step_calibrate, "calibrate-pb-glutamate": step_calibrate_pb_glutamate,
+    "subgraphs": step_subgraphs, "calibrate": step_calibrate, "calibrate-pb-glutamate": step_calibrate_pb_glutamate, "long-equivalence": step_long_equivalence,
     "equivalence": step_equivalence, "baseline-rss": step_baseline_rss,
     "bench": step_bench, "bench-50k": step_bench_50k, "bench-neuropils": step_bench_neuropils, "patterns": step_patterns,
     "sensitivity": step_sensitivity, "nulls": step_nulls, "profile": step_profile, "energy": step_energy,
