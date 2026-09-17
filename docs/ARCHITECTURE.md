@@ -1,7 +1,7 @@
-# Архитектура BioBrain (состояние на Milestone 1)
+# Архитектура BioBrain (состояние на Milestone 2)
 
-Milestone 1 — это **данные и анализ графа**. Симулятора, пластичности, pruning и эволюции пока нет:
-модули для них будут созданы, когда до них дойдёт очередь (см. «Что дальше»), а не заранее пустыми папками.
+Milestone 1 — **данные и анализ графа**; Milestone 2 — **минимальный spiking-движок** (раздел ниже). Пластичности,
+pruning и эволюции пока нет: модули для них будут созданы, когда до них дойдёт очередь, а не заранее пустыми папками.
 
 ## Поток данных
 
@@ -68,16 +68,36 @@ data/processed/flywire_fafb_v783/   arrays/*.npy + manifest.json (схема, sh
 
 ## Тесты
 
-`tests/` — 49 тестов, без сети:
+`tests/` — 108 тестов (49 M1 + 59 M2), без сети:
 - загрузчик: file://-URL, подменённый `urlopen` (Range, 5xx, 404), размер-политика, lock;
 - preprocess/validate: крошечный релиз того же формата с заложенными аномалиями (фрагмент, self-connection, unassigned neuropil, нейрон без аннотации);
 - статистика: сравнение с перебором (reciprocity, SCC/WCC, clustering, пути, все 16 классов triad census по определениям igraph, rich club, NMI/ARI, Leiden на заложенных сообществах);
 - сквозной тест: синтетический коннектом (3,000 нейронов) → preprocess → validate → analyzer → отчёт;
 - memory benchmark: все варианты на синтетических данных.
 
+## Spiking-движок (Milestone 2): `biobrain.snn`
+
+Подробно — `docs/SIMULATOR.md`.
+
+| модуль | ответственность |
+|---|---|
+| `snn.config` | `SimConfig` (neuron / weights / signs / inputs / run), валидация, хэши (`model_hash` общий для обоих режимов), `PROVENANCE` |
+| `snn.subgraph` | связные подграфы (`expand`, `neuropil`), индуцированный CSR из store, manifest + sha256, кэш списков нейронов |
+| `snn.network` | число синапсов → вес (transform, нормировка по всему коннектому, gain), таблица знаков (нейрон / ребро), удаление рёбер с нулевым знаком |
+| `snn.inputs` | заранее сгенерированный входной поток (CSR по шагам): poisson, burst, pulse, sparse_pattern |
+| `snn.engine` | один LIF, два режима: `run_time_step`, `run_event_driven` (sparse / auto); счётчики, память, таймеры фаз |
+| `snn.metrics` | метрики, режимы DEAD / STABLE / SATURATED, сравнение эквивалентности |
+| `snn.nulls` | degree-preserving и reciprocity-preserving топологии через тот же интерфейс |
+| `snn.energy` | модельная оценка энергии CPU процесса от ядра macOS (помечена как не измерение), состояние питания |
+| `snn.experiments` | кэш сети и входа, изолированные worker-процессы, записи с provenance, калибровка, эквивалентность, чувствительность, null-контроли, профиль, матрица бенчмарков |
+| `snn.pipeline` | `biobrain m2 <шаг>` |
+| `snn.report` | графики, точка перелома, ESTIMATE для полного коннектома, `summary.json` — только из сырых файлов |
+
+Результаты: `results/milestone2/{subgraphs, experiments, benchmarks, figures, logs}/`, `summary.json`,
+`estimate_full_connectome.json`. Кэши (`data/cache/m2/`, `data/processed/subgraphs/`) в git не входят.
+
 ## Что дальше (не реализовано)
 
-`simulator/` (Milestone 2: 100 → 1k → 10k нейронов, event-driven против time-step — бенчмарком),
 `plasticity/` (M3), `baselines/` + контрольные топологии (M4, протокол — `docs/EXPERIMENTS.md`),
-`pruning/` (M5), структурная пластичность и эволюция (M6–M7). Узкие места Python переносятся в
-другой backend только после профилирования.
+`pruning/` (M5), структурная пластичность и эволюция (M6–M7). Решение о компилируемом backend — после замера,
+описанного в `docs/PERFORMANCE_PLAN.md`.

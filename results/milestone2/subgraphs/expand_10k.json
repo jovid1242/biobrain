@@ -1,0 +1,92 @@
+{
+ "name": "expand_10k",
+ "method": "expand",
+ "params": {
+  "method": "expand",
+  "size": 10000,
+  "seed": 20260917,
+  "seed_neuron_index": 68010,
+  "seed_root_id": 720575940624705514,
+  "seed_cell_type": "PS112",
+  "seed_candidates": 23639,
+  "seed_rule": "uniform draw among central intrinsic neurons with in- and out-degree >= the connectome median"
+ },
+ "dataset": {
+  "id": "flywire_fafb_v783",
+  "store_manifest_sha256": "f118b8eb7132ab1c31cb0762f5000da46283a7b865099e0f07ca3088844f2596",
+  "counts": {
+   "neurons": 139255,
+   "edges": 15091983,
+   "rows": 16847997,
+   "synapses": 54492922
+  }
+ },
+ "neurons": 10000,
+ "edges": 1770635,
+ "synapses": 12238336,
+ "mean_out_degree": 177.0635,
+ "weak_components": 1,
+ "largest_weak_component": 10000,
+ "strong_components": 1,
+ "largest_strong_component": 10000,
+ "composition": {
+  "super_class": {
+   "central": 7871,
+   "visual_projection": 652,
+   "descending": 611,
+   "ascending": 363,
+   "visual_centrifugal": 175,
+   "optic": 149,
+   "sensory": 110,
+   "motor": 69
+  },
+  "top_nt": {
+   "acetylcholine": 5930,
+   "gaba": 2160,
+   "glutamate": 1668,
+   "dopamine": 136,
+   "serotonin": 70,
+   "octopamine": 36
+  },
+  "home_neuropil_top10": {
+   "GNG": 1508,
+   "AVLP_R": 1371,
+   "AVLP_L": 1097,
+   "SPS_R": 389,
+   "SMP_R": 298,
+   "SPS_L": 287,
+   "SMP_L": 261,
+   "ICL_R": 245,
+   "PLP_L": 239,
+   "LAL_L": 224
+  }
+ },
+ "sha256": {
+  "root_ids": "c46ae25b047efe1993755a625339a8b93d67841148483ea6bb51e8faac9ae708",
+  "edges": "334a360232271c8010621048494ba3ce60c303353aef1444fa2e2acc8725d7a0"
+ },
+ "created": {
+  "timestamp_utc": "2026-09-17T08:54:44+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "b10f5b25a8df3189947572b8dd09064917a2691b",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m2",
+   "subgraphs"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2"
+  }
+ }
+}

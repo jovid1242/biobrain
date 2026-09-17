@@ -1,0 +1,4 @@
+[14:21:24] float64 time_step vs float64 event_driven: first divergent step None, spikes 2,827,452 vs 2,827,452
+[14:21:24] float32 time_step vs float32 event_driven: first divergent step 3349, spikes 2,837,473 vs 2,827,452
+[14:21:24] float64 time_step vs float32 time_step: first divergent step 3349, spikes 2,827,452 vs 2,837,473
+[14:21:24] float64 time_step vs float32 event_driven: first divergent step None, spikes 2,827,452 vs 2,827,452

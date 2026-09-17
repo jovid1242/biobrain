@@ -1,0 +1,213 @@
+{
+ "rows": [
+  {
+   "neurons": 1000,
+   "events": 100,
+   "microseconds": {
+    "unique_bincount": 4.208771002595313,
+    "sort_reduceat": 4.293541500373976,
+    "add_at_unique": 4.470062500331551,
+    "dense_bincount": 2.8481045010266826
+   },
+   "fastest": "dense_bincount"
+  },
+  {
+   "neurons": 1000,
+   "events": 1000,
+   "microseconds": {
+    "unique_bincount": 14.590210012102034,
+    "sort_reduceat": 27.41479500400601,
+    "add_at_unique": 20.625835022656247,
+    "dense_bincount": 4.106874985154718
+   },
+   "fastest": "dense_bincount"
+  },
+  {
+   "neurons": 1000,
+   "events": 10000,
+   "microseconds": {
+    "unique_bincount": 224.9124998343177,
+    "sort_reduceat": 330.66040014091413,
+    "add_at_unique": 72.52920004248153,
+    "dense_bincount": 16.177050201804377
+   },
+   "fastest": "dense_bincount"
+  },
+  {
+   "neurons": 10000,
+   "events": 100,
+   "microseconds": {
+    "unique_bincount": 4.010979497252265,
+    "sort_reduceat": 4.275104001862928,
+    "add_at_unique": 4.722499998024432,
+    "dense_bincount": 14.813375000812812
+   },
+   "fastest": "unique_bincount"
+  },
+  {
+   "neurons": 10000,
+   "events": 1000,
+   "microseconds": {
+    "unique_bincount": 13.4245849767467,
+    "sort_reduceat": 26.877920026890934,
+    "add_at_unique": 27.77229001367232,
+    "dense_bincount": 20.553124995785765
+   },
+   "fastest": "unique_bincount"
+  },
+  {
+   "neurons": 10000,
+   "events": 10000,
+   "microseconds": {
+    "unique_bincount": 252.02710021403618,
+    "sort_reduceat": 360.41669991391245,
+    "add_at_unique": 244.67290022585075,
+    "dense_bincount": 42.87705014576204
+   },
+   "fastest": "dense_bincount"
+  },
+  {
+   "neurons": 10000,
+   "events": 100000,
+   "microseconds": {
+    "unique_bincount": 4298.0556657615425,
+    "sort_reduceat": 4942.805666360073,
+    "add_at_unique": 1350.00000106326,
+    "dense_bincount": 138.5696668876335
+   },
+   "fastest": "dense_bincount"
+  },
+  {
+   "neurons": 50000,
+   "events": 100,
+   "microseconds": {
+    "unique_bincount": 3.9605205020052376,
+    "sort_reduceat": 4.201957999612205,
+    "add_at_unique": 4.657062498154119,
+    "dense_bincount": 63.786708498810185
+   },
+   "fastest": "unique_bincount"
+  },
+  {
+   "neurons": 50000,
+   "events": 1000,
+   "microseconds": {
+    "unique_bincount": 13.46041499346029,
+    "sort_reduceat": 26.89479002583539,
+    "add_at_unique": 29.98812498844927,
+    "dense_bincount": 71.63187499827472
+   },
+   "fastest": "unique_bincount"
+  },
+  {
+   "neurons": 50000,
+   "events": 10000,
+   "microseconds": {
+    "unique_bincount": 205.42919992294628,
+    "sort_reduceat": 360.4708497732645,
+    "add_at_unique": 329.1687502496643,
+    "dense_bincount": 129.55415004398674
+   },
+   "fastest": "dense_bincount"
+  },
+  {
+   "neurons": 50000,
+   "events": 100000,
+   "microseconds": {
+    "unique_bincount": 4748.194332933053,
+    "sort_reduceat": 5073.874999652617,
+    "add_at_unique": 2216.4166681856536,
+    "dense_bincount": 259.50000175119686
+   },
+   "fastest": "dense_bincount"
+  },
+  {
+   "neurons": 50000,
+   "events": 1000000,
+   "microseconds": {
+    "unique_bincount": 51733.263666392304,
+    "sort_reduceat": 70295.680333705,
+    "add_at_unique": 7826.9306662453655,
+    "dense_bincount": 1554.0970004318904
+   },
+   "fastest": "dense_bincount"
+  },
+  {
+   "neurons": 139255,
+   "events": 100,
+   "microseconds": {
+    "unique_bincount": 4.079479000210995,
+    "sort_reduceat": 4.168145500443643,
+    "add_at_unique": 4.688749999331776,
+    "dense_bincount": 171.9072084997606
+   },
+   "fastest": "unique_bincount"
+  },
+  {
+   "neurons": 139255,
+   "events": 1000,
+   "microseconds": {
+    "unique_bincount": 13.532919983845204,
+    "sort_reduceat": 27.26541497395374,
+    "add_at_unique": 30.232499993871897,
+    "dense_bincount": 181.92166498920415
+   },
+   "fastest": "unique_bincount"
+  },
+  {
+   "neurons": 139255,
+   "events": 10000,
+   "microseconds": {
+    "unique_bincount": 238.49794997659046,
+    "sort_reduceat": 355.94790024333633,
+    "add_at_unique": 355.74374996940605,
+    "dense_bincount": 251.82499994116372
+   },
+   "fastest": "unique_bincount"
+  },
+  {
+   "neurons": 139255,
+   "events": 100000,
+   "microseconds": {
+    "unique_bincount": 4921.3469998600585,
+    "sort_reduceat": 5269.4446688595535,
+    "add_at_unique": 3710.375000082422,
+    "dense_bincount": 743.8890000533623
+   },
+   "fastest": "dense_bincount"
+  },
+  {
+   "neurons": 139255,
+   "events": 1000000,
+   "microseconds": {
+    "unique_bincount": 56892.12500146823,
+    "sort_reduceat": 71917.95833205106,
+    "add_at_unique": 13143.13899880896,
+    "dense_bincount": 1775.5416677876685
+   },
+   "fastest": "dense_bincount"
+  }
+ ],
+ "run": {
+  "timestamp_utc": "2026-09-17T09:14:35+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "74d7dd203c47e4e09ea953925f70f3d94b051823",
+  "git_dirty": false,
+  "command": [
+   "tools/aggregation_microbench.py"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2"
+  }
+ }
+}

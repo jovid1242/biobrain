@@ -24,6 +24,12 @@ def _run(*cmd: str) -> str | None:
         return None
 
 
+def _relative(arg: str) -> str:
+    """Paths inside the project are recorded relative to it, so results carry no machine-specific home directory."""
+    root = str(paths.project_root()) + os.sep
+    return arg[len(root):] if arg.startswith(root) else arg
+
+
 def collect(**extra) -> dict:
     commit = _run("git", "rev-parse", "HEAD")
     versions = {}
@@ -40,7 +46,7 @@ def collect(**extra) -> dict:
         # dirty = code or data definitions differ from the commit (regenerated results/docs do not count)
         "git_dirty": bool(_run("git", "status", "--porcelain", "--", "src", "catalog", "pyproject.toml",
                                "requirements.lock")) if commit else None,
-        "command": sys.argv,
+        "command": [_relative(arg) for arg in sys.argv],
         "python": platform.python_version(),
         "platform": platform.platform(),
         "cpu": cpu or platform.processor() or platform.machine(),

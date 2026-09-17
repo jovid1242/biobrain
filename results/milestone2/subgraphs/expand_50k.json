@@ -1,0 +1,96 @@
+{
+ "name": "expand_50k",
+ "method": "expand",
+ "params": {
+  "method": "expand",
+  "size": 50000,
+  "seed": 20260917,
+  "seed_neuron_index": 68010,
+  "seed_root_id": 720575940624705514,
+  "seed_cell_type": "PS112",
+  "seed_candidates": 23639,
+  "seed_rule": "uniform draw among central intrinsic neurons with in- and out-degree >= the connectome median"
+ },
+ "dataset": {
+  "id": "flywire_fafb_v783",
+  "store_manifest_sha256": "f118b8eb7132ab1c31cb0762f5000da46283a7b865099e0f07ca3088844f2596",
+  "counts": {
+   "neurons": 139255,
+   "edges": 15091983,
+   "rows": 16847997,
+   "synapses": 54492922
+  }
+ },
+ "neurons": 50000,
+ "edges": 7821628,
+ "synapses": 34181120,
+ "mean_out_degree": 156.43256,
+ "weak_components": 1,
+ "largest_weak_component": 50000,
+ "strong_components": 2,
+ "largest_strong_component": 49999,
+ "composition": {
+  "super_class": {
+   "optic": 21180,
+   "central": 20295,
+   "visual_projection": 5569,
+   "descending": 923,
+   "ascending": 849,
+   "sensory": 660,
+   "visual_centrifugal": 379,
+   "motor": 94,
+   "sensory_ascending": 32,
+   "endocrine": 18,
+   "(none)": 1
+  },
+  "top_nt": {
+   "acetylcholine": 31796,
+   "glutamate": 9557,
+   "gaba": 7998,
+   "serotonin": 324,
+   "dopamine": 270,
+   "octopamine": 54,
+   "(none)": 1
+  },
+  "home_neuropil_top10": {
+   "ME_R": 6989,
+   "LO_R": 5356,
+   "ME_L": 4652,
+   "LO_L": 4188,
+   "GNG": 2565,
+   "AVLP_R": 1908,
+   "AVLP_L": 1597,
+   "SMP_R": 1354,
+   "SMP_L": 1237,
+   "SLP_R": 1201
+  }
+ },
+ "sha256": {
+  "root_ids": "854208ec7404a836b04dc41dde5311162f5098fb9e7af2d77c7d4b0ff5cf3b4a",
+  "edges": "9d61940af955935a787d5ca2c40cc12f17c2605d1f3a1303e2d215f705cc3234"
+ },
+ "created": {
+  "timestamp_utc": "2026-09-17T08:54:46+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "b10f5b25a8df3189947572b8dd09064917a2691b",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m2",
+   "subgraphs"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2"
+  }
+ }
+}

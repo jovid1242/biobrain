@@ -1,0 +1,398 @@
+{
+ "subgraph": "expand_1k",
+ "config": {
+  "neuron": {
+   "dt_ms": 1.0,
+   "tau_m_ms": 20.0,
+   "v_threshold": 1.0,
+   "v_reset": 0.0,
+   "refractory_ms": 2.0,
+   "delay_ms": 1.0,
+   "dtype": "float32"
+  },
+  "weights": {
+   "transform": "linear",
+   "gain": 0.030000000000000006,
+   "clip": 20.0,
+   "min_synapses": 1
+  },
+  "signs": {
+   "source": "neuron",
+   "acetylcholine": 1.0,
+   "gaba": -1.0,
+   "glutamate": -1.0,
+   "dopamine": 0.0,
+   "serotonin": 0.0,
+   "octopamine": 0.0,
+   "missing": 0.0
+  },
+  "inputs": {
+   "pattern": "poisson",
+   "rate": 0.01,
+   "weight": 2.0,
+   "fraction": 1.0,
+   "on_steps": 300,
+   "burst_period": 200,
+   "burst_on": 50,
+   "pulse_every": 100,
+   "pulse_fraction": 0.1,
+   "pattern_neurons": 20,
+   "pattern_length": 50,
+   "pattern_every": 100
+  },
+  "run": {
+   "steps": 600,
+   "mode": "time_step",
+   "aggregation": "sparse",
+   "seed": 0,
+   "record_spikes": false,
+   "record_voltage_every": 0,
+   "profile": false
+  }
+ },
+ "rows": [
+  {
+   "topology": "real",
+   "seed": 1,
+   "edges": 99717,
+   "reciprocity": 0.3819007792051506,
+   "topology_info": null,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.012656666666666667,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.3129322268326418,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 6.328333333333333,
+   "equivalence": {
+    "spikes_equal": true,
+    "raster_equal": true,
+    "first_divergent_step": null,
+    "spike_count_difference": 0,
+    "max_abs_final_v_difference": 7.639755494892597e-11,
+    "v_tolerance": 0.0001,
+    "equivalent": true
+   },
+   "ts_wall_s": 0.004852750003919937,
+   "ed_wall_s": 0.02521958299621474
+  },
+  {
+   "topology": "real",
+   "seed": 2,
+   "edges": 99717,
+   "reciprocity": 0.3819007792051506,
+   "topology_info": null,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.0123,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.2598156367360873,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 6.215,
+   "equivalence": {
+    "spikes_equal": true,
+    "raster_equal": true,
+    "first_divergent_step": null,
+    "spike_count_difference": 0,
+    "max_abs_final_v_difference": 5.5933924159035087e-11,
+    "v_tolerance": 0.0001,
+    "equivalent": true
+   },
+   "ts_wall_s": 0.004810083999473136,
+   "ed_wall_s": 0.024721166999370325
+  },
+  {
+   "topology": "real",
+   "seed": 3,
+   "edges": 99717,
+   "reciprocity": 0.3819007792051506,
+   "topology_info": null,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.012963333333333334,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.2959013662112628,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 6.496666666666667,
+   "equivalence": {
+    "spikes_equal": true,
+    "raster_equal": true,
+    "first_divergent_step": null,
+    "spike_count_difference": 0,
+    "max_abs_final_v_difference": 5.411493475548923e-11,
+    "v_tolerance": 0.0001,
+    "equivalent": true
+   },
+   "ts_wall_s": 0.004711667002993636,
+   "ed_wall_s": 0.02501858300092863
+  },
+  {
+   "topology": "degree_preserving",
+   "seed": 1,
+   "edges": 99717,
+   "reciprocity": 0.1163893819509211,
+   "topology_info": {
+    "reciprocity_real": 0.3819007792051506,
+    "variant": "degree_preserving",
+    "seed": 11,
+    "edges": 99717,
+    "neurons_with_changed_out_degree": 0,
+    "reciprocity_null": 0.1163893819509211
+   },
+   "regime": "STABLE",
+   "rate_on_per_step": 0.030353333333333333,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 3.148686030428769,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 15.906666666666666,
+   "equivalence": {
+    "spikes_equal": true,
+    "raster_equal": true,
+    "first_divergent_step": null,
+    "spike_count_difference": 0,
+    "max_abs_final_v_difference": 1.4733814168721437e-10,
+    "v_tolerance": 0.0001,
+    "equivalent": true
+   },
+   "ts_wall_s": 0.006649916998867411,
+   "ed_wall_s": 0.04642437499569496
+  },
+  {
+   "topology": "degree_preserving",
+   "seed": 2,
+   "edges": 99717,
+   "reciprocity": 0.1163893819509211,
+   "topology_info": {
+    "reciprocity_real": 0.3819007792051506,
+    "variant": "degree_preserving",
+    "seed": 11,
+    "edges": 99717,
+    "neurons_with_changed_out_degree": 0,
+    "reciprocity_null": 0.1163893819509211
+   },
+   "regime": "STABLE",
+   "rate_on_per_step": 0.02966,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 3.0378968931375896,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 16.546666666666667,
+   "equivalence": {
+    "spikes_equal": true,
+    "raster_equal": true,
+    "first_divergent_step": null,
+    "spike_count_difference": 0,
+    "max_abs_final_v_difference": 6.184563972055912e-10,
+    "v_tolerance": 0.0001,
+    "equivalent": true
+   },
+   "ts_wall_s": 0.007004792001680471,
+   "ed_wall_s": 0.04825200000050245
+  },
+  {
+   "topology": "degree_preserving",
+   "seed": 3,
+   "edges": 99717,
+   "reciprocity": 0.1163893819509211,
+   "topology_info": {
+    "reciprocity_real": 0.3819007792051506,
+    "variant": "degree_preserving",
+    "seed": 11,
+    "edges": 99717,
+    "neurons_with_changed_out_degree": 0,
+    "reciprocity_null": 0.1163893819509211
+   },
+   "regime": "STABLE",
+   "rate_on_per_step": 0.03417,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 3.415861379540153,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 17.4,
+   "equivalence": {
+    "spikes_equal": true,
+    "raster_equal": true,
+    "first_divergent_step": null,
+    "spike_count_difference": 0,
+    "max_abs_final_v_difference": 6.912159733474255e-11,
+    "v_tolerance": 0.0001,
+    "equivalent": true
+   },
+   "ts_wall_s": 0.0070279999999911524,
+   "ed_wall_s": 0.048976625002978835
+  },
+  {
+   "topology": "reciprocity_preserving",
+   "seed": 1,
+   "edges": 96818,
+   "reciprocity": 0.4283501001879816,
+   "topology_info": {
+    "reciprocity_real": 0.3819007792051506,
+    "mutual_pairs_real": 19041,
+    "duplicate_edges_dropped": 2899,
+    "variant": "reciprocity_preserving",
+    "seed": 11,
+    "edges": 96818,
+    "neurons_with_changed_out_degree": 812,
+    "reciprocity_null": 0.4283501001879816
+   },
+   "regime": "STABLE",
+   "rate_on_per_step": 0.02413,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 2.5031120331950207,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 12.218333333333334,
+   "equivalence": {
+    "spikes_equal": true,
+    "raster_equal": true,
+    "first_divergent_step": null,
+    "spike_count_difference": 0,
+    "max_abs_final_v_difference": 7.912603905424476e-11,
+    "v_tolerance": 0.0001,
+    "equivalent": true
+   },
+   "ts_wall_s": 0.005821791994094383,
+   "ed_wall_s": 0.03789429199969163
+  },
+  {
+   "topology": "reciprocity_preserving",
+   "seed": 2,
+   "edges": 96818,
+   "reciprocity": 0.4283501001879816,
+   "topology_info": {
+    "reciprocity_real": 0.3819007792051506,
+    "mutual_pairs_real": 19041,
+    "duplicate_edges_dropped": 2899,
+    "variant": "reciprocity_preserving",
+    "seed": 11,
+    "edges": 96818,
+    "neurons_with_changed_out_degree": 812,
+    "reciprocity_null": 0.4283501001879816
+   },
+   "regime": "STABLE",
+   "rate_on_per_step": 0.023233333333333335,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 2.379651758279276,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 11.713333333333333,
+   "equivalence": {
+    "spikes_equal": true,
+    "raster_equal": true,
+    "first_divergent_step": null,
+    "spike_count_difference": 0,
+    "max_abs_final_v_difference": 5.820766091346741e-11,
+    "v_tolerance": 0.0001,
+    "equivalent": true
+   },
+   "ts_wall_s": 0.00563125000189757,
+   "ed_wall_s": 0.03584437500103377
+  },
+  {
+   "topology": "reciprocity_preserving",
+   "seed": 3,
+   "edges": 96818,
+   "reciprocity": 0.4283501001879816,
+   "topology_info": {
+    "reciprocity_real": 0.3819007792051506,
+    "mutual_pairs_real": 19041,
+    "duplicate_edges_dropped": 2899,
+    "variant": "reciprocity_preserving",
+    "seed": 11,
+    "edges": 96818,
+    "neurons_with_changed_out_degree": 812,
+    "reciprocity_null": 0.4283501001879816
+   },
+   "regime": "STABLE",
+   "rate_on_per_step": 0.02473,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 2.4721759413528823,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 12.605,
+   "equivalence": {
+    "spikes_equal": true,
+    "raster_equal": true,
+    "first_divergent_step": null,
+    "spike_count_difference": 0,
+    "max_abs_final_v_difference": 1.1186784831807017e-10,
+    "v_tolerance": 0.0001,
+    "equivalent": true
+   },
+   "ts_wall_s": 0.005889375002880115,
+   "ed_wall_s": 0.03777987499779556
+  }
+ ],
+ "note": "infrastructure check only; no conclusion about fly topology is drawn in Milestone 2",
+ "run": {
+  "timestamp_utc": "2026-09-17T09:05:39+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "88d85cb9861211c07b65a144e1419ad621f20150",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m2",
+   "nulls"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2"
+  }
+ }
+}

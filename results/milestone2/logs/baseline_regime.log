@@ -1,0 +1,6 @@
+[14:27:11]   expand_100 gain 0.06463: ['STABLE', 'STABLE', 'STABLE']
+[14:27:11]   expand_1k gain 0.03: ['STABLE', 'STABLE', 'STABLE']
+[14:27:11]   expand_10k gain 0.03: ['STABLE', 'STABLE', 'STABLE']
+[14:27:12]   expand_50k gain 0.0783: ['STABLE', 'STABLE', 'STABLE']
+[14:27:12]   neuropil_SPS_R gain 0.1392: ['STABLE', 'STABLE', 'STABLE']
+[14:27:12]   neuropil_LO_R gain 0.5335: ['STABLE', 'STABLE', 'STABLE']

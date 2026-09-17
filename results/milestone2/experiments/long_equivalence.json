@@ -1,0 +1,194 @@
+{
+ "subgraph": "expand_10k",
+ "gain": 0.03000000000000001,
+ "input_rate": 0.001,
+ "steps": 40000,
+ "configs": {
+  "float64": {
+   "neuron": {
+    "dt_ms": 1.0,
+    "tau_m_ms": 20.0,
+    "v_threshold": 1.0,
+    "v_reset": 0.0,
+    "refractory_ms": 2.0,
+    "delay_ms": 1.0,
+    "dtype": "float64"
+   },
+   "weights": {
+    "transform": "linear",
+    "gain": 0.03000000000000001,
+    "clip": 20.0,
+    "min_synapses": 1
+   },
+   "signs": {
+    "source": "neuron",
+    "acetylcholine": 1.0,
+    "gaba": -1.0,
+    "glutamate": -1.0,
+    "dopamine": 0.0,
+    "serotonin": 0.0,
+    "octopamine": 0.0,
+    "missing": 0.0
+   },
+   "inputs": {
+    "pattern": "poisson",
+    "rate": 0.001,
+    "weight": 2.0,
+    "fraction": 1.0,
+    "on_steps": null,
+    "burst_period": 200,
+    "burst_on": 50,
+    "pulse_every": 100,
+    "pulse_fraction": 0.1,
+    "pattern_neurons": 20,
+    "pattern_length": 50,
+    "pattern_every": 100
+   },
+   "run": {
+    "steps": 40000,
+    "mode": "time_step",
+    "aggregation": "auto",
+    "seed": 1,
+    "record_spikes": true,
+    "record_voltage_every": 0,
+    "profile": false
+   }
+  },
+  "float32": {
+   "neuron": {
+    "dt_ms": 1.0,
+    "tau_m_ms": 20.0,
+    "v_threshold": 1.0,
+    "v_reset": 0.0,
+    "refractory_ms": 2.0,
+    "delay_ms": 1.0,
+    "dtype": "float32"
+   },
+   "weights": {
+    "transform": "linear",
+    "gain": 0.03000000000000001,
+    "clip": 20.0,
+    "min_synapses": 1
+   },
+   "signs": {
+    "source": "neuron",
+    "acetylcholine": 1.0,
+    "gaba": -1.0,
+    "glutamate": -1.0,
+    "dopamine": 0.0,
+    "serotonin": 0.0,
+    "octopamine": 0.0,
+    "missing": 0.0
+   },
+   "inputs": {
+    "pattern": "poisson",
+    "rate": 0.001,
+    "weight": 2.0,
+    "fraction": 1.0,
+    "on_steps": null,
+    "burst_period": 200,
+    "burst_on": 50,
+    "pulse_every": 100,
+    "pulse_fraction": 0.1,
+    "pattern_neurons": 20,
+    "pattern_length": 50,
+    "pattern_every": 100
+   },
+   "run": {
+    "steps": 40000,
+    "mode": "time_step",
+    "aggregation": "auto",
+    "seed": 1,
+    "record_spikes": true,
+    "record_voltage_every": 0,
+    "profile": false
+   }
+  }
+ },
+ "rows": [
+  {
+   "a": "float64 time_step",
+   "b": "float64 event_driven",
+   "first_divergent_step": null,
+   "spikes_a": 2827452,
+   "spikes_b": 2827452,
+   "abs_cumulative_spike_count_difference": {
+    "1000": 0,
+    "2000": 0,
+    "5000": 0,
+    "10000": 0,
+    "20000": 0,
+    "40000": 0
+   }
+  },
+  {
+   "a": "float32 time_step",
+   "b": "float32 event_driven",
+   "first_divergent_step": 3349,
+   "spikes_a": 2837473,
+   "spikes_b": 2827452,
+   "abs_cumulative_spike_count_difference": {
+    "1000": 0,
+    "2000": 0,
+    "5000": 0,
+    "10000": 0,
+    "20000": 1919,
+    "40000": 10021
+   }
+  },
+  {
+   "a": "float64 time_step",
+   "b": "float32 time_step",
+   "first_divergent_step": 3349,
+   "spikes_a": 2827452,
+   "spikes_b": 2837473,
+   "abs_cumulative_spike_count_difference": {
+    "1000": 0,
+    "2000": 0,
+    "5000": 0,
+    "10000": 0,
+    "20000": 1919,
+    "40000": 10021
+   }
+  },
+  {
+   "a": "float64 time_step",
+   "b": "float32 event_driven",
+   "first_divergent_step": null,
+   "spikes_a": 2827452,
+   "spikes_b": 2827452,
+   "abs_cumulative_spike_count_difference": {
+    "1000": 0,
+    "2000": 0,
+    "5000": 0,
+    "10000": 0,
+    "20000": 0,
+    "40000": 0
+   }
+  }
+ ],
+ "run": {
+  "timestamp_utc": "2026-09-17T09:21:24+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "52de4e8ad322c06f042f8b8d5b0638d2da502de5",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m2",
+   "long-equivalence"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2"
+  }
+ }
+}

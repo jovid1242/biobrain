@@ -1,0 +1,465 @@
+{
+ "subgraphs": {
+  "expand_100": {
+   "baseline_gain": 0.06463304070095653,
+   "rows": [
+    {
+     "gain": 0.06463304070095653,
+     "seed": 1,
+     "regime": "STABLE",
+     "rate_on_per_step": 0.0212,
+     "rate_late_off_per_step": 0.0,
+     "amplification": 2.21602787456446,
+     "self_sustained": false,
+     "max_rate_per_step": 0.3333333333333333,
+     "rules": {
+      "dead_amplification": 1.05,
+      "saturated_fraction_of_max_rate": 0.5,
+      "runaway_fraction_of_max_rate": 0.1
+     },
+     "population_rate_hz": 10.6,
+     "fraction_neurons_active": 0.86,
+     "silent_neurons": 14,
+     "refractory_occupancy": 0.0212,
+     "synaptic_events": 22654,
+     "membrane_max": 0.9919345378875732,
+     "membrane_mean_max": 0.0
+    },
+    {
+     "gain": 0.06463304070095653,
+     "seed": 2,
+     "regime": "STABLE",
+     "rate_on_per_step": 0.0145,
+     "rate_late_off_per_step": 0.0,
+     "amplification": 1.4948453608247423,
+     "self_sustained": false,
+     "max_rate_per_step": 0.3333333333333333,
+     "rules": {
+      "dead_amplification": 1.05,
+      "saturated_fraction_of_max_rate": 0.5,
+      "runaway_fraction_of_max_rate": 0.1
+     },
+     "population_rate_hz": 7.25,
+     "fraction_neurons_active": 0.85,
+     "silent_neurons": 15,
+     "refractory_occupancy": 0.0145,
+     "synaptic_events": 15715,
+     "membrane_max": 0.9674975872039795,
+     "membrane_mean_max": 0.0
+    },
+    {
+     "gain": 0.06463304070095653,
+     "seed": 3,
+     "regime": "STABLE",
+     "rate_on_per_step": 0.019033333333333333,
+     "rate_late_off_per_step": 0.0,
+     "amplification": 2.068840579710145,
+     "self_sustained": false,
+     "max_rate_per_step": 0.3333333333333333,
+     "rules": {
+      "dead_amplification": 1.05,
+      "saturated_fraction_of_max_rate": 0.5,
+      "runaway_fraction_of_max_rate": 0.1
+     },
+     "population_rate_hz": 9.55,
+     "fraction_neurons_active": 0.81,
+     "silent_neurons": 19,
+     "refractory_occupancy": 0.0191,
+     "synaptic_events": 21063,
+     "membrane_max": 0.9851735830307007,
+     "membrane_mean_max": 0.0
+    }
+   ]
+  },
+  "expand_1k": {
+   "baseline_gain": 0.030000000000000006,
+   "rows": [
+    {
+     "gain": 0.030000000000000006,
+     "seed": 1,
+     "regime": "STABLE",
+     "rate_on_per_step": 0.012656666666666667,
+     "rate_late_off_per_step": 0.0,
+     "amplification": 1.3129322268326418,
+     "self_sustained": false,
+     "max_rate_per_step": 0.3333333333333333,
+     "rules": {
+      "dead_amplification": 1.05,
+      "saturated_fraction_of_max_rate": 0.5,
+      "runaway_fraction_of_max_rate": 0.1
+     },
+     "population_rate_hz": 6.328333333333333,
+     "fraction_neurons_active": 0.885,
+     "silent_neurons": 115,
+     "refractory_occupancy": 0.012656666666666667,
+     "synaptic_events": 389892,
+     "membrane_max": 0.997821569442749,
+     "membrane_mean_max": 0.0
+    },
+    {
+     "gain": 0.030000000000000006,
+     "seed": 2,
+     "regime": "STABLE",
+     "rate_on_per_step": 0.0123,
+     "rate_late_off_per_step": 0.0,
+     "amplification": 1.2598156367360873,
+     "self_sustained": false,
+     "max_rate_per_step": 0.3333333333333333,
+     "rules": {
+      "dead_amplification": 1.05,
+      "saturated_fraction_of_max_rate": 0.5,
+      "runaway_fraction_of_max_rate": 0.1
+     },
+     "population_rate_hz": 6.215,
+     "fraction_neurons_active": 0.902,
+     "silent_neurons": 98,
+     "refractory_occupancy": 0.01243,
+     "synaptic_events": 383088,
+     "membrane_max": 0.9957901835441589,
+     "membrane_mean_max": 0.0
+    },
+    {
+     "gain": 0.030000000000000006,
+     "seed": 3,
+     "regime": "STABLE",
+     "rate_on_per_step": 0.012963333333333334,
+     "rate_late_off_per_step": 0.0,
+     "amplification": 1.2959013662112628,
+     "self_sustained": false,
+     "max_rate_per_step": 0.3333333333333333,
+     "rules": {
+      "dead_amplification": 1.05,
+      "saturated_fraction_of_max_rate": 0.5,
+      "runaway_fraction_of_max_rate": 0.1
+     },
+     "population_rate_hz": 6.496666666666667,
+     "fraction_neurons_active": 0.885,
+     "silent_neurons": 115,
+     "refractory_occupancy": 0.012993333333333334,
+     "synaptic_events": 400664,
+     "membrane_max": 0.9989982843399048,
+     "membrane_mean_max": 0.0
+    }
+   ]
+  },
+  "expand_10k": {
+   "baseline_gain": 0.03000000000000001,
+   "rows": [
+    {
+     "gain": 0.03000000000000001,
+     "seed": 1,
+     "regime": "STABLE",
+     "rate_on_per_step": 0.014673,
+     "rate_late_off_per_step": 0.0,
+     "amplification": 1.4784872199643972,
+     "self_sustained": false,
+     "max_rate_per_step": 0.3333333333333333,
+     "rules": {
+      "dead_amplification": 1.05,
+      "saturated_fraction_of_max_rate": 0.5,
+      "runaway_fraction_of_max_rate": 0.1
+     },
+     "population_rate_hz": 7.3715,
+     "fraction_neurons_active": 0.8471,
+     "silent_neurons": 1529,
+     "refractory_occupancy": 0.014743,
+     "synaptic_events": 7651664,
+     "membrane_max": 0.9998267889022827,
+     "membrane_mean_max": 0.0
+    },
+    {
+     "gain": 0.03000000000000001,
+     "seed": 2,
+     "regime": "STABLE",
+     "rate_on_per_step": 0.014403333333333334,
+     "rate_late_off_per_step": 0.006394,
+     "amplification": 1.4471348672092166,
+     "self_sustained": true,
+     "max_rate_per_step": 0.3333333333333333,
+     "rules": {
+      "dead_amplification": 1.05,
+      "saturated_fraction_of_max_rate": 0.5,
+      "runaway_fraction_of_max_rate": 0.1
+     },
+     "population_rate_hz": 10.376166666666666,
+     "fraction_neurons_active": 0.8554,
+     "silent_neurons": 1446,
+     "refractory_occupancy": 0.02072183333333333,
+     "synaptic_events": 10898413,
+     "membrane_max": 0.9999362230300903,
+     "membrane_mean_max": 0.0
+    },
+    {
+     "gain": 0.03000000000000001,
+     "seed": 3,
+     "regime": "STABLE",
+     "rate_on_per_step": 0.014374333333333333,
+     "rate_late_off_per_step": 0.006906,
+     "amplification": 1.4443179153967245,
+     "self_sustained": true,
+     "max_rate_per_step": 0.3333333333333333,
+     "rules": {
+      "dead_amplification": 1.05,
+      "saturated_fraction_of_max_rate": 0.5,
+      "runaway_fraction_of_max_rate": 0.1
+     },
+     "population_rate_hz": 10.534333333333333,
+     "fraction_neurons_active": 0.8604,
+     "silent_neurons": 1396,
+     "refractory_occupancy": 0.021036666666666665,
+     "synaptic_events": 11025511,
+     "membrane_max": 0.9999463558197021,
+     "membrane_mean_max": 0.0
+    }
+   ]
+  },
+  "expand_50k": {
+   "baseline_gain": 0.07830471647047613,
+   "rows": [
+    {
+     "gain": 0.07830471647047613,
+     "seed": 1,
+     "regime": "STABLE",
+     "rate_on_per_step": 0.0144752,
+     "rate_late_off_per_step": 0.0062594,
+     "amplification": 1.4549401949944718,
+     "self_sustained": true,
+     "max_rate_per_step": 0.3333333333333333,
+     "rules": {
+      "dead_amplification": 1.05,
+      "saturated_fraction_of_max_rate": 0.5,
+      "runaway_fraction_of_max_rate": 0.1
+     },
+     "population_rate_hz": 10.804933333333333,
+     "fraction_neurons_active": 0.68048,
+     "silent_neurons": 15976,
+     "refractory_occupancy": 0.0215812,
+     "synaptic_events": 71393600,
+     "membrane_max": 0.9999989867210388,
+     "membrane_mean_max": 0.0
+    },
+    {
+     "gain": 0.07830471647047613,
+     "seed": 2,
+     "regime": "STABLE",
+     "rate_on_per_step": 0.0146844,
+     "rate_late_off_per_step": 0.005355,
+     "amplification": 1.4662796812695962,
+     "self_sustained": true,
+     "max_rate_per_step": 0.3333333333333333,
+     "rules": {
+      "dead_amplification": 1.05,
+      "saturated_fraction_of_max_rate": 0.5,
+      "runaway_fraction_of_max_rate": 0.1
+     },
+     "population_rate_hz": 10.380766666666666,
+     "fraction_neurons_active": 0.69148,
+     "silent_neurons": 15426,
+     "refractory_occupancy": 0.020734333333333334,
+     "synaptic_events": 69637555,
+     "membrane_max": 0.9999696612358093,
+     "membrane_mean_max": 0.0
+    },
+    {
+     "gain": 0.07830471647047613,
+     "seed": 3,
+     "regime": "STABLE",
+     "rate_on_per_step": 0.014546533333333334,
+     "rate_late_off_per_step": 0.005969,
+     "amplification": 1.4554295624332978,
+     "self_sustained": true,
+     "max_rate_per_step": 0.3333333333333333,
+     "rules": {
+      "dead_amplification": 1.05,
+      "saturated_fraction_of_max_rate": 0.5,
+      "runaway_fraction_of_max_rate": 0.1
+     },
+     "population_rate_hz": 10.553033333333333,
+     "fraction_neurons_active": 0.67796,
+     "silent_neurons": 16102,
+     "refractory_occupancy": 0.021074133333333335,
+     "synaptic_events": 71523462,
+     "membrane_max": 0.9999940991401672,
+     "membrane_mean_max": 0.0
+    }
+   ]
+  },
+  "neuropil_SPS_R": {
+   "baseline_gain": 0.13924766500838337,
+   "rows": [
+    {
+     "gain": 0.13924766500838337,
+     "seed": 1,
+     "regime": "STABLE",
+     "rate_on_per_step": 0.014276859504132232,
+     "rate_late_off_per_step": 0.0,
+     "amplification": 1.4812433011789925,
+     "self_sustained": false,
+     "max_rate_per_step": 0.3333333333333333,
+     "rules": {
+      "dead_amplification": 1.05,
+      "saturated_fraction_of_max_rate": 0.5,
+      "runaway_fraction_of_max_rate": 0.1
+     },
+     "population_rate_hz": 7.152203856749312,
+     "fraction_neurons_active": 0.8419421487603306,
+     "silent_neurons": 153,
+     "refractory_occupancy": 0.014304407713498623,
+     "synaptic_events": 183358,
+     "membrane_max": 0.9982811212539673,
+     "membrane_mean_max": 0.0
+    },
+    {
+     "gain": 0.13924766500838337,
+     "seed": 2,
+     "regime": "STABLE",
+     "rate_on_per_step": 0.014335399449035812,
+     "rate_late_off_per_step": 0.0,
+     "amplification": 1.4622409553916402,
+     "self_sustained": false,
+     "max_rate_per_step": 0.3333333333333333,
+     "rules": {
+      "dead_amplification": 1.05,
+      "saturated_fraction_of_max_rate": 0.5,
+      "runaway_fraction_of_max_rate": 0.1
+     },
+     "population_rate_hz": 7.171143250688706,
+     "fraction_neurons_active": 0.859504132231405,
+     "silent_neurons": 136,
+     "refractory_occupancy": 0.014342286501377411,
+     "synaptic_events": 187251,
+     "membrane_max": 0.9979287385940552,
+     "membrane_mean_max": 0.0
+    },
+    {
+     "gain": 0.13924766500838337,
+     "seed": 3,
+     "regime": "STABLE",
+     "rate_on_per_step": 0.01302685950413223,
+     "rate_late_off_per_step": 0.0,
+     "amplification": 1.308091286307054,
+     "self_sustained": false,
+     "max_rate_per_step": 0.3333333333333333,
+     "rules": {
+      "dead_amplification": 1.05,
+      "saturated_fraction_of_max_rate": 0.5,
+      "runaway_fraction_of_max_rate": 0.1
+     },
+     "population_rate_hz": 6.515151515151516,
+     "fraction_neurons_active": 0.887396694214876,
+     "silent_neurons": 109,
+     "refractory_occupancy": 0.013030303030303031,
+     "synaptic_events": 168568,
+     "membrane_max": 0.9974260330200195,
+     "membrane_mean_max": 0.0
+    }
+   ]
+  },
+  "neuropil_LO_R": {
+   "baseline_gain": 0.5334838230116767,
+   "rows": [
+    {
+     "gain": 0.5334838230116767,
+     "seed": 1,
+     "regime": "STABLE",
+     "rate_on_per_step": 0.014237631792376318,
+     "rate_late_off_per_step": 0.0,
+     "amplification": 1.4343296793082319,
+     "self_sustained": false,
+     "max_rate_per_step": 0.3333333333333333,
+     "rules": {
+      "dead_amplification": 1.05,
+      "saturated_fraction_of_max_rate": 0.5,
+      "runaway_fraction_of_max_rate": 0.1
+     },
+     "population_rate_hz": 8.26963368477967,
+     "fraction_neurons_active": 0.3987226277372263,
+     "silent_neurons": 5931,
+     "refractory_occupancy": 0.01653926736955934,
+     "synaptic_events": 5354598,
+     "membrane_max": 0.9996672868728638,
+     "membrane_mean_max": 0.0
+    },
+    {
+     "gain": 0.5334838230116767,
+     "seed": 2,
+     "regime": "STABLE",
+     "rate_on_per_step": 0.013958502297918356,
+     "rate_late_off_per_step": 0.0,
+     "amplification": 1.4033907518771447,
+     "self_sustained": false,
+     "max_rate_per_step": 0.3333333333333333,
+     "rules": {
+      "dead_amplification": 1.05,
+      "saturated_fraction_of_max_rate": 0.5,
+      "runaway_fraction_of_max_rate": 0.1
+     },
+     "population_rate_hz": 7.131150310894837,
+     "fraction_neurons_active": 0.4391727493917275,
+     "silent_neurons": 5532,
+     "refractory_occupancy": 0.014262300621789672,
+     "synaptic_events": 4513698,
+     "membrane_max": 0.9997715950012207,
+     "membrane_mean_max": 0.0
+    },
+    {
+     "gain": 0.5334838230116767,
+     "seed": 3,
+     "regime": "STABLE",
+     "rate_on_per_step": 0.016949513381995133,
+     "rate_late_off_per_step": 0.0,
+     "amplification": 1.7021413784911936,
+     "self_sustained": false,
+     "max_rate_per_step": 0.3333333333333333,
+     "rules": {
+      "dead_amplification": 1.05,
+      "saturated_fraction_of_max_rate": 0.5,
+      "runaway_fraction_of_max_rate": 0.1
+     },
+     "population_rate_hz": 8.680893484725601,
+     "fraction_neurons_active": 0.4554947283049473,
+     "silent_neurons": 5371,
+     "refractory_occupancy": 0.017361786969451204,
+     "synaptic_events": 5055319,
+     "membrane_max": 0.9998153448104858,
+     "membrane_mean_max": 0.0
+    }
+   ]
+  }
+ },
+ "probe": {
+  "pattern": "poisson",
+  "rate": 0.01,
+  "on_steps": 300,
+  "off_steps": 300,
+  "seeds": [
+   1,
+   2,
+   3
+  ]
+ },
+ "run": {
+  "timestamp_utc": "2026-09-17T09:27:12+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "4773888a750a881446ee9f807f8e46144e16a042",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m2",
+   "baseline-regime"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2"
+  }
+ }
+}

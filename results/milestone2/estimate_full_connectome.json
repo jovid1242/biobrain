@@ -1,0 +1,149 @@
+{
+ "label": "ESTIMATE \u2014 extrapolated from measured subgraph runs, not measured on the full connectome",
+ "full_connectome": {
+  "neurons": 139255,
+  "edges": 15091983,
+  "zero_sign_edge_fraction": 0.05518333806763498,
+  "simulated_edges_after_zero_sign_removal": 14259157.0,
+  "mean_out_degree_simulated": 102.3960145057628
+ },
+ "cost_models": {
+  "time_step": {
+   "terms": [
+    "per step",
+    "per neuron (time-step) / per updated neuron (event-driven)",
+    "per synaptic event",
+    "per spike"
+   ],
+   "seconds": [
+    2.4076333462560387e-06,
+    7.165068968433921e-10,
+    1.8392164753675617e-09,
+    2.9647846265420214e-07
+   ],
+   "median_abs_relative_error": 0.19045717376778504,
+   "max_abs_relative_error": 0.5335706933095451,
+   "runs": 110
+  },
+  "event_driven_sparse": {
+   "terms": [
+    "per step",
+    "per neuron (time-step) / per updated neuron (event-driven)",
+    "per synaptic event",
+    "per spike"
+   ],
+   "seconds": [
+    3.7263693395931344e-07,
+    8.149732216657894e-08,
+    1.1663117581298538e-08,
+    2.75925258116852e-06
+   ],
+   "median_abs_relative_error": 0.20541465865484615,
+   "max_abs_relative_error": 0.5704481694712684,
+   "runs": 110
+  },
+  "event_driven_auto": {
+   "terms": [
+    "per step",
+    "per neuron (time-step) / per updated neuron (event-driven)",
+    "per synaptic event",
+    "per spike"
+   ],
+   "seconds": [
+    3.889677210009078e-07,
+    6.81470707111149e-08,
+    0.0,
+    6.883902385982684e-07
+   ],
+   "median_abs_relative_error": 0.1874533358531677,
+   "max_abs_relative_error": 0.7402106993144889,
+   "runs": 110
+  }
+ },
+ "scenarios": [
+  {
+   "spike_fraction_per_step": 1e-05,
+   "synaptic_events_per_step": 142.59157000000002,
+   "events_per_neuron_per_step": 0.0010239601450576282,
+   "event_driven_update_fraction_interpolated": 0.0011524638100721704,
+   "time_step_seconds_per_simulated_second": 0.10285991911414423,
+   "event_driven_sparse_seconds_per_simulated_second": 0.01895730395870695,
+   "event_driven_auto_seconds_per_simulated_second": 0.012284260044335443
+  },
+  {
+   "spike_fraction_per_step": 0.0001,
+   "synaptic_events_per_step": 1425.9157,
+   "events_per_neuron_per_step": 0.01023960145057628,
+   "event_driven_update_fraction_interpolated": 0.005666861894985781,
+   "time_step_seconds_per_simulated_second": 0.10893597974579897,
+   "event_driven_sparse_seconds_per_simulated_second": 0.11973993457542521,
+   "event_driven_auto_seconds_per_simulated_second": 0.06375264721757226
+  },
+  {
+   "spike_fraction_per_step": 0.001,
+   "synaptic_events_per_step": 14259.157,
+   "events_per_neuron_per_step": 0.1023960145057628,
+   "event_driven_update_fraction_interpolated": 0.04696871638678771,
+   "time_step_seconds_per_simulated_second": 0.16969658606234622,
+   "event_driven_sparse_seconds_per_simulated_second": 1.0839622960479496,
+   "event_driven_auto_seconds_per_simulated_second": 0.5419754301264725
+  },
+  {
+   "spike_fraction_per_step": 0.01,
+   "synaptic_events_per_step": 142591.56999999998,
+   "events_per_neuron_per_step": 1.023960145057628,
+   "event_driven_update_fraction_interpolated": 0.4193583387214729,
+   "time_step_seconds_per_simulated_second": 0.7773026492278188,
+   "event_driven_sparse_seconds_per_simulated_second": 10.265091941298325,
+   "event_driven_auto_seconds_per_simulated_second": 4.9386420836219225
+  },
+  {
+   "spike_fraction_per_step": 0.05,
+   "synaptic_events_per_step": 712957.85,
+   "events_per_neuron_per_step": 5.11980072528814,
+   "event_driven_update_fraction_interpolated": 0.975724600199316,
+   "time_step_seconds_per_simulated_second": 3.477774041074364,
+   "event_driven_sparse_seconds_per_simulated_second": 38.60108006203111,
+   "event_driven_auto_seconds_per_simulated_second": 14.052929250804443
+  }
+ ],
+ "ram": {
+  "topology_and_float32_weights_mib": 109.8511734008789,
+  "time_step_state_and_ring_mib": 1.5936470031738281,
+  "event_driven_state_mib": 1.5936470031738281,
+  "empty_worker_process_mib": 89.890625,
+  "per_step_temporaries_mib_at_1pct_spikes": 4.326093368530273,
+  "note": "per event: gather index (8 B) + targets (4 B) + weights (4 B) + aggregation (~8 B); plus one float64 N-vector",
+  "time_step_total_mib_at_1pct_spikes": 205.66153877258301
+ },
+ "caveats": [
+  "subgraphs are denser than the whole brain: mean out-degree expand_100 35, expand_1k 103, expand_50k 156, expand_10k 177 vs 108 in the full store",
+  "activity of the full brain under the same gain is unknown; spike fractions are scenarios, not predictions",
+  "the linear cost model ignores cache effects that grow with array size",
+  "event-driven update fraction is interpolated from subgraph runs (arriving events per neuron per step)"
+ ],
+ "run": {
+  "timestamp_utc": "2026-09-17T09:32:23+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "425d87e1ae0fc4633e94fc1b038f7d56cd268efa",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m2",
+   "estimate"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2"
+  }
+ }
+}

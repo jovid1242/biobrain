@@ -1,0 +1,5 @@
+[13:57:56] expand_100: 16 comparisons, not equivalent: 0
+[13:57:56] expand_1k: 16 comparisons, not equivalent: 0
+[13:58:05] expand_10k: 16 comparisons, not equivalent: 0
+[13:58:42] expand_50k: 16 comparisons, not equivalent: 0
+[13:58:47] neuropil_LO_R: 16 comparisons, not equivalent: 2

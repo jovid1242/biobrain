@@ -1,0 +1,76 @@
+{
+ "name": "neuropil_LO_R",
+ "method": "neuropil",
+ "params": {
+  "method": "neuropil",
+  "neuropil": "LO_R",
+  "rule": "home neuropil = neuropil with most presynapses (M1 analysis.regions)"
+ },
+ "dataset": {
+  "id": "flywire_fafb_v783",
+  "store_manifest_sha256": "f118b8eb7132ab1c31cb0762f5000da46283a7b865099e0f07ca3088844f2596",
+  "counts": {
+   "neurons": 139255,
+   "edges": 15091983,
+   "rows": 16847997,
+   "synapses": 54492922
+  }
+ },
+ "neurons": 9864,
+ "edges": 597162,
+ "synapses": 1708268,
+ "mean_out_degree": 60.539537712895374,
+ "weak_components": 1,
+ "largest_weak_component": 9864,
+ "strong_components": 2,
+ "largest_strong_component": 9863,
+ "composition": {
+  "super_class": {
+   "optic": 9231,
+   "visual_projection": 560,
+   "visual_centrifugal": 70,
+   "descending": 2,
+   "(none)": 1
+  },
+  "top_nt": {
+   "acetylcholine": 7945,
+   "glutamate": 1392,
+   "gaba": 515,
+   "dopamine": 7,
+   "serotonin": 3,
+   "octopamine": 1,
+   "(none)": 1
+  },
+  "home_neuropil_top10": {
+   "LO_R": 9864
+  }
+ },
+ "sha256": {
+  "root_ids": "91a48c5e5c28e7a97a9846c3573185457a5c257bba074809e208fe03fc3f2c24",
+  "edges": "0773a8d550b6e49694a45436e4341f03248653c6cb7cd8089ffac129e015f94f"
+ },
+ "created": {
+  "timestamp_utc": "2026-09-17T08:54:47+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "b10f5b25a8df3189947572b8dd09064917a2691b",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m2",
+   "subgraphs"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2"
+  }
+ }
+}

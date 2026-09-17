@@ -5,6 +5,7 @@ import json
 import numpy as np
 import pytest
 
+from biobrain import paths
 from biobrain.connectome import preprocess
 from biobrain.connectome.store import Connectome
 from biobrain.snn import experiments, subgraph
@@ -38,6 +39,7 @@ def test_prepared_isolated_run_has_full_provenance_and_is_reproducible(setup):
     for key in ("experiment_id", "git_commit", "timestamp_utc"):
         assert key in ts or key in ts["run"]
     assert ts["dataset"]["store_manifest_sha256"] and ts["subgraph"]["sha256"]["edges"]
+    assert not any(str(paths.project_root()) in arg for arg in ts["run"]["command"])  # no machine-specific paths
     assert ts["config_hash"] == cfg.replace(run={"mode": "time_step"}).digest() and ts["seed"] == 3
     assert ts["process"]["peak_rss"] > 0 and ts["memory"]["topology"] > 0
     for key in ("spikes", "synaptic_events", "neuron_updates", "external_events"):

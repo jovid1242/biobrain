@@ -1,0 +1,68 @@
+{
+ "name": "neuropil_PB",
+ "method": "neuropil",
+ "params": {
+  "method": "neuropil",
+  "neuropil": "PB",
+  "rule": "home neuropil = neuropil with most presynapses (M1 analysis.regions)"
+ },
+ "dataset": {
+  "id": "flywire_fafb_v783",
+  "store_manifest_sha256": "f118b8eb7132ab1c31cb0762f5000da46283a7b865099e0f07ca3088844f2596",
+  "counts": {
+   "neurons": 139255,
+   "edges": 15091983,
+   "rows": 16847997,
+   "synapses": 54492922
+  }
+ },
+ "neurons": 102,
+ "edges": 2389,
+ "synapses": 9751,
+ "mean_out_degree": 23.42156862745098,
+ "weak_components": 1,
+ "largest_weak_component": 102,
+ "strong_components": 3,
+ "largest_strong_component": 100,
+ "composition": {
+  "super_class": {
+   "central": 102
+  },
+  "top_nt": {
+   "glutamate": 53,
+   "acetylcholine": 48,
+   "(none)": 1
+  },
+  "home_neuropil_top10": {
+   "PB": 102
+  }
+ },
+ "sha256": {
+  "root_ids": "458e62dab89c5d3603b35171ffeed369cd06bbe1657d26a40f19bece8355b4c0",
+  "edges": "f7beae35fc05692233304e90f76d749ea965900f33307e558bc6a264971b062d"
+ },
+ "created": {
+  "timestamp_utc": "2026-09-17T08:54:46+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "b10f5b25a8df3189947572b8dd09064917a2691b",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m2",
+   "subgraphs"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2"
+  }
+ }
+}

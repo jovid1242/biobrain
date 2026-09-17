@@ -1,0 +1,1097 @@
+{
+ "subgraph": "expand_1k",
+ "baseline_config": {
+  "neuron": {
+   "dt_ms": 1.0,
+   "tau_m_ms": 20.0,
+   "v_threshold": 1.0,
+   "v_reset": 0.0,
+   "refractory_ms": 2.0,
+   "delay_ms": 1.0,
+   "dtype": "float32"
+  },
+  "weights": {
+   "transform": "linear",
+   "gain": 0.030000000000000006,
+   "clip": 20.0,
+   "min_synapses": 1
+  },
+  "signs": {
+   "source": "neuron",
+   "acetylcholine": 1.0,
+   "gaba": -1.0,
+   "glutamate": -1.0,
+   "dopamine": 0.0,
+   "serotonin": 0.0,
+   "octopamine": 0.0,
+   "missing": 0.0
+  },
+  "inputs": {
+   "pattern": "poisson",
+   "rate": 0.01,
+   "weight": 2.0,
+   "fraction": 1.0,
+   "on_steps": null,
+   "burst_period": 200,
+   "burst_on": 50,
+   "pulse_every": 100,
+   "pulse_fraction": 0.1,
+   "pattern_neurons": 20,
+   "pattern_length": 50,
+   "pattern_every": 100
+  },
+  "run": {
+   "steps": 1000,
+   "mode": "time_step",
+   "aggregation": "sparse",
+   "seed": 0,
+   "record_spikes": false,
+   "record_voltage_every": 0,
+   "profile": false
+  }
+ },
+ "probe": {
+  "rate": 0.01,
+  "on_steps": 300,
+  "off_steps": 300,
+  "seeds": [
+   1,
+   2,
+   3
+  ]
+ },
+ "rows": [
+  {
+   "variant": "baseline",
+   "seed": 1,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.012656666666666667,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.3129322268326418,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 6.328333333333333,
+   "fraction_neurons_active": 0.885,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "baseline",
+   "seed": 2,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.0123,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.2598156367360873,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 6.215,
+   "fraction_neurons_active": 0.902,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "baseline",
+   "seed": 3,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.012963333333333334,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.2959013662112628,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 6.496666666666667,
+   "fraction_neurons_active": 0.885,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "transform=sqrt",
+   "seed": 1,
+   "regime": "DEAD",
+   "rate_on_per_step": 0.009623333333333333,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 0.9982710926694329,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 4.8116666666666665,
+   "fraction_neurons_active": 0.952,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "transform=sqrt",
+   "seed": 2,
+   "regime": "DEAD",
+   "rate_on_per_step": 0.00977,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.00068282690338,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 4.885,
+   "fraction_neurons_active": 0.955,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "transform=sqrt",
+   "seed": 3,
+   "regime": "DEAD",
+   "rate_on_per_step": 0.010283333333333334,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.0279906697767411,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 5.1433333333333335,
+   "fraction_neurons_active": 0.96,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "transform=log1p",
+   "seed": 1,
+   "regime": "DEAD",
+   "rate_on_per_step": 0.00947,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 0.9823651452282157,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 4.735,
+   "fraction_neurons_active": 0.952,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "transform=log1p",
+   "seed": 2,
+   "regime": "DEAD",
+   "rate_on_per_step": 0.009583333333333333,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 0.9815636736087402,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 4.791666666666667,
+   "fraction_neurons_active": 0.951,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "transform=log1p",
+   "seed": 3,
+   "regime": "DEAD",
+   "rate_on_per_step": 0.00997,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 0.9966677774075309,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 4.985,
+   "fraction_neurons_active": 0.958,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "transform=clipped(20)",
+   "seed": 1,
+   "regime": "DEAD",
+   "rate_on_per_step": 0.00998,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.0352697095435686,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 4.991666666666666,
+   "fraction_neurons_active": 0.95,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "transform=clipped(20)",
+   "seed": 2,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.010333333333333333,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.0583817002389895,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 5.166666666666667,
+   "fraction_neurons_active": 0.953,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "transform=clipped(20)",
+   "seed": 3,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.011063333333333333,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.10596467844052,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 5.545,
+   "fraction_neurons_active": 0.963,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "glutamate=+1",
+   "seed": 1,
+   "regime": "SATURATED",
+   "rate_on_per_step": 0.10781333333333333,
+   "rate_late_off_per_step": 0.10117,
+   "amplification": 11.183955739972337,
+   "self_sustained": true,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 104.86333333333333,
+   "fraction_neurons_active": 0.808,
+   "simulated_edges": 99717,
+   "excitatory_edges": 70219,
+   "inhibitory_edges": 29498,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "glutamate=+1",
+   "seed": 2,
+   "regime": "SATURATED",
+   "rate_on_per_step": 0.11011333333333333,
+   "rate_late_off_per_step": 0.11201,
+   "amplification": 11.278251963127348,
+   "self_sustained": true,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 111.77833333333334,
+   "fraction_neurons_active": 0.826,
+   "simulated_edges": 99717,
+   "excitatory_edges": 70219,
+   "inhibitory_edges": 29498,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "glutamate=+1",
+   "seed": 3,
+   "regime": "SATURATED",
+   "rate_on_per_step": 0.11769333333333333,
+   "rate_late_off_per_step": 0.11373,
+   "amplification": 11.76541152949017,
+   "self_sustained": true,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 116.02,
+   "fraction_neurons_active": 0.799,
+   "simulated_edges": 99717,
+   "excitatory_edges": 70219,
+   "inhibitory_edges": 29498,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "modulators=+1",
+   "seed": 1,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.015266666666666666,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.5836791147994467,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 7.633333333333334,
+   "fraction_neurons_active": 0.88,
+   "simulated_edges": 103378,
+   "excitatory_edges": 55847,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 0
+  },
+  {
+   "variant": "modulators=+1",
+   "seed": 2,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.01386,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.4195971321270058,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 6.946666666666666,
+   "fraction_neurons_active": 0.885,
+   "simulated_edges": 103378,
+   "excitatory_edges": 55847,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 0
+  },
+  {
+   "variant": "modulators=+1",
+   "seed": 3,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.014226666666666667,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.4221926024658447,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 7.206666666666667,
+   "fraction_neurons_active": 0.887,
+   "simulated_edges": 103378,
+   "excitatory_edges": 55847,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 0
+  },
+  {
+   "variant": "modulators=-1",
+   "seed": 1,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.012586666666666666,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.30567081604426,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 6.316666666666666,
+   "fraction_neurons_active": 0.887,
+   "simulated_edges": 103378,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 51192,
+   "removed_zero_sign": 0
+  },
+  {
+   "variant": "modulators=-1",
+   "seed": 2,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.011806666666666667,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.209286445885968,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 5.971666666666667,
+   "fraction_neurons_active": 0.894,
+   "simulated_edges": 103378,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 51192,
+   "removed_zero_sign": 0
+  },
+  {
+   "variant": "modulators=-1",
+   "seed": 3,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.012973333333333333,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.2969010329890036,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 6.508333333333334,
+   "fraction_neurons_active": 0.888,
+   "simulated_edges": 103378,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 51192,
+   "removed_zero_sign": 0
+  },
+  {
+   "variant": "sign source=edge",
+   "seed": 1,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.013056666666666666,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.3544260027662518,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 6.528333333333333,
+   "fraction_neurons_active": 0.894,
+   "simulated_edges": 97509,
+   "excitatory_edges": 53291,
+   "inhibitory_edges": 44218,
+   "removed_zero_sign": 5869
+  },
+  {
+   "variant": "sign source=edge",
+   "seed": 2,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.012096666666666667,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.2389894161829975,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 6.08,
+   "fraction_neurons_active": 0.895,
+   "simulated_edges": 97509,
+   "excitatory_edges": 53291,
+   "inhibitory_edges": 44218,
+   "removed_zero_sign": 5869
+  },
+  {
+   "variant": "sign source=edge",
+   "seed": 3,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.013153333333333333,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.3148950349883373,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 6.605,
+   "fraction_neurons_active": 0.884,
+   "simulated_edges": 97509,
+   "excitatory_edges": 53291,
+   "inhibitory_edges": 44218,
+   "removed_zero_sign": 5869
+  },
+  {
+   "variant": "min_synapses=5",
+   "seed": 1,
+   "regime": "DEAD",
+   "rate_on_per_step": 0.009953333333333333,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.0325034578146612,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 4.976666666666667,
+   "fraction_neurons_active": 0.952,
+   "simulated_edges": 38063,
+   "excitatory_edges": 19303,
+   "inhibitory_edges": 18760,
+   "removed_zero_sign": 1056
+  },
+  {
+   "variant": "min_synapses=5",
+   "seed": 2,
+   "regime": "DEAD",
+   "rate_on_per_step": 0.01005,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.0293615568453398,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 5.025,
+   "fraction_neurons_active": 0.954,
+   "simulated_edges": 38063,
+   "excitatory_edges": 19303,
+   "inhibitory_edges": 18760,
+   "removed_zero_sign": 1056
+  },
+  {
+   "variant": "min_synapses=5",
+   "seed": 3,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.010506666666666666,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.0503165611462846,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 5.263333333333334,
+   "fraction_neurons_active": 0.956,
+   "simulated_edges": 38063,
+   "excitatory_edges": 19303,
+   "inhibitory_edges": 18760,
+   "removed_zero_sign": 1056
+  },
+  {
+   "variant": "tau_m=10ms",
+   "seed": 1,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.01481,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.5363070539419088,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 7.45,
+   "fraction_neurons_active": 0.936,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "tau_m=10ms",
+   "seed": 2,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.01493,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.5291908501194946,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 7.531666666666666,
+   "fraction_neurons_active": 0.947,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "tau_m=10ms",
+   "seed": 3,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.016073333333333332,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.606797734088637,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 8.096666666666666,
+   "fraction_neurons_active": 0.945,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "tau_m=40ms",
+   "seed": 1,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.010696666666666667,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.109612724757953,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 5.348333333333334,
+   "fraction_neurons_active": 0.81,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "tau_m=40ms",
+   "seed": 2,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.010353333333333334,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.0604301809491294,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 5.176666666666667,
+   "fraction_neurons_active": 0.835,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "tau_m=40ms",
+   "seed": 3,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.010923333333333334,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.0919693435521494,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 5.526666666666666,
+   "fraction_neurons_active": 0.832,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "delay=2ms",
+   "seed": 1,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.013216666666666666,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.3710235131396957,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 6.61,
+   "fraction_neurons_active": 0.863,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "delay=2ms",
+   "seed": 2,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.01322,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.3540457494025264,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 6.706666666666667,
+   "fraction_neurons_active": 0.876,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "delay=2ms",
+   "seed": 3,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.013816666666666666,
+   "rate_late_off_per_step": 0.00565,
+   "amplification": 1.381206264578474,
+   "self_sustained": true,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 9.435,
+   "fraction_neurons_active": 0.881,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "delay=5ms",
+   "seed": 1,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.012856666666666667,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.3336791147994467,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 6.495,
+   "fraction_neurons_active": 0.886,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "delay=5ms",
+   "seed": 2,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.012043333333333333,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.2335268009559577,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 6.226666666666667,
+   "fraction_neurons_active": 0.908,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "delay=5ms",
+   "seed": 3,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.013023333333333333,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.3018993668777075,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 7.1,
+   "fraction_neurons_active": 0.913,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "refractory=5ms",
+   "seed": 1,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.012683333333333333,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.315698478561549,
+   "self_sustained": false,
+   "max_rate_per_step": 0.16666666666666666,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 6.343333333333334,
+   "fraction_neurons_active": 0.897,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "refractory=5ms",
+   "seed": 2,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.011603333333333334,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.1884602253328782,
+   "self_sustained": false,
+   "max_rate_per_step": 0.16666666666666666,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 5.81,
+   "fraction_neurons_active": 0.901,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "refractory=5ms",
+   "seed": 3,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.012833333333333334,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.282905698100633,
+   "self_sustained": false,
+   "max_rate_per_step": 0.16666666666666666,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 6.443333333333333,
+   "fraction_neurons_active": 0.896,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "gain x0.5",
+   "seed": 1,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.011203333333333333,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.1621715076071923,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 5.601666666666667,
+   "fraction_neurons_active": 0.949,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "gain x0.5",
+   "seed": 2,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.010866666666666667,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.113007852509389,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 5.433333333333334,
+   "fraction_neurons_active": 0.946,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "gain x0.5",
+   "seed": 3,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.011943333333333334,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 1.193935354881706,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 5.988333333333333,
+   "fraction_neurons_active": 0.953,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "gain x2",
+   "seed": 1,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.01743,
+   "rate_late_off_per_step": 0.0191,
+   "amplification": 1.808091286307054,
+   "self_sustained": true,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 19.508333333333333,
+   "fraction_neurons_active": 0.778,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "gain x2",
+   "seed": 2,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.021543333333333334,
+   "rate_late_off_per_step": 0.0,
+   "amplification": 2.206555138272448,
+   "self_sustained": false,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 12.378333333333334,
+   "fraction_neurons_active": 0.793,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  },
+  {
+   "variant": "gain x2",
+   "seed": 3,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.024573333333333332,
+   "rate_late_off_per_step": 0.01431,
+   "amplification": 2.4565144951682774,
+   "self_sustained": true,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 20.55,
+   "fraction_neurons_active": 0.749,
+   "simulated_edges": 99717,
+   "excitatory_edges": 52186,
+   "inhibitory_edges": 47531,
+   "removed_zero_sign": 3661
+  }
+ ],
+ "run": {
+  "timestamp_utc": "2026-09-17T09:05:38+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "88d85cb9861211c07b65a144e1419ad621f20150",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m2",
+   "sensitivity"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2"
+  }
+ }
+}

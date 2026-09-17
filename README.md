@@ -10,7 +10,11 @@
 *Drosophila* brain (FlyWire, 139,255 neurons) can serve as the starting architecture for a sparse, event-driven,
 trainable spiking neural network that solves AI tasks with far fewer synaptic operations than a suitable
 baseline. It is not an LLM, not a Transformer, not an AGI attempt and not a fly simulator. Negative results are
-treated as results. **Milestone 1 (official data, validation, graph analysis, memory measurements) is complete**; Milestone 2 (a minimal spiking simulator) is in progress.
+treated as results. **Milestone 1** (official data, validation, graph analysis, memory measurements) and
+**Milestone 2** (a minimal LIF simulator running real FlyWire subgraphs of 100–50,000 neurons in time-step and
+event-driven modes) are complete; M2 awaits the owner's review. A key M2 finding is negative. With Python + NumPy
+on a CPU, event-driven execution is faster than time-step only at extremely sparse activity: up to 6.6× on
+100 neurons and 1.2× on 10k, and never on 50k. Synaptic event delivery, not neuron updates, dominates the cost.
 
 ---
 
@@ -64,14 +68,35 @@ FlyWire с синаптическим разрешением, спайковым
 - **Не подтвердилось:** выраженный «rich club» (есть лишь ≤ 3 % обогащения на средних степенях).
 - **Ограничение данных:** выходы нейронов в графе недоучтены примерно вдвое (прикреплено лишь 44.7 % постсинапсов).
 
-Эти результаты ещё ничего не говорят о H1–H3: они описывают структуру, а не вычисления. Проверка начинается с Milestone 2.
+Эти результаты ещё ничего не говорят о H1–H3: они описывают структуру, а не вычисления.
+
+## Что измерено в Milestone 2
+
+Полный отчёт — [`docs/MILESTONE2_REPORT.md`](docs/MILESTONE2_REPORT.md), числа — [`docs/M2_RESULTS.md`](docs/M2_RESULTS.md),
+ограничения — [`docs/M2_LIMITATIONS.md`](docs/M2_LIMITATIONS.md). Модель: current-based LIF, все её параметры,
+кроме числа синапсов и медиатора, — допущения.
+
+- **Движок работает на реальной проводке** от 100 до 50,000 нейронов (7.6 млн рёбер) в двух режимах одной модели.
+  Спайки режимов совпадают во всех 300 коротких проверках (80 — растр в растр, 220 пар бенчмарков — по числу
+  спайков); в float64 растры идентичны и на 40,000 шагах.
+  Длинные прогоны в float32 расходятся из-за округления.
+- **Отрицательный результат:** в NumPy event-driven быстрее time-step только при очень редкой активности —
+  ≲ 0.015–0.12 приходящих событий на нейрон за шаг. Лучшее ускорение: 6.6× (100 нейронов), 3.0× (1k),
+  1.22× (10k); на 50k перелома нет. При входе 1 % event-driven медленнее в 2.5–13 раз.
+- **Стоимость определяют синапсы, а не нейроны:** на доставку событий уходит 54–94 % шага time-step.
+- **Память не ограничение:** 8–12 байт на нейрон, 50k нейронов — ≤ 507 MiB на процесс. Полный мозг, по
+  оценке (ESTIMATE, не запускался), займёт ≈ 0.2 GiB.
+- **Динамику определяют допущения:** один знак глутамата переводит сеть из устойчивого режима в насыщение.
+- Энергия **не измерялась**: доступная без root оценка ОС повторяет время CPU.
+
+M2 тоже не проверяет H1–H3: это движок и замеры, обучения и задач ещё нет.
 
 ## Дорожная карта
 
 | этап | содержание | статус |
 |---|---|---|
 | **M1** | официальные данные, воспроизводимая загрузка, валидация, компактный граф, анализатор, замеры памяти | **завершён** 2026-09-17 |
-| M2 | минимальный SNN-симулятор: 100 → 1k → 10k нейронов; event-driven против time-step (бенчмарком) | **в работе** |
+| **M2** | минимальный SNN-симулятор: 100 → 1k → 10k → 50k нейронов; event-driven против time-step (бенчмарком) | **завершён** 2026-09-17, ждёт подтверждения |
 | M3 | первая правило пластичности; обучение простой temporal/pattern задаче; checkpoint → restart → навык сохранён | |
 | M4 | Fly topology vs random vs shuffled при одинаковом бюджете | |
 | M5 | функциональная ablation и pruning на мультизадачном бенчмарке | |
@@ -103,12 +128,16 @@ make setup                      # .venv с точными версиями из 
 make test
 ```
 
-Все тяжёлые команды принимают `--memory-budget 8GB`.
+Все тяжёлые команды принимают `--memory-budget 8GB`. Эксперименты Milestone 2 запускаются по шагам
+(`.venv/bin/biobrain m2 calibrate`, `bench`, `figures`, …); полный порядок — `docs/M2_RESULTS.md`, раздел 13.
 
 ## Документы
 
 | документ | о чём |
 |---|---|
+| [docs/MILESTONE2_REPORT.md](docs/MILESTONE2_REPORT.md) | итоговый отчёт Milestone 2: статус, чек-лист, главная таблица |
+| [docs/M2_RESULTS.md](docs/M2_RESULTS.md) · [docs/M2_LIMITATIONS.md](docs/M2_LIMITATIONS.md) | результаты M2 с ответами на вопросы · ограничения |
+| [docs/SIMULATOR.md](docs/SIMULATOR.md) · [docs/PERFORMANCE_PLAN.md](docs/PERFORMANCE_PLAN.md) | модель и два режима движка · измеренные узкие места и варианты backend |
 | [docs/MILESTONE1_REPORT.md](docs/MILESTONE1_REPORT.md) | итоговый отчёт Milestone 1 |
 | [results/analysis/flywire_fafb_v783/REPORT.md](results/analysis/flywire_fafb_v783/REPORT.md) | сгенерированный отчёт анализатора: таблицы, графики, стоимость шагов |
 | [results/data_validation.md](results/data_validation.md) | все проверки данных с источниками |
@@ -121,7 +150,7 @@ make test
 | [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md) | правила экспериментов и протокол честного сравнения |
 | [docs/LAB_NOTES.md](docs/LAB_NOTES.md) | научный журнал |
 | [docs/RESULTS.md](docs/RESULTS.md) | результаты (RESULT отдельно от INTERPRETATION) |
-| [docs/MILESTONE1_PLAN.md](docs/MILESTONE1_PLAN.md) | план Milestone 1, написанный до загрузки данных |
+| [docs/MILESTONE1_PLAN.md](docs/MILESTONE1_PLAN.md) · [docs/MILESTONE2_PLAN.md](docs/MILESTONE2_PLAN.md) | планы, написанные до экспериментов |
 
 ## Лицензии и цитирование
 

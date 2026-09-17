@@ -1,0 +1,84 @@
+{
+ "name": "expand_100",
+ "method": "expand",
+ "params": {
+  "method": "expand",
+  "size": 100,
+  "seed": 20260917,
+  "seed_neuron_index": 68010,
+  "seed_root_id": 720575940624705514,
+  "seed_cell_type": "PS112",
+  "seed_candidates": 23639,
+  "seed_rule": "uniform draw among central intrinsic neurons with in- and out-degree >= the connectome median"
+ },
+ "dataset": {
+  "id": "flywire_fafb_v783",
+  "store_manifest_sha256": "f118b8eb7132ab1c31cb0762f5000da46283a7b865099e0f07ca3088844f2596",
+  "counts": {
+   "neurons": 139255,
+   "edges": 15091983,
+   "rows": 16847997,
+   "synapses": 54492922
+  }
+ },
+ "neurons": 100,
+ "edges": 3513,
+ "synapses": 98225,
+ "mean_out_degree": 35.13,
+ "weak_components": 1,
+ "largest_weak_component": 100,
+ "strong_components": 1,
+ "largest_strong_component": 100,
+ "composition": {
+  "super_class": {
+   "central": 77,
+   "descending": 22,
+   "ascending": 1
+  },
+  "top_nt": {
+   "acetylcholine": 46,
+   "glutamate": 32,
+   "gaba": 22
+  },
+  "home_neuropil_top10": {
+   "IPS_R": 29,
+   "IPS_L": 19,
+   "GNG": 19,
+   "SPS_R": 16,
+   "LAL_R": 9,
+   "SPS_L": 3,
+   "WED_R": 2,
+   "SAD": 1,
+   "PLP_R": 1,
+   "LAL_L": 1
+  }
+ },
+ "sha256": {
+  "root_ids": "84aa36ab24c3dd41076a73a6b78ba58580c6891dcaa1795e94b52dafa04e26b0",
+  "edges": "780d16864d25828e7e64eabfba16ee8a4e7fcddb7ca9c1fb3e24c6d38fb49609"
+ },
+ "created": {
+  "timestamp_utc": "2026-09-17T08:54:44+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "b10f5b25a8df3189947572b8dd09064917a2691b",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m2",
+   "subgraphs"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2"
+  }
+ }
+}
