@@ -82,4 +82,15 @@ def compare(a: RunResult, b: RunResult, v_tolerance: float) -> dict:
             "equivalent": bool(spikes_equal and (raster_equal is not False) and dv <= v_tolerance)}
 
 
+def first_divergent_step(a: tuple[np.ndarray, np.ndarray], b: tuple[np.ndarray, np.ndarray]) -> int | None:
+    """First step whose spike set differs between two rasters (per-step indptr, neuron ids ascending within a step)."""
+    (pa, na), (pb, nb) = a, b
+    count_diff = np.flatnonzero(np.diff(pa) != np.diff(pb))
+    limit = int(count_diff[0]) if count_diff.size else pa.size - 1
+    end = int(pa[limit])  # steps before `limit` have equal counts, so positions up to `end` are aligned
+    idx = np.flatnonzero(na[:end] != nb[:end])
+    if idx.size:
+        return int(np.searchsorted(pa, idx[0], side="right") - 1)
+    return limit if count_diff.size else None
+
 V_TOLERANCE = {"float64": 1e-9, "float32": 1e-4}

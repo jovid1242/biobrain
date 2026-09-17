@@ -159,6 +159,13 @@ def test_auto_aggregation_matches_sparse_and_time_step(seed):
     assert auto.counters["neuron_updates"] == sparse.counters["neuron_updates"]
 
 
+def test_first_divergent_step_of_rasters():
+    ptr, ids = np.array([0, 1, 1, 3]), np.array([4, 0, 2])
+    assert metrics.first_divergent_step((ptr, ids), (ptr, ids.copy())) is None
+    assert metrics.first_divergent_step((ptr, ids), (ptr, np.array([4, 0, 3]))) == 2  # same counts, other neuron
+    assert metrics.first_divergent_step((ptr, ids), (np.array([0, 1, 2, 3]), np.array([4, 1, 2]))) == 1  # count differs
+    assert metrics.first_divergent_step((ptr, ids), (np.array([0, 0, 0, 2]), np.array([0, 2]))) == 0
+
 def test_deterministic_given_seed_and_different_across_seeds():
     net = random_network(150, 0.05, 1)
     a = run(net, generate(InputSpec(rate=0.02), 150, 300, 7), P64, 300, "event_driven", record_spikes=True)

@@ -80,29 +80,36 @@ def step_equivalence(conn: Connectome, names=(*SIZES, "expand_50k", "neuropil_LO
 
 
 def step_long_equivalence(conn: Connectome, name: str = "expand_10k", steps: int = 40_000, rate: float = 0.001) -> None:
-    """The energy experiment's longest run showed different spike counts between modes in float32. Where does the
-    divergence start, and does it also happen in float64?"""
+    """The energy experiment's longest float32 run ended with different spike counts in the two modes. When do the rasters
+    first differ, does float64 diverge too, and which float32 mode leaves the float64 reference first?"""
+    from .. import runinfo
     from . import engine, metrics, network
     from .inputs import generate
 
     g = gains()
     sub = subgraph.load(conn, name)
-    rows = []
-    for dtype in ("float32", "float64"):
-        cfg = BASE.replace(weights={"gain": g[name]}, neuron={"dtype": dtype}, inputs={"rate": rate}, run={"steps": steps, "seed": 1})
+    runs, configs = {}, {}
+    for dtype in ("float64", "float32"):
+        cfg = BASE.replace(weights={"gain": g[name]}, neuron={"dtype": dtype}, inputs={"rate": rate},
+                           run={"steps": steps, "seed": 1, "aggregation": "auto", "record_spikes": True})
         net = network.build(conn, sub, cfg)
-        sched = generate(cfg.inputs, net.n, steps, 1)
-        ts = engine.run(net, sched, cfg.neuron, steps, "time_step")
-        ed = engine.run(net, sched, cfg.neuron, steps, "event_driven", aggregation="auto")
-        cmp = metrics.compare(ts, ed, metrics.V_TOLERANCE[dtype])
-        gap = np.abs(np.cumsum(ts.spikes_per_step.astype(np.int64) - ed.spikes_per_step.astype(np.int64)))
-        checkpoints = [c for c in (1_000, 2_000, 5_000, 10_000, 20_000, steps) if c <= steps]
-        rows.append({"subgraph": name, "dtype": dtype, "steps": steps, "input_rate": rate, "gain": g[name], **cmp,
-                     "spikes_time_step": ts.counters["spikes"], "spikes_event_driven": ed.counters["spikes"],
-                     "relative_spike_count_difference": abs(ts.counters["spikes"] - ed.counters["spikes"]) / max(ts.counters["spikes"], 1),
-                     "abs_cumulative_spike_count_difference": {str(c): int(gap[c - 1]) for c in checkpoints}})
-        _log(f"{dtype}: first divergent step {cmp['first_divergent_step']}, spikes {ts.counters['spikes']:,} vs {ed.counters['spikes']:,}")
-    experiments._write(_exp_dir() / "long_equivalence.json", {"rows": rows})
+        sched = generate(cfg.inputs, net.n, steps, cfg.run.seed)
+        configs[dtype] = cfg.to_dict()
+        for mode in ("time_step", "event_driven"):
+            runs[f"{dtype} {mode}"] = engine.run(net, sched, cfg.neuron, steps, mode, aggregation="auto", record_spikes=True)
+    rows = []
+    for a, b in (("float64 time_step", "float64 event_driven"), ("float32 time_step", "float32 event_driven"),
+                 ("float64 time_step", "float32 time_step"), ("float64 time_step", "float32 event_driven")):
+        ra, rb = runs[a], runs[b]
+        gap = np.abs(np.cumsum(ra.spikes_per_step.astype(np.int64) - rb.spikes_per_step.astype(np.int64)))
+        first = metrics.first_divergent_step(ra.raster, rb.raster)
+        rows.append({"a": a, "b": b, "first_divergent_step": first, "spikes_a": ra.counters["spikes"], "spikes_b": rb.counters["spikes"],
+                     "abs_cumulative_spike_count_difference": {str(c): int(gap[c - 1]) for c in (1_000, 2_000, 5_000, 10_000, 20_000, steps)
+                                                               if c <= steps}})
+        _log(f"{a} vs {b}: first divergent step {first}, spikes {ra.counters['spikes']:,} vs {rb.counters['spikes']:,}")
+    experiments._write(_exp_dir() / "long_equivalence.json",
+                       {"subgraph": name, "gain": g[name], "input_rate": rate, "steps": steps, "configs": configs, "rows": rows,
+                        "run": runinfo.collect()})
 
 
 def step_bench(conn: Connectome) -> None:
