@@ -1,0 +1,108 @@
+{
+ "baseline_gain": 0.11493560548671865,
+ "rows": [
+  {
+   "gain": 0.11493560548671865,
+   "seed": 1,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.013540602970569578,
+   "rate_late_off_per_step": 0.008377221643747082,
+   "amplification": 1.3547510250220332,
+   "self_sustained": true,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 11.214761887664118,
+   "fraction_neurons_active": 0.7140138594664465,
+   "silent_neurons": 39825,
+   "refractory_occupancy": 0.02238101564276567,
+   "synaptic_events": 142370944,
+   "membrane_max": 0.9999994039535522,
+   "membrane_mean_max": 0.0
+  },
+  {
+   "gain": 0.11493560548671865,
+   "seed": 2,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.015169940038059675,
+   "rate_late_off_per_step": 0.006544756023123047,
+   "amplification": 1.5163334106956146,
+   "self_sustained": true,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 10.801802448745107,
+   "fraction_neurons_active": 0.6883846181465657,
+   "silent_neurons": 43394,
+   "refractory_occupancy": 0.02156962646463921,
+   "synaptic_events": 139471675,
+   "membrane_max": 0.9999992847442627,
+   "membrane_mean_max": 0.0
+  },
+  {
+   "gain": 0.11493560548671865,
+   "seed": 3,
+   "regime": "STABLE",
+   "rate_on_per_step": 0.014098787595897215,
+   "rate_late_off_per_step": 0.007182004236831712,
+   "amplification": 1.4102061924782363,
+   "self_sustained": true,
+   "max_rate_per_step": 0.3333333333333333,
+   "rules": {
+    "dead_amplification": 1.05,
+    "saturated_fraction_of_max_rate": 0.5,
+    "runaway_fraction_of_max_rate": 0.1
+   },
+   "population_rate_hz": 10.853673716084401,
+   "fraction_neurons_active": 0.7091953610283294,
+   "silent_neurons": 40496,
+   "refractory_occupancy": 0.021648977295848144,
+   "synaptic_events": 140155816,
+   "membrane_max": 0.9999872446060181,
+   "membrane_mean_max": 0.0
+  }
+ ],
+ "probe": {
+  "pattern": "poisson",
+  "rate": 0.01,
+  "on_steps": 300,
+  "off_steps": 300,
+  "seeds": [
+   1,
+   2,
+   3
+  ]
+ },
+ "run": {
+  "timestamp_utc": "2026-09-17T11:55:07+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "f81ece84ed69b9a8c418af2122d6fc2e22753971",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m25",
+   "full-regime"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2",
+   "numba": "0.67.0",
+   "llvmlite": "0.49.0"
+  }
+ }
+}

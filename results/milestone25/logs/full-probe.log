@@ -1,0 +1,9 @@
+[17:00:47] probe 0.0001 s1: on 8.34 Hz, last third off 5.87 Hz, regime STABLE, self-sustained True
+[17:00:48] probe 0.0001 s2: on 3.82 Hz, last third off 4.09 Hz, regime STABLE, self-sustained True
+[17:00:49] probe 0.0001 s3: on 4.66 Hz, last third off 7.85 Hz, regime STABLE, self-sustained True
+[17:00:50] probe 0.001 s1: on 8.26 Hz, last third off 10.46 Hz, regime STABLE, self-sustained True
+[17:00:50] probe 0.001 s2: on 7.49 Hz, last third off 9.16 Hz, regime STABLE, self-sustained True
+[17:00:51] probe 0.001 s3: on 10.19 Hz, last third off 6.82 Hz, regime STABLE, self-sustained True
+[17:00:52] probe 0.01 s1: on 14.08 Hz, last third off 7.78 Hz, regime STABLE, self-sustained True
+[17:00:53] probe 0.01 s2: on 15.02 Hz, last third off 7.51 Hz, regime STABLE, self-sustained True
+[17:00:54] probe 0.01 s3: on 14.29 Hz, last third off 8.55 Hz, regime STABLE, self-sustained True

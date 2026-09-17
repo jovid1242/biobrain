@@ -1,0 +1,1664 @@
+{
+ "rows": [
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.0001,
+   "dtype": "float32",
+   "steps": 1000,
+   "spikes": 561,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 8.642673492431641e-07,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 8.642673492431641e-07,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.0001,
+   "dtype": "float64",
+   "steps": 1000,
+   "spikes": 561,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 2.220446049250313e-16,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 2.220446049250313e-16,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.001,
+   "dtype": "float32",
+   "steps": 1000,
+   "spikes": 2690,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 1.9073486328125e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 1.9073486328125e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.001,
+   "dtype": "float64",
+   "steps": 1000,
+   "spikes": 2690,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 6.661338147750939e-16,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 6.661338147750939e-16,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.01,
+   "dtype": "float32",
+   "steps": 1000,
+   "spikes": 12211,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 5.7220458984375e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 5.7220458984375e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.01,
+   "dtype": "float64",
+   "steps": 1000,
+   "spikes": 12211,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 2.6645352591003757e-15,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 2.6645352591003757e-15,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.1,
+   "dtype": "float32",
+   "steps": 1000,
+   "spikes": 59789,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 1.9073486328125e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 1.9073486328125e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.1,
+   "dtype": "float64",
+   "steps": 1000,
+   "spikes": 59789,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 3.552713678800501e-15,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 3.552713678800501e-15,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.0001,
+   "dtype": "float32",
+   "steps": 1000,
+   "spikes": 7469,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 5.7220458984375e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 5.7220458984375e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.0001,
+   "dtype": "float64",
+   "steps": 1000,
+   "spikes": 7469,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 1.7763568394002505e-15,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 1.7763568394002505e-15,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.001,
+   "dtype": "float32",
+   "steps": 1000,
+   "spikes": 46850,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 9.5367431640625e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 9.5367431640625e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.001,
+   "dtype": "float64",
+   "steps": 1000,
+   "spikes": 46850,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 2.1316282072803006e-14,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 2.1316282072803006e-14,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.01,
+   "dtype": "float32",
+   "steps": 1000,
+   "spikes": 143281,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 7.62939453125e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 7.62939453125e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.01,
+   "dtype": "float64",
+   "steps": 1000,
+   "spikes": 143281,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 5.329070518200751e-15,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 5.329070518200751e-15,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.1,
+   "dtype": "float32",
+   "steps": 1000,
+   "spikes": 651530,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 3.814697265625e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 3.814697265625e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.1,
+   "dtype": "float64",
+   "steps": 1000,
+   "spikes": 651530,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 7.105427357601002e-15,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 7.105427357601002e-15,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.0001,
+   "dtype": "float32",
+   "steps": 1000,
+   "spikes": 388128,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 4.57763671875e-05,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 4.57763671875e-05,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.0001,
+   "dtype": "float64",
+   "steps": 1000,
+   "spikes": 388128,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 2.1316282072803006e-14,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 2.1316282072803006e-14,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.001,
+   "dtype": "float32",
+   "steps": 1000,
+   "spikes": 374726,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 3.814697265625e-05,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 3.814697265625e-05,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.001,
+   "dtype": "float64",
+   "steps": 1000,
+   "spikes": 374725,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 2.842170943040401e-14,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 2.842170943040401e-14,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.01,
+   "dtype": "float32",
+   "steps": 1000,
+   "spikes": 709857,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 9.5367431640625e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 9.5367431640625e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.01,
+   "dtype": "float64",
+   "steps": 1000,
+   "spikes": 711943,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 1.4210854715202004e-14,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 1.4210854715202004e-14,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.1,
+   "dtype": "float32",
+   "steps": 1000,
+   "spikes": 2915329,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 5.7220458984375e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 5.7220458984375e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.1,
+   "dtype": "float64",
+   "steps": 1000,
+   "spikes": 2916675,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 1.0658141036401503e-14,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 1.0658141036401503e-14,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "full",
+   "neurons": 139255,
+   "input_rate": 0.0001,
+   "dtype": "float32",
+   "steps": 1000,
+   "spikes": 1110660,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 2.288818359375e-05,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 2.288818359375e-05,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "full",
+   "neurons": 139255,
+   "input_rate": 0.0001,
+   "dtype": "float64",
+   "steps": 1000,
+   "spikes": 1110660,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 2.842170943040401e-14,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 2.842170943040401e-14,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "full",
+   "neurons": 139255,
+   "input_rate": 0.001,
+   "dtype": "float32",
+   "steps": 1000,
+   "spikes": 1360336,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 3.814697265625e-05,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 3.814697265625e-05,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "full",
+   "neurons": 139255,
+   "input_rate": 0.001,
+   "dtype": "float64",
+   "steps": 1000,
+   "spikes": 1360336,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 2.842170943040401e-14,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 2.842170943040401e-14,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "full",
+   "neurons": 139255,
+   "input_rate": 0.01,
+   "dtype": "float32",
+   "steps": 1000,
+   "spikes": 1995801,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 1.52587890625e-05,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 1.52587890625e-05,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "full",
+   "neurons": 139255,
+   "input_rate": 0.01,
+   "dtype": "float64",
+   "steps": 1000,
+   "spikes": 1995801,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 4.263256414560601e-14,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 4.263256414560601e-14,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "full",
+   "neurons": 139255,
+   "input_rate": 0.1,
+   "dtype": "float32",
+   "steps": 1000,
+   "spikes": 8429461,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 7.62939453125e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 7.62939453125e-06,
+     "v_tolerance": 0.0001,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  },
+  {
+   "subgraph": "full",
+   "neurons": 139255,
+   "input_rate": 0.1,
+   "dtype": "float64",
+   "steps": 1000,
+   "spikes": 8429461,
+   "same_mode_numpy_vs_compiled": {
+    "time_step": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "event_driven": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "cross_mode": {
+    "compiled_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 1.4210854715202004e-14,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    },
+    "numpy_time_step_vs_compiled_event_driven": {
+     "spikes_equal": true,
+     "raster_equal": true,
+     "first_divergent_step": null,
+     "spike_count_difference": 0,
+     "max_abs_final_v_difference": 1.4210854715202004e-14,
+     "v_tolerance": 1e-09,
+     "equivalent": true,
+     "within_m2_absolute_tolerance": true,
+     "within_m25_relative_tolerance": true
+    }
+   },
+   "voltage_records_identical": true
+  }
+ ],
+ "variant": "touched",
+ "criteria": "docs/MILESTONE25_PLAN.md \u00a73",
+ "run": {
+  "timestamp_utc": "2026-09-17T11:57:28+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "f81ece84ed69b9a8c418af2122d6fc2e22753971",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m25",
+   "equivalence"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2",
+   "numba": "0.67.0",
+   "llvmlite": "0.49.0"
+  }
+ }
+}
