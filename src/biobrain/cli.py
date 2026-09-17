@@ -60,13 +60,17 @@ def cmd_analyze(args) -> int:
     from .connectome.store import Connectome
     from .telemetry import MemoryBudget
 
+    target = paths.results_dir() / "analysis" / args.dataset
+    if args.render_only:
+        print(f"report: {report.rerender(target)}")
+        return 0
     budget = MemoryBudget.from_env(args.memory_budget)
     conn = Connectome.load(args.dataset)
     settings = Settings(seed=args.seed, path_sources=args.path_sources, betweenness_sources=args.betweenness_sources,
                         null_samples=args.null_samples, step_time_limit_s=args.step_time_limit)
     analyzer = ConnectomeAnalyzer(conn, settings, budget)
     out = analyzer.run()
-    target = report.write(out, analyzer, conn, paths.results_dir() / "analysis" / args.dataset)
+    report.write(out, analyzer, conn, target)
     print(f"report: {target / 'REPORT.md'}")
     return 0
 
@@ -126,6 +130,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--betweenness-sources", type=int, default=256)
     p.add_argument("--null-samples", type=int, default=5)
     p.add_argument("--step-time-limit", type=float, default=900, help="seconds; costlier steps are skipped or down-sampled")
+    p.add_argument("--render-only", action="store_true", help="rebuild REPORT.md from an existing summary.json")
     p.set_defaults(func=cmd_analyze)
 
     p = sub.add_parser("bench-memory", help="benchmark graph representations, each in a fresh process")

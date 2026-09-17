@@ -177,9 +177,23 @@ def _f(x, digits=4):
 
 
 def _cell(value) -> str:
+    if value is None:
+        return "—"
     if isinstance(value, (int, float, np.number)) and not isinstance(value, bool):
         return _f(value)
     return str(value).replace("|", "\\|")
+
+
+def rerender(out_dir: Path) -> Path:
+    """Rebuild REPORT.md from summary.json and tables/*.csv without re-running the analysis."""
+    out = json.loads((out_dir / "summary.json").read_text())
+    tables = {}
+    for path in sorted((out_dir / "tables").glob("*.csv")):
+        with open(path, newline="") as fh:
+            tables[path.stem] = list(csv.DictReader(fh))
+    made = sorted(p.name for p in (out_dir / "figures").glob("*.png"))
+    (out_dir / "REPORT.md").write_text(markdown(out, made, tables))
+    return out_dir / "REPORT.md"
 
 
 def _table(rows: list[dict], columns: list[str] | None = None) -> list[str]:

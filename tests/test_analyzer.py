@@ -42,6 +42,10 @@ def test_pipeline_end_to_end(synthetic_catalog, budget, tmp_path):
     assert "## Null models" in text and "## Cost control" in text
     assert {p.name for p in (target / "figures").iterdir()} >= {"degree_ccdf.png", "motifs.png", "home_neuropil_matrix.png"}
     assert (target / "tables" / "hubs_in_degree.csv").is_file()
+    before = (target / "REPORT.md").read_text()
+    report.rerender(target)  # the report is reproducible from summary.json + tables alone
+    after = (target / "REPORT.md").read_text()
+    assert after.splitlines()[:30] == before.splitlines()[:30] and "## Cost control" in after
 
 
 def test_home_blocks_follow_presynapses(synthetic_catalog, budget):
