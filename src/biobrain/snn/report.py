@@ -95,8 +95,9 @@ def speedups(records: list[dict]) -> list[dict]:
 
 
 def crossover(rows: list[dict], name: str, mode: str) -> dict:
-    """Input rate and events/neuron/step where the median speedup crosses 1 (log-interpolated)."""
-    pts = sorted((r["input_rate"], r["events_per_neuron_per_step"], r["speedup_median"]) for r in rows
+    """Input rate, arriving events/neuron/step and skipped-update fraction where the median speedup crosses 1
+    (interpolated between the two measured rates, linearly in log rate)."""
+    pts = sorted((r["input_rate"], r["events_per_neuron_per_step"], r["speedup_median"], r["skipped_update_fraction"]) for r in rows
                  if r["subgraph"] == name and r["mode"] == mode and r["input_rate"] > 0)
     if not pts:
         return {"status": "no data"}
@@ -107,11 +108,12 @@ def crossover(rows: list[dict], name: str, mode: str) -> dict:
     if len(above) == len(pts):
         return {"status": "event-driven faster at every measured rate", "min_speedup": min(p[2] for p in pts)}
     crossings = [(a, b) for a, b in zip(pts, pts[1:]) if (a[2] > 1) != (b[2] > 1)]
-    (r0, e0, s0), (r1, e1, s1) = crossings[0]
+    (r0, e0, s0, k0), (r1, e1, s1, k1) = crossings[0]
     f = np.log(s0) / (np.log(s0) - np.log(s1))
-    lerp = lambda x0, x1: float(np.exp(np.log(max(x0, 1e-12)) + f * (np.log(max(x1, 1e-12)) - np.log(max(x0, 1e-12)))))
+    geo = lambda x0, x1: float(np.exp(np.log(max(x0, 1e-12)) + f * (np.log(max(x1, 1e-12)) - np.log(max(x0, 1e-12)))))
     return {"status": "crossover" if len(crossings) == 1 else "multiple crossings (first reported)", "crossings": len(crossings),
-            "input_rate": lerp(r0, r1), "events_per_neuron_per_step": lerp(e0, e1), "between_rates": [r0, r1], "faster_below": bool(s0 > 1)}
+            "input_rate": geo(r0, r1), "events_per_neuron_per_step": geo(e0, e1), "skipped_update_fraction": float(k0 + f * (k1 - k0)),
+            "between_rates": [r0, r1], "faster_below": bool(s0 > 1)}
 
 
 def _plt():
@@ -158,11 +160,11 @@ def figures() -> list[str]:
     save(fig, "1_speedup_vs_activity.png")
 
     # 2. RAM vs neurons, 3. wall vs neurons
-    empty = _empty_rss()
+    empty = _empty_rss() / MIB
     by = defaultdict(list)
     for r in records:
         by[(r["subgraph"]["name"], _rate(r), _mode(r))].append(r)
-    for metric, label, fname in (("ram", "peak RSS above an empty worker (MiB)", "2_ram_vs_neurons.png"),
+    for metric, label, fname in (("ram", "peak RSS of the worker process (MiB)", "2_ram_vs_neurons.png"),
                                  ("wall", "wall seconds per simulated second", "3_wall_vs_neurons.png")):
         fig, ax = plt.subplots(figsize=(7, 4.6))
         for rate in (0.0001, 0.01, 0.5):
@@ -171,14 +173,15 @@ def figures() -> list[str]:
                 for name in names:
                     runs = by.get((name, rate, mode))
                     if runs:
-                        value = [(x["process"]["peak_rss"] - empty) / MIB if metric == "ram" else x["metrics"]["wall_s"] / x["metrics"]["sim_time_s"]
+                        value = [x["process"]["peak_rss"] / MIB if metric == "ram" else x["metrics"]["wall_s"] / x["metrics"]["sim_time_s"]
                                  for x in runs]
                         pts.append((runs[0]["metrics"]["neurons"], np.median(value)))
                 if pts:
                     ax.plot(*zip(*sorted(pts)), style, marker="o", ms=4, label=f"input {rate:g}, {mode.replace('event_driven_', 'ED ')}")
         if metric == "ram":
-            topo = sorted({(r["metrics"]["neurons"], (r["memory"]["topology"] + r["memory"]["synapse_state"]) / MIB) for r in records})
-            ax.plot(*zip(*topo), "k-", lw=2, alpha=0.4, label="topology + weights (accounted)")
+            topo = sorted({(r["metrics"]["neurons"], empty + (r["memory"]["topology"] + r["memory"]["synapse_state"]) / MIB) for r in records})
+            ax.plot(*zip(*topo), "k-", lw=2, alpha=0.4, label="empty worker + topology + weights (accounted)")
+            ax.axhline(empty, color="k", ls=":", lw=1, label="empty worker (imports only)")
         ax.set(xscale="log", yscale="log", xlabel="neurons in subgraph", ylabel=label)
         ax.legend(fontsize=6)
         save(fig, fname)
@@ -198,23 +201,24 @@ def figures() -> list[str]:
 
     # 5. stability (calibration phase diagram)
     fig, ax = plt.subplots(figsize=(8, 4.8))
-    colors = {"DEAD": "tab:blue", "STABLE": "tab:green", "SATURATED": "tab:red"}
-    for path in sorted((experiments.results_dir() / "experiments").glob("calibration_*.json")):
-        cal = json.loads(path.read_text())
+    markers = {"DEAD": "v", "STABLE": "o", "SATURATED": "^", "seeds disagree": "x"}
+    cals = [json.loads(path.read_text()) for path in (experiments.results_dir() / "experiments").glob("calibration_*.json")]
+    for cal in sorted(cals, key=lambda c: ("variant" in c, c["neurons"])):
         by_gain = defaultdict(list)
         for row in cal["rows"]:
             by_gain[row["gain"]].append(row)
         g = sorted(by_gain)
-        rate = [np.median([x["population_rate_hz"] for x in by_gain[k]]) for k in g]
-        label = cal["subgraph"] + (f" ({cal['variant']})" if "variant" in cal else "")
-        ax.plot(g, np.maximum(rate, 1e-3), "--" if "variant" in cal else "-", lw=1, label=label)
-        for k, r in zip(g, rate):
+        hz = [np.median([x["rate_on_per_step"] for x in by_gain[k]]) * 1000 / cal["config"]["neuron"]["dt_ms"] for k in g]
+        label = f"{cal['subgraph']} ({cal['variant']})" if "variant" in cal else cal["subgraph"]
+        line, = ax.plot(g, hz, "--" if "variant" in cal else "-", lw=1, label=label)
+        for k, r in zip(g, hz):
             regimes = {x["regime"] for x in by_gain[k]}
-            ax.scatter([k], [max(r, 1e-3)], s=18, color=colors[regimes.pop()] if len(regimes) == 1 else "gray", zorder=3)
-    handles = [plt.Line2D([], [], marker="o", ls="", color=c, label=k) for k, c in colors.items()]
-    handles.append(plt.Line2D([], [], marker="o", ls="", color="gray", label="seeds disagree"))
+            ax.plot([k], [r], markers[regimes.pop() if len(regimes) == 1 else "seeds disagree"], color=line.get_color(), ms=5,
+                    mfc="none" if "variant" in cal else line.get_color())
+    handles = [plt.Line2D([], [], marker=m, ls="", color="k", label=k) for k, m in markers.items()]
     ax.set(xscale="log", yscale="log", xlabel="gain (mean |weight| of a connectome edge, threshold units)",
-           ylabel="population rate while input on (Hz, median of 3 seeds)", title="Calibration: 1 % input for 300 ms, then 300 ms off")
+           ylabel="population rate while the input is on (Hz, median of 3 seeds)",
+           title="Calibration probe: 1 % input for 300 ms, then 300 ms without input")
     ax.legend(handles=ax.get_legend_handles_labels()[0] + handles, fontsize=6, ncol=2)
     save(fig, "5_stability_calibration.png")
 
@@ -243,18 +247,23 @@ def figures() -> list[str]:
     if prof:
         default_steps = inspect.signature(experiments.profile_phases).parameters["steps"].default
         rows_p = prof["rows"]
-        fig, ax = plt.subplots(figsize=(11, 4.8))
+        fig, ax = plt.subplots(figsize=(11, 5))
         phases = sorted({p for r in rows_p for p in r["phases_s"]})
+        colors = plt.get_cmap("tab20")(np.linspace(0, 1, 20))[: len(phases)]
         labels = [f"{r['subgraph'].replace('expand_', '')}\n{r['input_rate']:g}\n"
                   f"{'TS' if r['mode'] == 'time_step' else 'ED/' + r['aggregation']}" for r in rows_p]
+        total = np.array([sum(r["phases_s"].values()) for r in rows_p])
         bottom = np.zeros(len(rows_p))
-        for phase in phases:
-            vals = np.array([r["phases_s"].get(phase, 0.0) * 1e6 / r.get("steps", default_steps) for r in rows_p])
-            ax.bar(range(len(rows_p)), vals, bottom=bottom, label=phase)
-            bottom += vals
+        for phase, color in zip(phases, colors):
+            share = np.array([r["phases_s"].get(phase, 0.0) for r in rows_p]) / total
+            ax.bar(range(len(rows_p)), share, bottom=bottom, color=color, label=phase)
+            bottom += share
+        for i, r in enumerate(rows_p):
+            ax.text(i, 1.01, f"{total[i] * 1e6 / r.get('steps', default_steps):.0f}", ha="center", va="bottom", fontsize=5, rotation=90)
         ax.set_xticks(range(len(rows_p)), labels, fontsize=5)
-        ax.set(ylabel="µs per step (stacked phase timers)", title="Where the time goes: subgraph / input rate / mode")
-        ax.legend(fontsize=6, ncol=3)
+        ax.set(ylim=(0, 1.12), ylabel="share of timed step (numbers above bars: µs per step)",
+               title="Where the time goes: subgraph / input rate / mode")
+        ax.legend(fontsize=6, ncol=6, loc="lower center", bbox_to_anchor=(0.5, -0.32))
         save(fig, "7_profile_phases.png")
     return made
 
