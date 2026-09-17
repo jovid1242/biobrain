@@ -65,7 +65,7 @@ def _meta_bytes(meta: dict) -> np.ndarray:
 
 def prepare(conn: Connectome, subgraph_name: str, cfg: SimConfig, topology: str = "real", topology_seed: int = 0) -> Path:
     """Cache the network (per model) and the input schedule (per stimulus) separately; returns a small descriptor."""
-    manifest_path = subgraph.manifests_dir() / f"{subgraph_name}.json"
+    manifest_path = subgraph.manifests_dir(subgraph_name) / f"{subgraph_name}.json"
     sub_sha = json.loads(manifest_path.read_text())["sha256"] if manifest_path.is_file() else None
     net_key = hashlib.sha256(json.dumps([subgraph_name, sub_sha, topology, topology_seed, cfg.model_hash]).encode()).hexdigest()[:20]
     net_path = cache_dir() / f"net-{subgraph_name}-{topology}-{net_key}.npz"
@@ -102,17 +102,23 @@ def load_prepared(descriptor: Path) -> tuple[network.Network, InputSchedule, dic
 
 
 # ---- records ---------------------------------------------------------------------------------------------------------
-def experiment_id(kind: str, subgraph_name: str, topology: str, cfg: SimConfig) -> str:
-    mode = cfg.run.mode + ("_auto" if cfg.run.mode == "event_driven" and cfg.run.aggregation == "auto" else "")
-    return (f"m2-{kind}-{subgraph_name}-{topology}-{mode}-{cfg.inputs.pattern}{cfg.inputs.rate:g}"
+def experiment_id(kind: str, subgraph_name: str, topology: str, cfg: SimConfig, backend: str = "numpy",
+                  variant: str = "touched", prefix: str = "m2") -> str:
+    if backend == "numpy":
+        mode = cfg.run.mode + ("_auto" if cfg.run.mode == "event_driven" and cfg.run.aggregation == "auto" else "")
+    else:
+        mode = f"{backend}_{cfg.run.mode}" + (f"_{variant}" if cfg.run.mode == "event_driven" else "")
+    return (f"{prefix}-{kind}-{subgraph_name}-{topology}-{mode}-{cfg.inputs.pattern}{cfg.inputs.rate:g}"
             f"-g{cfg.weights.gain:g}-{cfg.neuron.dtype}-s{cfg.run.seed}-{cfg.digest()[:8]}")
 
 
-def make_record(kind: str, cfg: SimConfig, meta: dict, res: engine.RunResult, extra: dict | None = None) -> dict:
+def make_record(kind: str, cfg: SimConfig, meta: dict, res: engine.RunResult, extra: dict | None = None,
+                backend: str = "numpy", variant: str = "touched", prefix: str = "m2") -> dict:
     summary = metrics.summarize(res, cfg.neuron)
     return {
-        "experiment_id": experiment_id(kind, meta["subgraph"]["name"], meta["topology"], cfg),
-        "kind": kind,
+        "experiment_id": experiment_id(kind, meta["subgraph"]["name"], meta["topology"], cfg, backend, variant, prefix),
+        "kind": kind, "backend": backend,
+        "variant": variant if backend != "numpy" and cfg.run.mode == "event_driven" else None,
         "timestamp_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
         "mode": cfg.run.mode, "aggregation": cfg.run.aggregation if cfg.run.mode == "event_driven" else None,
         "seed": cfg.run.seed,
@@ -125,41 +131,55 @@ def make_record(kind: str, cfg: SimConfig, meta: dict, res: engine.RunResult, ex
     }
 
 
-def simulate(path: Path, cfg: SimConfig, kind: str = "benchmark", tag: str = "") -> dict:
+def simulate(path: Path, cfg: SimConfig, kind: str = "benchmark", tag: str = "", backend: str = "numpy",
+             variant: str = "touched", prefix: str = "m2") -> dict:
     from . import energy
 
+    compile_s = None
+    power_before = energy.power_state()
+    if backend == "numba":  # compile or load the cached kernels before anything is measured
+        from . import compiled
+
+        compile_s = compiled.warmup(cfg.neuron.dtype, modes=(cfg.run.mode,), variants=(variant,))
     rss0 = _rss()
+    peak0 = _peak_rss()
     t0 = time.perf_counter()
     net, sched, meta = load_prepared(path)
     setup_s = time.perf_counter() - t0
     rss_loaded = _rss()
     e0 = energy.snapshot()
-    res = engine.run(net, sched, cfg.neuron, cfg.run.steps, cfg.run.mode, aggregation=cfg.run.aggregation,
-                     profile=cfg.run.profile, record_voltage_every=cfg.run.record_voltage_every)
+    kw = {"variant": variant} if backend == "numba" else {}
+    res = engine.run(net, sched, cfg.neuron, cfg.run.steps, cfg.run.mode, backend=backend, aggregation=cfg.run.aggregation,
+                     profile=cfg.run.profile, record_voltage_every=cfg.run.record_voltage_every, **kw)
     e1 = energy.snapshot()
     gc.collect()
-    process = {"baseline_rss": rss0, "rss_after_load": rss_loaded, "rss_after_run": _rss(), "peak_rss": _peak_rss(),
-               "setup_s": setup_s, **energy.power_state()}
+    process = {"baseline_rss": rss0, "peak_rss_before_load": peak0, "rss_after_load": rss_loaded, "rss_after_run": _rss(),
+               "peak_rss": _peak_rss(), "setup_s": setup_s, "compile_or_cache_load_s": compile_s, **energy.power_state(),
+               "power_before_run": power_before}
     record = make_record(kind, cfg, meta, res, {"process": process, "prepared": path.name,
-                                                "os_cpu_energy_estimate": energy.delta(e0, e1, res.wall_s)})
+                                                "os_cpu_energy_estimate": energy.delta(e0, e1, res.wall_s)},
+                         backend=backend, variant=variant, prefix=prefix)
     if tag:
         record["experiment_id"] += f"-{tag}"
         record["tag"] = tag
     return record
 
 
-def run_isolated(path: Path, cfg: SimConfig, kind: str = "benchmark", timeout: float = 3600, tag: str = "") -> dict:
+def run_isolated(path: Path, cfg: SimConfig, kind: str = "benchmark", timeout: float = 3600, tag: str = "",
+                 backend: str = "numpy", variant: str = "touched", prefix: str = "m2") -> dict:
     proc = subprocess.run([sys.executable, "-m", "biobrain.snn.experiments", "--prepared", str(path),
-                           "--config", json.dumps(cfg.to_dict()), "--kind", kind, "--tag", tag],
+                           "--config", json.dumps(cfg.to_dict()), "--kind", kind, "--tag", tag, "--backend", backend,
+                           "--variant", variant, "--prefix", prefix],
                           capture_output=True, text=True, timeout=timeout)
     if proc.returncode != 0:
         raise RuntimeError(f"worker failed: {proc.stderr.strip()[-2000:]}")
     return json.loads(proc.stdout.strip().splitlines()[-1])
 
 
-def empty_process_rss() -> int:
-    proc = subprocess.run([sys.executable, "-m", "biobrain.snn.experiments", "--baseline"], capture_output=True, text=True,
-                          timeout=120, check=True)
+def empty_process_rss(backend: str = "numpy", dtype: str = "float32") -> int:
+    """Peak RSS of a worker that imports the simulator (and, for numba, loads the compiled kernels) and exits."""
+    proc = subprocess.run([sys.executable, "-m", "biobrain.snn.experiments", "--baseline", "--backend", backend,
+                           "--dtype", dtype], capture_output=True, text=True, timeout=600, check=True)
     return int(json.loads(proc.stdout.strip().splitlines()[-1])["peak_rss"])
 
 
@@ -377,9 +397,17 @@ if __name__ == "__main__":
     parser.add_argument("--kind", default="benchmark")
     parser.add_argument("--tag", default="")
     parser.add_argument("--baseline", action="store_true")
+    parser.add_argument("--backend", default="numpy")
+    parser.add_argument("--variant", default="touched")
+    parser.add_argument("--prefix", default="m2")
+    parser.add_argument("--dtype", default="float32")
     args = parser.parse_args()
     if args.baseline:
+        if args.backend == "numba":
+            from . import compiled
+
+            compiled.warmup(args.dtype, variants=compiled.VARIANTS)
         print(json.dumps({"peak_rss": _peak_rss(), "rss": _rss()}))
     else:
-        print(json.dumps(simulate(Path(args.prepared), SimConfig.from_dict(json.loads(args.config)), args.kind, args.tag),
-                         default=float))
+        print(json.dumps(simulate(Path(args.prepared), SimConfig.from_dict(json.loads(args.config)), args.kind, args.tag,
+                                  args.backend, args.variant, args.prefix), default=float))

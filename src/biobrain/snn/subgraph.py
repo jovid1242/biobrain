@@ -31,6 +31,7 @@ CANONICAL = {
     "neuropil_PB": {"method": "neuropil", "neuropil": "PB"},
     "neuropil_SPS_R": {"method": "neuropil", "neuropil": "SPS_R"},
     "neuropil_LO_R": {"method": "neuropil", "neuropil": "LO_R"},
+    "full": {"method": "full"},  # Milestone 2.5: all 139,255 neurons
 }
 
 
@@ -130,8 +131,12 @@ def _digest(*arrays: np.ndarray) -> str:
     return h.hexdigest()
 
 
-def manifests_dir() -> Path:
-    return paths.results_dir() / "milestone2" / "subgraphs"
+M25_SUBGRAPHS = ("full",)
+
+
+def manifests_dir(name: str | None = None) -> Path:
+    """Milestone 2 subgraph manifests stay where M2 wrote them; subgraphs added in M2.5 get their own directory."""
+    return paths.results_dir() / ("milestone25" if name in M25_SUBGRAPHS else "milestone2") / "subgraphs"
 
 
 def cache_dir() -> Path:
@@ -144,6 +149,9 @@ def build(conn: Connectome, name: str, spec: dict) -> Subgraph:
         order, info = expansion_order(conn, spec["size"], spec["seed"])
         params.update(info)
         nodes = order
+    elif spec["method"] == "full":
+        nodes = np.arange(conn.n_neurons, dtype=np.int64)
+        params["rule"] = "every neuron of the processed store"
     elif spec["method"] == "neuropil":
         from ..analysis.regions import home_blocks
 
@@ -173,15 +181,15 @@ def build(conn: Connectome, name: str, spec: dict) -> Subgraph:
 
 
 def save(sub: Subgraph) -> None:
-    manifests_dir().mkdir(parents=True, exist_ok=True)
+    manifests_dir(sub.name).mkdir(parents=True, exist_ok=True)
     cache_dir().mkdir(parents=True, exist_ok=True)
     np.save(cache_dir() / f"{sub.name}.npy", sub.nodes)
-    (manifests_dir() / f"{sub.name}.json").write_text(json.dumps(sub.manifest, indent=1) + "\n")
+    (manifests_dir(sub.name) / f"{sub.name}.json").write_text(json.dumps(sub.manifest, indent=1) + "\n")
 
 
 def load(conn: Connectome, name: str) -> Subgraph:
     """Rebuild from the cached node list (or re-extract) and verify against the recorded manifest."""
-    manifest_path, cache_path = manifests_dir() / f"{name}.json", cache_dir() / f"{name}.npy"
+    manifest_path, cache_path = manifests_dir(name) / f"{name}.json", cache_dir() / f"{name}.npy"
     if not manifest_path.is_file():
         sub = build(conn, name, CANONICAL[name])
         save(sub)

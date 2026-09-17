@@ -122,13 +122,11 @@ def _ts_kernel(t_start, t_end, indptr, indices, weights, sched_indptr, sched_neu
             x = x + _to_state(acc[slot, i], v)
             acc[slot, i] = 0.0
             x = x + ext_add[i]
-            if ref > 0 and t - last_spike[i] <= ref:
-                x = v_reset
-            if x >= theta:
-                spk[ns] = i
-                ns += 1
-                x = v_reset
-            v[i] = x
+            x = v_reset if (ref > 0) & (t - last_spike[i] <= ref) else x
+            fired = x >= theta
+            spk[ns] = i  # branch-free append: the slot is overwritten unless the neuron fired
+            ns += fired
+            v[i] = v_reset if fired else x
         c2 = _now() if profile else 0
         for q in range(e0, e1):
             ext_add[sched_neurons[q]] = 0.0
@@ -165,34 +163,26 @@ def _ts_kernel(t_start, t_end, indptr, indices, weights, sched_indptr, sched_neu
 
 # ---- event-driven ------------------------------------------------------------------------------------------------------
 @njit(cache=True, inline="always")
-def _ed_update(j, t, ref, kmax, v, t_last, last_spike, acc, flags, decay, v_reset, w_in, theta):
-    """One touched neuron at step t, as engine._lazy + the input/refractory/threshold lines of run_event_driven."""
+def _ed_update(j, t, ref, kmax, v, t_last, last_spike, acc, flags, decay, v_reset, w_in, zero, theta):
+    """One touched neuron at step t, as engine._lazy + the input/refractory/threshold lines of run_event_driven.
+
+    Written with selects instead of branches. Adding the cleared accumulator (+0.0) or `zero` to a neuron without that
+    input leaves the value bit-identical: the only float x with x + 0.0 != x is -0.0, which cannot reach these
+    additions except as +/-0.0 before a non-zero external weight (tests check bit identity with the NumPy engine)."""
     ls = last_spike[j]
     ref_end = np.int64(ls) + ref
-    if ref_end >= t_last[j]:
-        k = t - ref_end
-        x = v_reset
-    else:
-        k = t - t_last[j]
-        x = v[j]
-    if k < 0:
-        k = 0
-    elif k > kmax:
-        k = kmax
-    x = x * decay[k]
-    f = flags[j]
-    if f & 1:
-        x = x + _to_state(acc[j], v)
-        acc[j] = 0.0
-    if f & 2:
-        x = x + w_in
+    tl = t_last[j]
+    from_reset = ref_end >= tl
+    k = t - ref_end if from_reset else t - tl
+    k = min(max(k, 0), kmax)
+    x = (v_reset if from_reset else v[j]) * decay[k]
+    x = x + _to_state(acc[j], v)
+    acc[j] = 0.0
+    x = x + (w_in if flags[j] & 2 else zero)
     flags[j] = 0
-    if ref > 0 and t - ls <= ref:
-        x = v_reset
+    x = v_reset if (ref > 0) & (t - ls <= ref) else x
     fired = x >= theta
-    if fired:
-        x = v_reset
-    v[j] = x
+    v[j] = v_reset if fired else x
     t_last[j] = t
     return fired
 
@@ -216,7 +206,7 @@ def _ed_voltage_row(t, ref, kmax, v, t_last, last_spike, decay, v_reset, out):
 
 
 @njit(cache=True)
-def _ed_kernel(t_start, t_end, variant, indptr, indices, weights, sched_indptr, sched_neurons, d, ref, theta, v_reset, w_in,
+def _ed_kernel(t_start, t_end, variant, indptr, indices, weights, sched_indptr, sched_neurons, d, ref, theta, v_reset, w_in, zero,
                decay, v, last_spike, t_last, acc, flags, touched, ring_ids, ring_count, ev_tgt, ev_w, ev_count, spk,
                sort_tmp, sort_counts, radix_passes, spikes, updates, events, unique_targets, spike_counts, pending,
                record, rec_ptr, rec_ids, rec_used, volt_every, volt_buf, profile, timers):
@@ -235,10 +225,9 @@ def _ed_kernel(t_start, t_end, variant, indptr, indices, weights, sched_indptr, 
                 s = ring_ids[slot, q]
                 for e in range(indptr[s], indptr[s + 1]):
                     j = indices[e]
-                    if flags[j] == 0:
-                        touched[na] = j
-                        na += 1
-                        flags[j] = 1
+                    touched[na] = j
+                    na += flags[j] == 0
+                    flags[j] = 1
                     acc[j] += weights[e]
                 pending[0] -= indptr[s + 1] - indptr[s]
             ring_count[slot] = 0
@@ -248,9 +237,8 @@ def _ed_kernel(t_start, t_end, variant, indptr, indices, weights, sched_indptr, 
                 s = ring_ids[slot, q]
                 for e in range(indptr[s], indptr[s + 1]):
                     j = indices[e]
-                    if flags[j] == 0:
-                        n_syn += 1
-                        flags[j] = 1
+                    n_syn += flags[j] == 0
+                    flags[j] = 1
                     acc[j] += weights[e]
                 pending[0] -= indptr[s + 1] - indptr[s]
             ring_count[slot] = 0
@@ -258,10 +246,9 @@ def _ed_kernel(t_start, t_end, variant, indptr, indices, weights, sched_indptr, 
             ne = ev_count[slot]
             for q in range(ne):
                 j = ev_tgt[slot, q]
-                if flags[j] == 0:
-                    touched[na] = j
-                    na += 1
-                    flags[j] = 1
+                touched[na] = j
+                na += flags[j] == 0
+                flags[j] = 1
                 acc[j] += ev_w[slot, q]
             pending[0] -= ne
             ev_count[slot] = 0
@@ -272,12 +259,10 @@ def _ed_kernel(t_start, t_end, variant, indptr, indices, weights, sched_indptr, 
         n_ext_new = 0
         for q in range(e0, e1):
             j = sched_neurons[q]
-            if flags[j] == 0:
-                if variant != 1:
-                    touched[na] = j
-                    na += 1
-                else:
-                    n_ext_new += 1
+            new = flags[j] == 0
+            touched[na] = j  # harmless for the dense variant (buffer has N slots, na stays 0 there)
+            na += new and variant != 1
+            n_ext_new += new
             flags[j] |= 2
         c2 = _now() if profile else 0
         total = na if variant != 1 else n_syn + n_ext_new
@@ -296,15 +281,15 @@ def _ed_kernel(t_start, t_end, variant, indptr, indices, weights, sched_indptr, 
         if variant == 1:
             for j in range(n):
                 if flags[j] != 0:
-                    if _ed_update(j, t, ref, kmax, v, t_last, last_spike, acc, flags, decay, v_reset, w_in, theta):
-                        spk[ns] = j
-                        ns += 1
+                    fired = _ed_update(j, t, ref, kmax, v, t_last, last_spike, acc, flags, decay, v_reset, w_in, zero, theta)
+                    spk[ns] = j
+                    ns += fired
         else:
             for q in range(na):
                 j = touched[q]
-                if _ed_update(j, t, ref, kmax, v, t_last, last_spike, acc, flags, decay, v_reset, w_in, theta):
-                    spk[ns] = j
-                    ns += 1
+                fired = _ed_update(j, t, ref, kmax, v, t_last, last_spike, acc, flags, decay, v_reset, w_in, zero, theta)
+                spk[ns] = j
+                ns += fired
         updates[t] = total
         c3 = _now() if profile else 0
         if variant != 1:
@@ -463,7 +448,8 @@ def run_event_driven(net: Network, schedule: InputSchedule, p: NeuronParams, ste
     t, t0 = 0, time.perf_counter()
     while t < steps:
         t = _ed_kernel(t, steps, code, net.indptr, net.indices, net.weights, sched_indptr, sched_neurons, d, ref,
-                       dt.type(p.v_threshold), dt.type(p.v_reset), dt.type(schedule.weight), decay, v, last_spike, t_last, acc,
+                       dt.type(p.v_threshold), dt.type(p.v_reset), dt.type(schedule.weight), dt.type(0.0), decay, v, last_spike,
+                       t_last, acc,
                        flags, touched, ring_ids, ring_count, ev_tgt, ev_w, ev_count, spk, sort_tmp, sort_counts,
                        _radix_passes(size), spikes, updates, events, unique_targets, spike_counts, pending,
                        record_spikes, rec_ptr, rec_ids, rec_used, every, volt_buf, profile, timers)
