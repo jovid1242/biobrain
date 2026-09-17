@@ -1,0 +1,45 @@
+{
+ "peak_rss_bytes": {
+  "numpy": [
+   94339072,
+   94371840,
+   94437376
+  ],
+  "numba": [
+   162463744,
+   162512896,
+   162611200
+  ]
+ },
+ "median_bytes": {
+  "numpy": 94371840,
+  "numba": 162512896
+ },
+ "what": "peak RSS of a worker that imports the simulator (numba: and compiles/loads every kernel) and exits",
+ "run": {
+  "timestamp_utc": "2026-09-17T11:45:20+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "a896da1f84bd09f367cd2ab1bccd5a2aa42e3a69",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m25",
+   "baseline-rss"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2",
+   "numba": "0.67.0",
+   "llvmlite": "0.49.0"
+  }
+ }
+}
