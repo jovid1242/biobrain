@@ -4,7 +4,7 @@
 *Drosophila* brain (FlyWire, 139,255 neurons) can serve as the starting architecture for a sparse, event-driven,
 trainable spiking neural network that solves AI tasks with far fewer synaptic operations than a suitable
 baseline. It is not an LLM, not a Transformer, not an AGI attempt and not a fly simulator. Negative results are
-treated as results. Current stage: **Milestone 1 — data, validation, graph analysis, memory measurements.**
+treated as results. **Milestone 1 (official data, validation, graph analysis, memory measurements) is complete**; Milestone 2 (a minimal spiking simulator) has not started.
 
 ---
 
