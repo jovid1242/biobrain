@@ -96,6 +96,12 @@ def cmd_bench_memory(args) -> int:
     return 1 if failed else 0
 
 
+def cmd_m2(args) -> int:
+    from .snn import pipeline
+
+    return pipeline.run_step(args.step)
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="biobrain", description=__doc__)
     parser.add_argument("--memory-budget", default=None,
@@ -138,6 +144,11 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--cases", nargs="+", help="subset of cases (default: all)")
     p.add_argument("--seed", type=int, default=20260916)
     p.set_defaults(func=cmd_bench_memory)
+
+    p = sub.add_parser("m2", help="Milestone 2 spiking-engine experiments, one step at a time")
+    p.add_argument("step", choices=["subgraphs", "calibrate", "equivalence", "baseline-rss", "bench", "bench-50k",
+                                    "bench-neuropils", "patterns", "sensitivity", "nulls", "profile", "estimate", "figures", "summary"])
+    p.set_defaults(func=cmd_m2)
 
     p = sub.add_parser("neuron", help="look up one neuron: annotations, degrees, strongest partners")
     p.add_argument("root_id", type=int)

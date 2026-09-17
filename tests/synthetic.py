@@ -55,9 +55,11 @@ def write_synthetic_release(raw, n=3000, seed=0):
     ann.mkdir(parents=True, exist_ok=True)
     super_class = rng.choice(SUPER, n, p=[0.5, 0.35, 0.1, 0.05])
     flow = np.where(super_class == "sensory", "afferent", np.where(super_class == "descending", "efferent", "intrinsic"))
-    lines = ["supervoxel_id\troot_id\tpos_x\tsoma_x\tnucleus_id\tflow\tsuper_class\tcell_type\tside"]
+    transmitters = ["acetylcholine", "gaba", "glutamate", "dopamine", "serotonin", "octopamine", ""]
+    top_nt = rng.choice(transmitters, n, p=[0.55, 0.15, 0.2, 0.04, 0.03, 0.01, 0.02])
+    lines = ["supervoxel_id\troot_id\tpos_x\tsoma_x\tnucleus_id\tflow\tsuper_class\tcell_type\tside\ttop_nt"]
     for i in range(n - 2):  # the last two neurons have no annotation row
         lines.append(f"{i + 1}\t{ids[i]}\t{rng.random() * 1e5:.1f}\t{int(rng.integers(0, 1e5))}\t{i + 10}\t{flow[i]}\t"
-                     f"{super_class[i]}\tT{int(rng.integers(0, 40))}\t{rng.choice(['left', 'right'])}")
+                     f"{super_class[i]}\tT{int(rng.integers(0, 40))}\t{rng.choice(['left', 'right'])}\t{top_nt[i]}")
     (ann / "Supplemental_file1_neuron_annotations.tsv").write_text("\n".join(lines) + "\n")
     return ids, home
