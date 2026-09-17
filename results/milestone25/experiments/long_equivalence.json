@@ -1,0 +1,112 @@
+{
+ "subgraph": "expand_10k",
+ "steps": 40000,
+ "input_rate": 0.001,
+ "variant": "touched",
+ "rows": [
+  {
+   "dtype": "float64",
+   "a": "numpy_time_step",
+   "b": "compiled_time_step",
+   "first_divergent_step": null,
+   "spikes_a": 2827452,
+   "spikes_b": 2827452,
+   "bit_identical": true,
+   "wall_s": {
+    "numpy_time_step": 2.2982936659973348,
+    "compiled_time_step": 0.6922814580029808
+   }
+  },
+  {
+   "dtype": "float64",
+   "a": "numpy_event_driven",
+   "b": "compiled_event_driven",
+   "first_divergent_step": null,
+   "spikes_a": 2827452,
+   "spikes_b": 2827452,
+   "bit_identical": true,
+   "wall_s": {
+    "numpy_event_driven": 13.6357996250008,
+    "compiled_event_driven": 1.0558177919956506
+   }
+  },
+  {
+   "dtype": "float64",
+   "a": "compiled_time_step",
+   "b": "compiled_event_driven",
+   "first_divergent_step": null,
+   "spikes_a": 2827452,
+   "spikes_b": 2827452,
+   "bit_identical": false,
+   "wall_s": {
+    "compiled_time_step": 0.6922814580029808,
+    "compiled_event_driven": 1.0558177919956506
+   }
+  },
+  {
+   "dtype": "float32",
+   "a": "numpy_time_step",
+   "b": "compiled_time_step",
+   "first_divergent_step": null,
+   "spikes_a": 2837473,
+   "spikes_b": 2837473,
+   "bit_identical": true,
+   "wall_s": {
+    "numpy_time_step": 2.1585592919946066,
+    "compiled_time_step": 0.5286446669997531
+   }
+  },
+  {
+   "dtype": "float32",
+   "a": "numpy_event_driven",
+   "b": "compiled_event_driven",
+   "first_divergent_step": null,
+   "spikes_a": 2827452,
+   "spikes_b": 2827452,
+   "bit_identical": true,
+   "wall_s": {
+    "numpy_event_driven": 12.946973708996666,
+    "compiled_event_driven": 0.9556392079975922
+   }
+  },
+  {
+   "dtype": "float32",
+   "a": "compiled_time_step",
+   "b": "compiled_event_driven",
+   "first_divergent_step": 3349,
+   "spikes_a": 2837473,
+   "spikes_b": 2827452,
+   "bit_identical": false,
+   "wall_s": {
+    "compiled_time_step": 0.5286446669997531,
+    "compiled_event_driven": 0.9556392079975922
+   }
+  }
+ ],
+ "run": {
+  "timestamp_utc": "2026-09-17T11:53:37+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "7d924085a2e0078ebee3a25157fc1ccf4565d4ba",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m25",
+   "long-equivalence"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2",
+   "numba": "0.67.0",
+   "llvmlite": "0.49.0"
+  }
+ }
+}

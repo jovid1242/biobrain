@@ -1,0 +1,92 @@
+{
+ "name": "full",
+ "method": "full",
+ "params": {
+  "method": "full",
+  "rule": "every neuron of the processed store"
+ },
+ "dataset": {
+  "id": "flywire_fafb_v783",
+  "store_manifest_sha256": "f118b8eb7132ab1c31cb0762f5000da46283a7b865099e0f07ca3088844f2596",
+  "counts": {
+   "neurons": 139255,
+   "edges": 15091983,
+   "rows": 16847997,
+   "synapses": 54492922
+  }
+ },
+ "neurons": 139255,
+ "edges": 15091983,
+ "synapses": 54492922,
+ "mean_out_degree": 108.37659689059639,
+ "weak_components": 705,
+ "largest_weak_component": 138113,
+ "strong_components": 3240,
+ "largest_strong_component": 135403,
+ "composition": {
+  "super_class": {
+   "optic": 77537,
+   "central": 32383,
+   "sensory": 16904,
+   "visual_projection": 8038,
+   "ascending": 1750,
+   "descending": 1303,
+   "sensory_ascending": 612,
+   "visual_centrifugal": 524,
+   "motor": 110,
+   "endocrine": 80,
+   "(none)": 14
+  },
+  "top_nt": {
+   "acetylcholine": 86191,
+   "glutamate": 24873,
+   "gaba": 19171,
+   "dopamine": 5909,
+   "serotonin": 2281,
+   "(none)": 614,
+   "octopamine": 216
+  },
+  "home_neuropil_top10": {
+   "ME_R": 23786,
+   "ME_L": 23384,
+   "LO_L": 10601,
+   "LO_R": 9864,
+   "LOP_R": 7150,
+   "LOP_L": 7068,
+   "GNG": 6093,
+   "LA_L": 5168,
+   "LA_R": 4553,
+   "MB_ML_L": 2545
+  }
+ },
+ "sha256": {
+  "root_ids": "84bc9ec32c4f797e3f6e6557b30b5fc7f447b5852aeb9553f7dd18ed6bd3321d",
+  "edges": "3c1500f6a3ded83e9297287fec3c5e19c826d875ed3b2aa75b0423154eb18cbb"
+ },
+ "created": {
+  "timestamp_utc": "2026-09-17T11:53:38+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "7d924085a2e0078ebee3a25157fc1ccf4565d4ba",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m25",
+   "full-build"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2",
+   "numba": "0.67.0",
+   "llvmlite": "0.49.0"
+  }
+ }
+}

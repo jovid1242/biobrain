@@ -1,0 +1,165 @@
+{
+ "label": "ESTIMATE \u2014 made before the full-connectome run from the 1k-50k matrix; compared with measurements afterwards",
+ "neurons": 139255,
+ "simulated_edges": 14259157,
+ "cost_models": {
+  "numpy_time_step": {
+   "terms": [
+    "base",
+    "N",
+    "E"
+   ],
+   "seconds": [
+    2.5233430311556626e-06,
+    5.474244611297641e-10,
+    3.6892100883607593e-09
+   ],
+   "runs": 54,
+   "median_abs_relative_error": 0.09414519092325802,
+   "p90_abs_relative_error": 0.3992220085562894,
+   "max_abs_relative_error": 0.49757777823086546
+  },
+  "numpy_event_driven": {
+   "terms": [
+    "base",
+    "A",
+    "E"
+   ],
+   "seconds": [
+    9.514796017986349e-07,
+    5.968707563360156e-08,
+    4.571320444262736e-09
+   ],
+   "runs": 54,
+   "median_abs_relative_error": 0.06635020809613065,
+   "p90_abs_relative_error": 0.42399514062090327,
+   "max_abs_relative_error": 0.6119038052698149
+  },
+  "compiled_time_step": {
+   "terms": [
+    "base",
+    "N",
+    "E"
+   ],
+   "seconds": [
+    0.0,
+    5.557545170378133e-10,
+    6.901914357479301e-10
+   ],
+   "runs": 54,
+   "median_abs_relative_error": 0.10390695206690649,
+   "p90_abs_relative_error": 0.2847592235390892,
+   "max_abs_relative_error": 0.411882872151174
+  },
+  "compiled_event_driven": {
+   "terms": [
+    "base",
+    "A",
+    "E"
+   ],
+   "seconds": [
+    1.092357127664411e-08,
+    1.9566013664479472e-09,
+    1.167366583743156e-09
+   ],
+   "runs": 54,
+   "median_abs_relative_error": 0.15470186358159826,
+   "p90_abs_relative_error": 0.27729353283548996,
+   "max_abs_relative_error": 0.39090687613064495
+  }
+ },
+ "scenarios": [
+  {
+   "spike_fraction_per_step": 1e-05,
+   "events_per_step": 142.59157000000002,
+   "numpy_time_step_s_per_step": 7.928098662434016e-05,
+   "numpy_event_driven_s_per_step": 1.011418518422315e-05,
+   "compiled_time_step_s_per_step": 7.749001075052455e-05,
+   "compiled_event_driven_s_per_step": 4.563750659240754e-07
+  },
+  {
+   "spike_fraction_per_step": 0.0001,
+   "events_per_step": 1425.9157000000002,
+   "numpy_time_step_s_per_step": 8.401543895137296e-05,
+   "numpy_event_driven_s_per_step": 9.257853542604377e-05,
+   "compiled_time_step_s_per_step": 7.837575007433921e-05,
+   "compiled_event_driven_s_per_step": 4.465438517750957e-06
+  },
+  {
+   "spike_fraction_per_step": 0.001,
+   "events_per_step": 14259.157,
+   "numpy_time_step_s_per_step": 0.0001313599622217009,
+   "numpy_event_driven_s_per_step": 0.0009172220378442497,
+   "compiled_time_step_s_per_step": 8.723314331248584e-05,
+   "compiled_event_driven_s_per_step": 4.455607303601976e-05
+  },
+  {
+   "spike_fraction_per_step": 0.01,
+   "events_per_step": 142591.56999999998,
+   "numpy_time_step_s_per_step": 0.0006048051949249803,
+   "numpy_event_driven_s_per_step": 0.008964506956079504,
+   "compiled_time_step_s_per_step": 0.00017580707569395218,
+   "compiled_event_driven_s_per_step": 0.00043893408079745855
+  },
+  {
+   "spike_fraction_per_step": 0.1,
+   "events_per_step": 1425915.7,
+   "numpy_time_step_s_per_step": 0.005339257521957775,
+   "numpy_event_driven_s_per_step": 0.014830992788164195,
+   "compiled_time_step_s_per_step": 0.0010615463995086157,
+   "compiled_event_driven_s_per_step": 0.0019370437862707163
+  },
+  {
+   "spike_fraction_per_step": 0.3333333333333333,
+   "events_per_step": 4753052.333333333,
+   "numpy_time_step_s_per_step": 0.017613763555005758,
+   "numpy_event_driven_s_per_step": 0.030040400500976353,
+   "compiled_time_step_s_per_step": 0.0033579076093984833,
+   "compiled_event_driven_s_per_step": 0.005821031911571755
+  }
+ ],
+ "ram_bytes": {
+  "numba_empty_worker": 162512896,
+  "numpy_empty_worker": 94371840,
+  "network_arrays": 115187304,
+  "neuron_state_and_buffers_upper": 4595415,
+  "input_schedule_at_10pct_input": 55710008,
+  "build_peak_rss_measured": 980828160,
+  "worker_upper_bytes": 338005623
+ },
+ "decision": {
+  "ram_below_8_gib": true,
+  "calibration_worst_case_s": 114.84044024142813,
+  "smoke_compiled_worst_case_s": 137.68409281455357,
+  "smoke_numpy_at_1pct_spikes_s": 143.53968226506728,
+  "run_full_connectome": true,
+  "include_numpy_backends": true,
+  "include_10pct_input": true
+ },
+ "run": {
+  "timestamp_utc": "2026-09-17T11:53:39+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "7d924085a2e0078ebee3a25157fc1ccf4565d4ba",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m25",
+   "full-estimate"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2",
+   "numba": "0.67.0",
+   "llvmlite": "0.49.0"
+  }
+ }
+}

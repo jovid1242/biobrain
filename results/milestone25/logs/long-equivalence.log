@@ -1,0 +1,6 @@
+[16:53:20] float64 numpy_time_step vs compiled_time_step: first divergent step None, bit-identical True
+[16:53:20] float64 numpy_event_driven vs compiled_event_driven: first divergent step None, bit-identical True
+[16:53:20] float64 compiled_time_step vs compiled_event_driven: first divergent step None, bit-identical False
+[16:53:37] float32 numpy_time_step vs compiled_time_step: first divergent step None, bit-identical True
+[16:53:37] float32 numpy_event_driven vs compiled_event_driven: first divergent step None, bit-identical True
+[16:53:37] float32 compiled_time_step vs compiled_event_driven: first divergent step 3349, bit-identical False

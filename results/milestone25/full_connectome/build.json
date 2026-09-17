@@ -1,0 +1,50 @@
+{
+ "manifest": {
+  "neurons": 139255,
+  "edges": 15091983,
+  "synapses": 54492922,
+  "weak_components": 705,
+  "largest_weak_component": 138113,
+  "strong_components": 3240,
+  "largest_strong_component": 135403,
+  "sha256": {
+   "root_ids": "84bc9ec32c4f797e3f6e6557b30b5fc7f447b5852aeb9553f7dd18ed6bd3321d",
+   "edges": "3c1500f6a3ded83e9297287fec3c5e19c826d875ed3b2aa75b0423154eb18cbb"
+  }
+ },
+ "isolated_build": {
+  "peak_rss_after_subgraph": 824623104,
+  "peak_rss_after_network_build": 980828160,
+  "subgraph_s": 0.24815454200142995,
+  "network_build_s": 0.20644733299559448,
+  "neurons": 139255,
+  "simulated_edges": 14259157,
+  "network_arrays_bytes": 115187304
+ },
+ "run": {
+  "timestamp_utc": "2026-09-17T11:53:38+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "7d924085a2e0078ebee3a25157fc1ccf4565d4ba",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m25",
+   "full-build"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2",
+   "numba": "0.67.0",
+   "llvmlite": "0.49.0"
+  }
+ }
+}

@@ -1,0 +1,30 @@
+[16:52:54] expand_1k 1e-05 time_step: 0.5 us/step; external_mark 3%, neuron_pass 94%, delivery 2%, record 1%
+[16:52:54] expand_1k 1e-05 event_driven: 0.0 us/step; delivery 35%, external_mark 27%, neuron_update 9%, spike_sort 2%, schedule 1%, record 27%
+[16:52:54] expand_1k 0.0001 time_step: 0.6 us/step; external_mark 3%, neuron_pass 92%, delivery 4%, record 1%
+[16:52:54] expand_1k 0.0001 event_driven: 0.1 us/step; delivery 37%, external_mark 10%, neuron_update 36%, spike_sort 4%, schedule 3%, record 10%
+[16:52:54] expand_1k 0.001 time_step: 0.7 us/step; external_mark 2%, neuron_pass 73%, delivery 23%, record 1%
+[16:52:54] expand_1k 0.001 event_driven: 0.5 us/step; delivery 44%, external_mark 2%, neuron_update 46%, spike_sort 4%, schedule 2%, record 2%
+[16:52:54] expand_1k 0.01 time_step: 1.2 us/step; external_mark 2%, neuron_pass 43%, delivery 55%, record 0%
+[16:52:54] expand_1k 0.01 event_driven: 2.1 us/step; delivery 49%, external_mark 1%, neuron_update 46%, spike_sort 3%, schedule 1%, record 0%
+[16:52:54] expand_1k 0.1 time_step: 3.9 us/step; external_mark 2%, neuron_pass 14%, delivery 84%, record 0%
+[16:52:54] expand_1k 0.1 event_driven: 8.0 us/step; delivery 63%, external_mark 1%, neuron_update 28%, spike_sort 7%, schedule 1%, record 0%
+[16:52:54] expand_10k 1e-05 time_step: 5.7 us/step; external_mark 0%, neuron_pass 97%, delivery 3%, record 0%
+[16:52:54] expand_10k 1e-05 event_driven: 0.3 us/step; delivery 43%, external_mark 3%, neuron_update 48%, spike_sort 2%, schedule 1%, record 3%
+[16:52:54] expand_10k 0.0001 time_step: 6.1 us/step; external_mark 0%, neuron_pass 87%, delivery 13%, record 0%
+[16:52:54] expand_10k 0.0001 event_driven: 1.6 us/step; delivery 39%, external_mark 1%, neuron_update 57%, spike_sort 2%, schedule 1%, record 0%
+[16:52:55] expand_10k 0.001 time_step: 9.3 us/step; external_mark 0%, neuron_pass 65%, delivery 35%, record 0%
+[16:52:55] expand_10k 0.001 event_driven: 10.9 us/step; delivery 48%, external_mark 0%, neuron_update 50%, spike_sort 2%, schedule 1%, record 0%
+[16:52:55] expand_10k 0.01 time_step: 23.5 us/step; external_mark 0%, neuron_pass 24%, delivery 76%, record 0%
+[16:52:55] expand_10k 0.01 event_driven: 45.6 us/step; delivery 62%, external_mark 0%, neuron_update 36%, spike_sort 1%, schedule 1%, record 0%
+[16:52:55] expand_10k 0.1 time_step: 79.6 us/step; external_mark 1%, neuron_pass 7%, delivery 92%, record 0%
+[16:52:55] expand_10k 0.1 event_driven: 144.8 us/step; delivery 79%, external_mark 1%, neuron_update 19%, spike_sort 1%, schedule 1%, record 0%
+[16:52:55] expand_50k 1e-05 time_step: 60.7 us/step; external_mark 0%, neuron_pass 47%, delivery 53%, record 0%
+[16:52:56] expand_50k 1e-05 event_driven: 98.5 us/step; delivery 47%, external_mark 0%, neuron_update 52%, spike_sort 1%, schedule 1%, record 0%
+[16:52:56] expand_50k 0.0001 time_step: 101.1 us/step; external_mark 0%, neuron_pass 29%, delivery 71%, record 0%
+[16:52:56] expand_50k 0.0001 event_driven: 179.1 us/step; delivery 58%, external_mark 0%, neuron_update 41%, spike_sort 1%, schedule 1%, record 0%
+[16:52:56] expand_50k 0.001 time_step: 109.7 us/step; external_mark 0%, neuron_pass 25%, delivery 75%, record 0%
+[16:52:57] expand_50k 0.001 event_driven: 216.8 us/step; delivery 56%, external_mark 0%, neuron_update 43%, spike_sort 0%, schedule 1%, record 0%
+[16:52:57] expand_50k 0.01 time_step: 194.1 us/step; external_mark 0%, neuron_pass 15%, delivery 85%, record 0%
+[16:52:58] expand_50k 0.01 event_driven: 346.2 us/step; delivery 63%, external_mark 0%, neuron_update 36%, spike_sort 0%, schedule 1%, record 0%
+[16:52:59] expand_50k 0.1 time_step: 656.4 us/step; external_mark 1%, neuron_pass 5%, delivery 95%, record 0%
+[16:53:01] expand_50k 0.1 event_driven: 1000.4 us/step; delivery 81%, external_mark 0%, neuron_update 17%, spike_sort 0%, schedule 1%, record 0%

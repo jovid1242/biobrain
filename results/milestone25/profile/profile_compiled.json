@@ -1,0 +1,932 @@
+{
+ "rows": [
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 1e-05,
+   "mode": "time_step",
+   "backend": "numba",
+   "variant": null,
+   "steps": 500,
+   "wall_s": 0.00028212500183144584,
+   "wall_s_without_timers": 0.00026566699671093374,
+   "phases_s": {
+    "external_mark": 8.621e-06,
+    "neuron_pass": 0.000259457,
+    "delivery": 4.748e-06,
+    "record": 3.421e-06
+   },
+   "phase_share": {
+    "external_mark": 0.031207578724836833,
+    "neuron_pass": 0.93922105941422,
+    "delivery": 0.017187516968510067,
+    "record": 0.012383844892433223
+   },
+   "timer_overhead_s_estimate": 2.1315126000000003e-05,
+   "spikes": 11,
+   "synaptic_events": 1132,
+   "neuron_updates": 500000,
+   "unique_targets": null
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 1e-05,
+   "mode": "event_driven",
+   "backend": "numba",
+   "variant": "touched",
+   "steps": 500,
+   "wall_s": 2.1792002371512353e-05,
+   "wall_s_without_timers": 6.041998858563602e-06,
+   "phases_s": {
+    "delivery": 5.29e-06,
+    "external_mark": 4.126e-06,
+    "neuron_update": 1.334e-06,
+    "spike_sort": 2.5e-07,
+    "schedule": 1.25e-07,
+    "record": 4.082e-06
+   },
+   "phase_share": {
+    "delivery": 0.34786611428947195,
+    "external_mark": 0.27132241730781875,
+    "neuron_update": 0.08772275925560598,
+    "spike_sort": 0.01643979746169527,
+    "schedule": 0.008219898730847636,
+    "record": 0.2684290129545604
+   },
+   "timer_overhead_s_estimate": 2.4867647e-05,
+   "spikes": 11,
+   "synaptic_events": 1132,
+   "neuron_updates": 935,
+   "unique_targets": 932
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.0001,
+   "mode": "time_step",
+   "backend": "numba",
+   "variant": null,
+   "steps": 500,
+   "wall_s": 0.0002899169994634576,
+   "wall_s_without_timers": 0.0002784590033115819,
+   "phases_s": {
+    "external_mark": 8.163e-06,
+    "neuron_pass": 0.000260787,
+    "delivery": 1.1217e-05,
+    "record": 4.087e-06
+   },
+   "phase_share": {
+    "external_mark": 0.02871727398734934,
+    "neuron_pass": 0.917443554004517,
+    "delivery": 0.039461186122270925,
+    "record": 0.014377985885862643
+   },
+   "timer_overhead_s_estimate": 2.1315126000000003e-05,
+   "spikes": 124,
+   "synaptic_events": 13336,
+   "neuron_updates": 500000,
+   "unique_targets": null
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.0001,
+   "mode": "event_driven",
+   "backend": "numba",
+   "variant": "touched",
+   "steps": 500,
+   "wall_s": 5.087500176159665e-05,
+   "wall_s_without_timers": 2.975000097649172e-05,
+   "phases_s": {
+    "delivery": 1.6171e-05,
+    "external_mark": 4.54e-06,
+    "neuron_update": 1.5579e-05,
+    "spike_sort": 1.621e-06,
+    "schedule": 1.421e-06,
+    "record": 4.458e-06
+   },
+   "phase_share": {
+    "delivery": 0.3692852249372003,
+    "external_mark": 0.10367663850194106,
+    "neuron_update": 0.3557661566567709,
+    "spike_sort": 0.03701758392327015,
+    "schedule": 0.03245033112582781,
+    "record": 0.10180406485498972
+   },
+   "timer_overhead_s_estimate": 2.4867647e-05,
+   "spikes": 124,
+   "synaptic_events": 13336,
+   "neuron_updates": 9244,
+   "unique_targets": 9216
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.001,
+   "mode": "time_step",
+   "backend": "numba",
+   "variant": null,
+   "steps": 500,
+   "wall_s": 0.00036862499837297946,
+   "wall_s_without_timers": 0.000349916001141537,
+   "phases_s": {
+    "external_mark": 8.76e-06,
+    "neuron_pass": 0.000266411,
+    "delivery": 8.3875e-05,
+    "record": 3.954e-06
+   },
+   "phase_share": {
+    "external_mark": 0.02413223140495868,
+    "neuron_pass": 0.7339146005509641,
+    "delivery": 0.23106060606060608,
+    "record": 0.010892561983471074
+   },
+   "timer_overhead_s_estimate": 2.1315126000000003e-05,
+   "spikes": 1378,
+   "synaptic_events": 146843,
+   "neuron_updates": 500000,
+   "unique_targets": null
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.001,
+   "mode": "event_driven",
+   "backend": "numba",
+   "variant": "touched",
+   "steps": 500,
+   "wall_s": 0.0002847920040949248,
+   "wall_s_without_timers": 0.0002626669956953265,
+   "phases_s": {
+    "delivery": 0.0001227,
+    "external_mark": 4.716e-06,
+    "neuron_update": 0.000128708,
+    "spike_sort": 1.2e-05,
+    "schedule": 4.874e-06,
+    "record": 4.374e-06
+   },
+   "phase_share": {
+    "delivery": 0.4423662085574607,
+    "external_mark": 0.017002437160203627,
+    "neuron_update": 0.46402665013051064,
+    "spike_sort": 0.04326319888092525,
+    "schedule": 0.017572069278802473,
+    "record": 0.015769435992097253
+   },
+   "timer_overhead_s_estimate": 2.4867647e-05,
+   "spikes": 1378,
+   "synaptic_events": 146843,
+   "neuron_updates": 85969,
+   "unique_targets": 85598
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.01,
+   "mode": "time_step",
+   "backend": "numba",
+   "variant": null,
+   "steps": 500,
+   "wall_s": 0.0006222910014912486,
+   "wall_s_without_timers": 0.0006126250009401701,
+   "phases_s": {
+    "external_mark": 1.0839e-05,
+    "neuron_pass": 0.000262349,
+    "delivery": 0.000339888,
+    "record": 2.542e-06
+   },
+   "phase_share": {
+    "external_mark": 0.01760669765991248,
+    "neuron_pass": 0.42615550552452985,
+    "delivery": 0.5521086128085924,
+    "record": 0.004129184006965359
+   },
+   "timer_overhead_s_estimate": 2.1315126000000003e-05,
+   "spikes": 6161,
+   "synaptic_events": 632165,
+   "neuron_updates": 500000,
+   "unique_targets": null
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.01,
+   "mode": "event_driven",
+   "backend": "numba",
+   "variant": "touched",
+   "steps": 500,
+   "wall_s": 0.0010392499971203506,
+   "wall_s_without_timers": 0.0010375420024502091,
+   "phases_s": {
+    "delivery": 0.000507084,
+    "external_mark": 7.503e-06,
+    "neuron_update": 0.000472071,
+    "spike_sort": 3.2964e-05,
+    "schedule": 9.337e-06,
+    "record": 3.748e-06
+   },
+   "phase_share": {
+    "delivery": 0.49102407556063826,
+    "external_mark": 0.007265371494528459,
+    "neuron_update": 0.45711997691503986,
+    "spike_sort": 0.03191999279563323,
+    "schedule": 0.009041286637933122,
+    "record": 0.0036292965962271976
+   },
+   "timer_overhead_s_estimate": 2.4867647e-05,
+   "spikes": 6161,
+   "synaptic_events": 632165,
+   "neuron_updates": 307594,
+   "unique_targets": 305779
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.1,
+   "mode": "time_step",
+   "backend": "numba",
+   "variant": null,
+   "steps": 500,
+   "wall_s": 0.0020455829944694415,
+   "wall_s_without_timers": 0.0019269580006948672,
+   "phases_s": {
+    "external_mark": 4.9825e-05,
+    "neuron_pass": 0.000281974,
+    "delivery": 0.001698569,
+    "record": 3.631e-06
+   },
+   "phase_share": {
+    "external_mark": 0.0244960789066268,
+    "neuron_pass": 0.13863035330892493,
+    "delivery": 0.8350884144977456,
+    "record": 0.0017851532867026977
+   },
+   "timer_overhead_s_estimate": 2.1315126000000003e-05,
+   "spikes": 29951,
+   "synaptic_events": 2990429,
+   "neuron_updates": 500000,
+   "unique_targets": null
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.1,
+   "mode": "event_driven",
+   "backend": "numba",
+   "variant": "touched",
+   "steps": 500,
+   "wall_s": 0.004199458999210037,
+   "wall_s_without_timers": 0.004006165996543132,
+   "phases_s": {
+    "delivery": 0.002637959,
+    "external_mark": 4.7705e-05,
+    "neuron_update": 0.001180001,
+    "spike_sort": 0.000295338,
+    "schedule": 2.2202e-05,
+    "record": 4.332e-06
+   },
+   "phase_share": {
+    "delivery": 0.6299547920412405,
+    "external_mark": 0.011392138147077865,
+    "neuron_update": 0.2817887937467776,
+    "spike_sort": 0.07052785444045033,
+    "schedule": 0.005301923302409029,
+    "record": 0.001034498322044677
+   },
+   "timer_overhead_s_estimate": 2.4867647e-05,
+   "spikes": 29951,
+   "synaptic_events": 2990429,
+   "neuron_updates": 484435,
+   "unique_targets": 482717
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 1e-05,
+   "mode": "time_step",
+   "backend": "numba",
+   "variant": null,
+   "steps": 500,
+   "wall_s": 0.0029352500059758313,
+   "wall_s_without_timers": 0.002834750004694797,
+   "phases_s": {
+    "external_mark": 8.725e-06,
+    "neuron_pass": 0.002826201,
+    "delivery": 8.8486e-05,
+    "record": 3.921e-06
+   },
+   "phase_share": {
+    "external_mark": 0.0029805286928408898,
+    "neuron_pass": 0.9654525125771479,
+    "delivery": 0.030227514259566646,
+    "record": 0.0013394444704445995
+   },
+   "timer_overhead_s_estimate": 2.1315126000000003e-05,
+   "spikes": 310,
+   "synaptic_events": 73860,
+   "neuron_updates": 5000000,
+   "unique_targets": null
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 1e-05,
+   "mode": "event_driven",
+   "backend": "numba",
+   "variant": "touched",
+   "steps": 500,
+   "wall_s": 0.00016087500262074172,
+   "wall_s_without_timers": 0.0001433750003343448,
+   "phases_s": {
+    "delivery": 6.6131e-05,
+    "external_mark": 4.328e-06,
+    "neuron_update": 7.3585e-05,
+    "spike_sort": 3.747e-06,
+    "schedule": 1.623e-06,
+    "record": 4.419e-06
+   },
+   "phase_share": {
+    "delivery": 0.42988825544584064,
+    "external_mark": 0.028134405491669543,
+    "neuron_update": 0.4783433983605599,
+    "spike_sort": 0.02435758257331002,
+    "schedule": 0.010550402059376077,
+    "record": 0.028725956069243927
+   },
+   "timer_overhead_s_estimate": 2.4867647e-05,
+   "spikes": 310,
+   "synaptic_events": 73860,
+   "neuron_updates": 38839,
+   "unique_targets": 38783
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.0001,
+   "mode": "time_step",
+   "backend": "numba",
+   "variant": null,
+   "steps": 500,
+   "wall_s": 0.0032235830003628507,
+   "wall_s_without_timers": 0.0030597079967265017,
+   "phases_s": {
+    "external_mark": 8.875e-06,
+    "neuron_pass": 0.002799176,
+    "delivery": 0.000403042,
+    "record": 3.33e-06
+   },
+   "phase_share": {
+    "external_mark": 0.002760993186024366,
+    "neuron_pass": 0.8708175619699087,
+    "delivery": 0.12538548909088815,
+    "record": 0.0010359557531787198
+   },
+   "timer_overhead_s_estimate": 2.1315126000000003e-05,
+   "spikes": 2050,
+   "synaptic_events": 382208,
+   "neuron_updates": 5000000,
+   "unique_targets": null
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.0001,
+   "mode": "event_driven",
+   "backend": "numba",
+   "variant": "touched",
+   "steps": 500,
+   "wall_s": 0.0009354579960927367,
+   "wall_s_without_timers": 0.0008190000007743947,
+   "phases_s": {
+    "delivery": 0.000363285,
+    "external_mark": 5.296e-06,
+    "neuron_update": 0.000528534,
+    "spike_sort": 1.8461e-05,
+    "schedule": 6.668e-06,
+    "record": 3.796e-06
+   },
+   "phase_share": {
+    "delivery": 0.3922994687054555,
+    "external_mark": 0.005718975422227982,
+    "neuron_update": 0.5707464040430219,
+    "spike_sort": 0.019935423955768652,
+    "schedule": 0.007200552891883721,
+    "record": 0.004099174981642262
+   },
+   "timer_overhead_s_estimate": 2.4867647e-05,
+   "spikes": 2050,
+   "synaptic_events": 382208,
+   "neuron_updates": 231083,
+   "unique_targets": 230623
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.001,
+   "mode": "time_step",
+   "backend": "numba",
+   "variant": null,
+   "steps": 500,
+   "wall_s": 0.004283791997295339,
+   "wall_s_without_timers": 0.00464300000021467,
+   "phases_s": {
+    "external_mark": 1.013e-05,
+    "neuron_pass": 0.002779947,
+    "delivery": 0.001480626,
+    "record": 3.375e-06
+   },
+   "phase_share": {
+    "external_mark": 0.0023701018090919257,
+    "neuron_pass": 0.650420277776868,
+    "delivery": 0.34641997642532496,
+    "record": 0.000789643988715227
+   },
+   "timer_overhead_s_estimate": 2.1315126000000003e-05,
+   "spikes": 12881,
+   "synaptic_events": 2418966,
+   "neuron_updates": 5000000,
+   "unique_targets": null
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.001,
+   "mode": "event_driven",
+   "backend": "numba",
+   "variant": "touched",
+   "steps": 500,
+   "wall_s": 0.0062828329973854125,
+   "wall_s_without_timers": 0.005458459003421012,
+   "phases_s": {
+    "delivery": 0.00298212,
+    "external_mark": 1.0002e-05,
+    "neuron_update": 0.003121498,
+    "spike_sort": 9.8415e-05,
+    "schedule": 4.8551e-05,
+    "record": 4.411e-06
+   },
+   "phase_share": {
+    "delivery": 0.47599703559315354,
+    "external_mark": 0.0015964891922534041,
+    "neuron_update": 0.4982441332374142,
+    "spike_sort": 0.01570870664423303,
+    "schedule": 0.007749564764356632,
+    "record": 0.0007040705685892587
+   },
+   "timer_overhead_s_estimate": 2.4867647e-05,
+   "spikes": 12881,
+   "synaptic_events": 2418966,
+   "neuron_updates": 1456301,
+   "unique_targets": 1452784
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.01,
+   "mode": "time_step",
+   "backend": "numba",
+   "variant": null,
+   "steps": 500,
+   "wall_s": 0.01232779099518666,
+   "wall_s_without_timers": 0.011736833002942149,
+   "phases_s": {
+    "external_mark": 5.4877e-05,
+    "neuron_pass": 0.002918583,
+    "delivery": 0.009332086,
+    "record": 3.916e-06
+   },
+   "phase_share": {
+    "external_mark": 0.004458115228756545,
+    "neuron_pass": 0.23710077662208145,
+    "delivery": 0.7581229788921725,
+    "record": 0.00031812925698946064
+   },
+   "timer_overhead_s_estimate": 2.1315126000000003e-05,
+   "spikes": 72077,
+   "synaptic_events": 12454928,
+   "neuron_updates": 5000000,
+   "unique_targets": null
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.01,
+   "mode": "event_driven",
+   "backend": "numba",
+   "variant": "touched",
+   "steps": 500,
+   "wall_s": 0.026166707997617777,
+   "wall_s_without_timers": 0.022807125002145767,
+   "phases_s": {
+    "delivery": 0.01619959,
+    "external_mark": 5.9671e-05,
+    "neuron_update": 0.009344782,
+    "spike_sort": 0.00033179,
+    "schedule": 0.00019351,
+    "record": 4.161e-06
+   },
+   "phase_share": {
+    "delivery": 0.6198782222238549,
+    "external_mark": 0.0022833141701931745,
+    "neuron_update": 0.3575786086703107,
+    "spike_sort": 0.01269596300595588,
+    "schedule": 0.0074046710307198,
+    "record": 0.00015922089896555777
+   },
+   "timer_overhead_s_estimate": 2.4867647e-05,
+   "spikes": 72077,
+   "synaptic_events": 12454928,
+   "neuron_updates": 3951922,
+   "unique_targets": 3941325
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.1,
+   "mode": "time_step",
+   "backend": "numba",
+   "variant": null,
+   "steps": 500,
+   "wall_s": 0.0397568330008653,
+   "wall_s_without_timers": 0.03979879099642858,
+   "phases_s": {
+    "external_mark": 0.000442104,
+    "neuron_pass": 0.00289509,
+    "delivery": 0.036396011,
+    "record": 4.165e-06
+   },
+   "phase_share": {
+    "external_mark": 0.011125648224832193,
+    "neuron_pass": 0.07285560166664276,
+    "delivery": 0.9159139369314073,
+    "record": 0.00010481317711766027
+   },
+   "timer_overhead_s_estimate": 2.1315126000000003e-05,
+   "spikes": 327375,
+   "synaptic_events": 55114423,
+   "neuron_updates": 5000000,
+   "unique_targets": null
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.1,
+   "mode": "event_driven",
+   "backend": "numba",
+   "variant": "touched",
+   "steps": 500,
+   "wall_s": 0.0749950409954181,
+   "wall_s_without_timers": 0.07237766699836357,
+   "phases_s": {
+    "delivery": 0.059066174,
+    "external_mark": 0.000402326,
+    "neuron_update": 0.014289001,
+    "spike_sort": 0.000723582,
+    "schedule": 0.000486499,
+    "record": 4.627e-06
+   },
+   "phase_share": {
+    "delivery": 0.7878409184928779,
+    "external_mark": 0.005366335144266591,
+    "neuron_update": 0.1905906360582226,
+    "spike_sort": 0.009651336270483906,
+    "schedule": 0.006489057832082819,
+    "record": 6.171620206628832e-05
+   },
+   "timer_overhead_s_estimate": 2.4867647e-05,
+   "spikes": 327375,
+   "synaptic_events": 55114423,
+   "neuron_updates": 4939605,
+   "unique_targets": 4933111
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 1e-05,
+   "mode": "time_step",
+   "backend": "numba",
+   "variant": null,
+   "steps": 500,
+   "wall_s": 0.030761916998017114,
+   "wall_s_without_timers": 0.030325083003845066,
+   "phases_s": {
+    "external_mark": 1.0536e-05,
+    "neuron_pass": 0.014454716,
+    "delivery": 0.016272637,
+    "record": 3.825e-06
+   },
+   "phase_share": {
+    "external_mark": 0.0003427264985940602,
+    "neuron_pass": 0.4701987664058029,
+    "delivery": 0.5293340833240463,
+    "record": 0.00012442377155678436
+   },
+   "timer_overhead_s_estimate": 2.1315126000000003e-05,
+   "spikes": 80543,
+   "synaptic_events": 18739905,
+   "neuron_updates": 25000000,
+   "unique_targets": null
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 1e-05,
+   "mode": "event_driven",
+   "backend": "numba",
+   "variant": "touched",
+   "steps": 500,
+   "wall_s": 0.05002450000029057,
+   "wall_s_without_timers": 0.04926170800172258,
+   "phases_s": {
+    "delivery": 0.023499194,
+    "external_mark": 7.045e-06,
+    "neuron_update": 0.025883209,
+    "spike_sort": 0.000317204,
+    "schedule": 0.00028917,
+    "record": 5.213e-06
+   },
+   "phase_share": {
+    "delivery": 0.4699741515350633,
+    "external_mark": 0.000140897083430373,
+    "neuron_update": 0.5176534645732833,
+    "spike_sort": 0.006343948680262319,
+    "schedule": 0.0057832802860980775,
+    "record": 0.00010425784186267345
+   },
+   "timer_overhead_s_estimate": 2.4867647e-05,
+   "spikes": 80543,
+   "synaptic_events": 18739905,
+   "neuron_updates": 7978604,
+   "unique_targets": 7978428
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.0001,
+   "mode": "time_step",
+   "backend": "numba",
+   "variant": null,
+   "steps": 500,
+   "wall_s": 0.04893974999868078,
+   "wall_s_without_timers": 0.05052516599971568,
+   "phases_s": {
+    "external_mark": 1.3454e-05,
+    "neuron_pass": 0.014321333,
+    "delivery": 0.034584295,
+    "record": 3.63e-06
+   },
+   "phase_share": {
+    "external_mark": 0.00027500519595070693,
+    "neuron_pass": 0.2927338329077096,
+    "delivery": 0.7069169632296755,
+    "record": 7.419866666426833e-05
+   },
+   "timer_overhead_s_estimate": 2.1315126000000003e-05,
+   "spikes": 187045,
+   "synaptic_events": 45407898,
+   "neuron_updates": 25000000,
+   "unique_targets": null
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.0001,
+   "mode": "event_driven",
+   "backend": "numba",
+   "variant": "touched",
+   "steps": 500,
+   "wall_s": 0.09110708299704129,
+   "wall_s_without_timers": 0.08957429199654143,
+   "phases_s": {
+    "delivery": 0.05306895,
+    "external_mark": 9.161e-06,
+    "neuron_update": 0.037050756,
+    "spike_sort": 0.000467409,
+    "schedule": 0.00048205,
+    "record": 4.504e-06
+   },
+   "phase_share": {
+    "delivery": 0.5826449397762454,
+    "external_mark": 0.0001005787808745073,
+    "neuron_update": 0.40678090480939166,
+    "spike_sort": 0.005131691670098525,
+    "schedule": 0.005292435467804416,
+    "record": 4.9449495585501694e-05
+   },
+   "timer_overhead_s_estimate": 2.4867647e-05,
+   "spikes": 187045,
+   "synaptic_events": 45407898,
+   "neuron_updates": 11526528,
+   "unique_targets": 11525226
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.001,
+   "mode": "time_step",
+   "backend": "numba",
+   "variant": null,
+   "steps": 500,
+   "wall_s": 0.057471332998829894,
+   "wall_s_without_timers": 0.05482520900113741,
+   "phases_s": {
+    "external_mark": 4.0864e-05,
+    "neuron_pass": 0.014433002,
+    "delivery": 0.042972973,
+    "record": 3.958e-06
+   },
+   "phase_share": {
+    "external_mark": 0.0007112869121728634,
+    "neuron_pass": 0.25122370365027313,
+    "delivery": 0.7479961157022765,
+    "record": 6.88937352775106e-05
+   },
+   "timer_overhead_s_estimate": 2.1315126000000003e-05,
+   "spikes": 202349,
+   "synaptic_events": 46580779,
+   "neuron_updates": 25000000,
+   "unique_targets": null
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.001,
+   "mode": "event_driven",
+   "backend": "numba",
+   "variant": "touched",
+   "steps": 500,
+   "wall_s": 0.10903266599780181,
+   "wall_s_without_timers": 0.10837733399966964,
+   "phases_s": {
+    "delivery": 0.061168598,
+    "external_mark": 3.1325e-05,
+    "neuron_update": 0.046677716,
+    "spike_sort": 0.000504926,
+    "schedule": 0.000615697,
+    "record": 5.331e-06
+   },
+   "phase_share": {
+    "delivery": 0.5611613004352985,
+    "external_mark": 0.00028737584824382813,
+    "neuron_update": 0.4282218110003035,
+    "spike_sort": 0.004632195931376318,
+    "schedule": 0.005648410140021715,
+    "record": 4.890664475619625e-05
+   },
+   "timer_overhead_s_estimate": 2.4867647e-05,
+   "spikes": 202349,
+   "synaptic_events": 46580779,
+   "neuron_updates": 14805485,
+   "unique_targets": 14795384
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.01,
+   "mode": "time_step",
+   "backend": "numba",
+   "variant": null,
+   "steps": 500,
+   "wall_s": 0.09722604200214846,
+   "wall_s_without_timers": 0.09707062500092434,
+   "phases_s": {
+    "external_mark": 0.000416044,
+    "neuron_pass": 0.014584246,
+    "delivery": 0.082198665,
+    "record": 4.46e-06
+   },
+   "phase_share": {
+    "external_mark": 0.004280137688578122,
+    "neuron_pass": 0.15003841171629617,
+    "delivery": 0.8456355674335104,
+    "record": 4.588316161525806e-05
+   },
+   "timer_overhead_s_estimate": 2.1315126000000003e-05,
+   "spikes": 359762,
+   "synaptic_events": 77883935,
+   "neuron_updates": 25000000,
+   "unique_targets": null
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.01,
+   "mode": "event_driven",
+   "backend": "numba",
+   "variant": "touched",
+   "steps": 500,
+   "wall_s": 0.17095562499889638,
+   "wall_s_without_timers": 0.17307900000014342,
+   "phases_s": {
+    "delivery": 0.106934536,
+    "external_mark": 0.000266703,
+    "neuron_update": 0.062059508,
+    "spike_sort": 0.000717876,
+    "schedule": 0.000947752,
+    "record": 4.499e-06
+   },
+   "phase_share": {
+    "delivery": 0.6256010602274228,
+    "external_mark": 0.0015602974100512705,
+    "neuron_update": 0.3630678680084442,
+    "spike_sort": 0.004199803015106563,
+    "schedule": 0.005544650757475212,
+    "record": 2.6320581500098103e-05
+   },
+   "timer_overhead_s_estimate": 2.4867647e-05,
+   "spikes": 359762,
+   "synaptic_events": 77883935,
+   "neuron_updates": 20312242,
+   "unique_targets": 20264849
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.1,
+   "mode": "time_step",
+   "backend": "numba",
+   "variant": null,
+   "steps": 500,
+   "wall_s": 0.3788667080007144,
+   "wall_s_without_timers": 0.3281752500042785,
+   "phases_s": {
+    "external_mark": 0.003172089,
+    "neuron_pass": 0.017615122,
+    "delivery": 0.358047097,
+    "record": 5.37e-06
+   },
+   "phase_share": {
+    "external_mark": 0.00837316992968197,
+    "neuron_pass": 0.04649756354190546,
+    "delivery": 0.9451150916668238,
+    "record": 1.4174861588811721e-05
+   },
+   "timer_overhead_s_estimate": 2.1315126000000003e-05,
+   "spikes": 1462714,
+   "synaptic_events": 258221527,
+   "neuron_updates": 25000000,
+   "unique_targets": null
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.1,
+   "mode": "event_driven",
+   "backend": "numba",
+   "variant": "touched",
+   "steps": 500,
+   "wall_s": 0.49559533399587963,
+   "wall_s_without_timers": 0.5001800000027288,
+   "phases_s": {
+    "delivery": 0.402512114,
+    "external_mark": 0.001983671,
+    "neuron_update": 0.086022995,
+    "spike_sort": 0.002240303,
+    "schedule": 0.002804905,
+    "record": 4.667e-06
+   },
+   "phase_share": {
+    "delivery": 0.8122227060547241,
+    "external_mark": 0.0040028177326913465,
+    "neuron_update": 0.17358441485771534,
+    "spike_sort": 0.004520671308398228,
+    "schedule": 0.005659972582406367,
+    "record": 9.417464064590608e-06
+   },
+   "timer_overhead_s_estimate": 2.4867647e-05,
+   "spikes": 1462714,
+   "synaptic_events": 258221527,
+   "neuron_updates": 24613136,
+   "unique_targets": 24570062
+  }
+ ],
+ "clock_ns_per_call": 7.105042,
+ "variant": "touched",
+ "run": {
+  "timestamp_utc": "2026-09-17T11:53:01+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "7d924085a2e0078ebee3a25157fc1ccf4565d4ba",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m25",
+   "profile-compiled"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2",
+   "numba": "0.67.0",
+   "llvmlite": "0.49.0"
+  }
+ }
+}
