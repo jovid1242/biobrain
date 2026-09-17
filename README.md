@@ -12,9 +12,13 @@ trainable spiking neural network that solves AI tasks with far fewer synaptic op
 baseline. It is not an LLM, not a Transformer, not an AGI attempt and not a fly simulator. Negative results are
 treated as results. **Milestone 1** (official data, validation, graph analysis, memory measurements) and
 **Milestone 2** (a minimal LIF simulator running real FlyWire subgraphs of 100–50,000 neurons in time-step and
-event-driven modes) are complete; M2 awaits the owner's review. A key M2 finding is negative. With Python + NumPy
+event-driven modes) are complete. A key M2 finding is negative. With Python + NumPy
 on a CPU, event-driven execution is faster than time-step only at extremely sparse activity: up to 6.6× on
 100 neurons and 1.2× on 10k, and never on 50k. Synaptic event delivery, not neuron updates, dominates the cost.
+**Milestone 2.5** compiled the same model with Numba (bit-identical to NumPy) and ran the full 139,255-neuron
+connectome (0.23–1.3 s per simulated second, ≤ 0.33 GiB). Compilation sped up event-driven execution 5–53× and
+time-step 1.3–11×, yet at realistic activity compiled event-driven is still ~2× slower than compiled time-step.
+The cost is synaptic events, not Python.
 
 ---
 
@@ -91,12 +95,33 @@ FlyWire с синаптическим разрешением, спайковым
 
 M2 тоже не проверяет H1–H3: это движок и замеры, обучения и задач ещё нет.
 
+## Что измерено в Milestone 2.5
+
+Отчёт — [`docs/MILESTONE25_REPORT.md`](docs/MILESTONE25_REPORT.md), план с критериями до кода —
+[`docs/MILESTONE25_PLAN.md`](docs/MILESTONE25_PLAN.md).
+
+- **Та же модель, скомпилированная Numba (CPU, один поток),** побитово совпадает с NumPy: растры, счётчики,
+  потенциалы — в float32 и float64, до 40,000 шагов и на полном мозге.
+- **Компиляция ускорила time-step в 1.3–11 раз, event-driven — в 5–53 раза.** Но при реалистичной активности
+  скомпилированный event-driven всё равно ≈ в 2 раза медленнее скомпилированного time-step (исход C). Выигрывает
+  он только при очень редкой активности на 1k–10k (до 28×).
+- **Узкое место — доставка синаптических событий** (≈ 0.6–1.8 нс на событие, растёт с размером сети). Даже
+  идеальная event-driven реализация на CPU при этой связности была бы быстрее не более чем в 1.1–1.9× (50k и
+  полный мозг).
+- **Полный коннектом (139,255 нейронов) запущен на ноутбуке:** 0.23–1.3 с на секунду модели, peak RSS
+  268–327 MiB (сборка сети — 935 MiB). На калиброванном gain активность самоподдерживается (4–15 Гц).
+- **Рекомендация по данным:** переходить к M3 с compiled time-step как основным движком.
+
+M2.5 сравнивает только способы исполнения одной модели. Энергию, эффективность топологии или сравнение с другим
+AI он не проверяет.
+
 ## Дорожная карта
 
 | этап | содержание | статус |
 |---|---|---|
 | **M1** | официальные данные, воспроизводимая загрузка, валидация, компактный граф, анализатор, замеры памяти | **завершён** 2026-09-17 |
-| **M2** | минимальный SNN-симулятор: 100 → 1k → 10k → 50k нейронов; event-driven против time-step (бенчмарком) | **завершён** 2026-09-17, ждёт подтверждения |
+| **M2** | минимальный SNN-симулятор: 100 → 1k → 10k → 50k нейронов; event-driven против time-step (бенчмарком) | **завершён** 2026-09-17 |
+| **M2.5** | компилируемый backend (Numba) и проверка на полном коннектоме | **завершён** 2026-09-17, ждёт решения владельца |
 | M3 | первая правило пластичности; обучение простой temporal/pattern задаче; checkpoint → restart → навык сохранён | |
 | M4 | Fly topology vs random vs shuffled при одинаковом бюджете | |
 | M5 | функциональная ablation и pruning на мультизадачном бенчмарке | |
@@ -135,6 +160,7 @@ make test
 
 | документ | о чём |
 |---|---|
+| [docs/MILESTONE25_REPORT.md](docs/MILESTONE25_REPORT.md) | итоговый отчёт Milestone 2.5: компиляция, полный коннектом, Q1–Q15 |
 | [docs/MILESTONE2_REPORT.md](docs/MILESTONE2_REPORT.md) | итоговый отчёт Milestone 2: статус, чек-лист, главная таблица |
 | [docs/M2_RESULTS.md](docs/M2_RESULTS.md) · [docs/M2_LIMITATIONS.md](docs/M2_LIMITATIONS.md) | результаты M2 с ответами на вопросы · ограничения |
 | [docs/SIMULATOR.md](docs/SIMULATOR.md) · [docs/PERFORMANCE_PLAN.md](docs/PERFORMANCE_PLAN.md) | модель и два режима движка · измеренные узкие места и варианты backend |

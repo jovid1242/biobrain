@@ -1,4 +1,4 @@
-# Архитектура BioBrain (состояние на Milestone 2)
+# Архитектура BioBrain (состояние на Milestone 2.5)
 
 Milestone 1 — **данные и анализ графа**; Milestone 2 — **минимальный spiking-движок** (раздел ниже). Пластичности,
 pruning и эволюции пока нет: модули для них будут созданы, когда до них дойдёт очередь, а не заранее пустыми папками.
@@ -68,7 +68,7 @@ data/processed/flywire_fafb_v783/   arrays/*.npy + manifest.json (схема, sh
 
 ## Тесты
 
-`tests/` — 108 тестов (49 M1 + 59 M2), без сети:
+`tests/` — 192 теста (49 M1 + 59 M2 + 84 M2.5), без сети:
 - загрузчик: file://-URL, подменённый `urlopen` (Range, 5xx, 404), размер-политика, lock;
 - preprocess/validate: крошечный релиз того же формата с заложенными аномалиями (фрагмент, self-connection, unassigned neuropil, нейрон без аннотации);
 - статистика: сравнение с перебором (reciprocity, SCC/WCC, clustering, пути, все 16 классов triad census по определениям igraph, rich club, NMI/ARI, Leiden на заложенных сообществах);
@@ -85,15 +85,19 @@ data/processed/flywire_fafb_v783/   arrays/*.npy + manifest.json (схема, sh
 | `snn.subgraph` | связные подграфы (`expand`, `neuropil`), индуцированный CSR из store, manifest + sha256, кэш списков нейронов |
 | `snn.network` | число синапсов → вес (transform, нормировка по всему коннектому, gain), таблица знаков (нейрон / ребро), удаление рёбер с нулевым знаком |
 | `snn.inputs` | заранее сгенерированный входной поток (CSR по шагам): poisson, burst, pulse, sparse_pattern |
-| `snn.engine` | один LIF, два режима: `run_time_step`, `run_event_driven` (sparse / auto); счётчики, память, таймеры фаз |
+| `snn.engine` | один LIF, два режима: `run_time_step`, `run_event_driven` (sparse / auto); счётчики, память, таймеры фаз; `run(..., backend=)` выбирает NumPy или compiled |
+| `snn.compiled` | M2.5: Numba-ядра той же модели (time-step; event-driven touched / dense / copy), побитово равные NumPy; без выделений в цикле; таймеры фаз внутри ядер |
 | `snn.metrics` | метрики, режимы DEAD / STABLE / SATURATED, сравнение эквивалентности |
 | `snn.nulls` | degree-preserving и reciprocity-preserving топологии через тот же интерфейс |
 | `snn.energy` | модельная оценка энергии CPU процесса от ядра macOS (помечена как не измерение), состояние питания |
 | `snn.experiments` | кэш сети и входа, изолированные worker-процессы, записи с provenance, калибровка, эквивалентность, чувствительность, null-контроли, профиль, матрица бенчмарков |
 | `snn.pipeline` | `biobrain m2 <шаг>` |
 | `snn.report` | графики, точка перелома, ESTIMATE для полного коннектома, `summary.json` — только из сырых файлов |
+| `snn.m25` | `biobrain m25 <шаг>`: заморозка baseline M2, профили до/после, проверки, изолированная перемешанная матрица, полный коннектом |
+| `snn.report25` | сводка и графики M2.5: два вида ускорения раздельно, исход A/B/C, перелом, пропускная способность, память, предел event-driven |
 
-Результаты: `results/milestone2/{subgraphs, experiments, benchmarks, figures, logs}/`, `summary.json`,
+Результаты M2.5: `results/milestone25/{profile, experiments, benchmarks, full_connectome, subgraphs, figures, logs}/`,
+`baseline_m2.json`, `environment.json`, `summary.json`. Результаты M2: `results/milestone2/{subgraphs, experiments, benchmarks, figures, logs}/`, `summary.json`,
 `estimate_full_connectome.json`. Кэши (`data/cache/m2/`, `data/processed/subgraphs/`) в git не входят.
 
 ## Что дальше (не реализовано)
