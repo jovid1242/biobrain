@@ -297,8 +297,75 @@ def step_check_ed(sizes=("expand_1k", "expand_10k", "expand_50k"), rates=(0.0000
     _log(f"selected compiled event-driven variant: {best} ({ {k: round(v * 1e3, 2) for k, v in ed.items()} } ms geo-mean)")
 
 
+
+# ---- isolated benchmark matrix ---------------------------------------------------------------------------------------------
+BENCH_SIZES = ("expand_1k", "expand_10k", "expand_50k")
+BENCH_RATES = (0.00001, 0.0001, 0.001, 0.01, 0.1, 0.5)
+BENCH_SEEDS = (1, 2, 3)
+BENCH_STEPS = 1000
+ORDER_SEED = 20260917
+BACKENDS = {  # label -> (backend, mode, NumPy aggregation)
+    "numpy_time_step": ("numpy", "time_step", "sparse"),
+    "numpy_event_driven": ("numpy", "event_driven", "auto"),
+    "compiled_time_step": ("numba", "time_step", "sparse"),
+    "compiled_event_driven": ("numba", "event_driven", "sparse"),
+}
+
+
+def selected_variant() -> str:
+    return json.loads((results_dir() / "experiments" / "check_compiled_event_driven.json").read_text())["selected_variant"]
+
+
+def step_baseline_rss(repeats: int = 3) -> None:
+    out = {backend: sorted(experiments.empty_process_rss(backend) for _ in range(repeats)) for backend in ("numpy", "numba")}
+    _write("experiments/empty_process_rss.json", {
+        "peak_rss_bytes": out, "median_bytes": {k: v[len(v) // 2] for k, v in out.items()},
+        "what": "peak RSS of a worker that imports the simulator (numba: and compiles/loads every kernel) and exits",
+        "run": runinfo.collect()})
+    _log({k: f"{v[len(v) // 2] / 2**20:.1f} MiB" for k, v in out.items()})
+
+
+def bench_matrix(conn, out_name: str, subgraphs: dict[str, float], rates, seeds, steps: int, backends=tuple(BACKENDS),
+                 order_seed: int = ORDER_SEED, input_changes: dict | None = None) -> Path:
+    """Every run in its own process, in one shuffled order across sizes, inputs, seeds and backends; resumable."""
+    import random
+
+    from .pipeline import BASE
+
+    variant = selected_variant()
+    out = results_dir() / "benchmarks" / f"{out_name}.jsonl"
+    done = experiments._done(out)
+    runs = [(name, rate, seed, label) for name in subgraphs for rate in rates for seed in seeds for label in backends]
+    random.Random(order_seed).shuffle(runs)
+    for index, (name, rate, seed, label) in enumerate(runs):
+        backend, mode, aggregation = BACKENDS[label]
+        cfg = BASE.replace(weights={"gain": subgraphs[name]}, inputs={"rate": rate, **(input_changes or {})},
+                           run={"steps": steps, "seed": seed, "mode": mode, "aggregation": aggregation})
+        eid = experiments.experiment_id("benchmark", name, "real", cfg, backend, variant, prefix="m25")
+        if eid in done:
+            continue
+        path = experiments.prepare(conn, name, cfg)
+        t = time.monotonic()
+        record = experiments.run_isolated(path, cfg, "benchmark", backend=backend, variant=variant, prefix="m25")
+        record.update(backend_label=label, order_index=index, order_seed=order_seed, runs_in_matrix=len(runs))
+        experiments._append(out, record)
+        m = record["metrics"]
+        _log(f"[{index + 1}/{len(runs)}] {name} {rate:g} s{seed} {label}: {1e6 * m['wall_s'] / m['steps']:.1f} us/step, "
+             f"peak RSS {record['process']['peak_rss'] / 2**20:.0f} MiB, {record['process'].get('power_source')} "
+             f"{record['process'].get('battery_percent')}% ({time.monotonic() - t:.1f}s)")
+    return out
+
+
+def step_bench() -> None:
+    from ..connectome.store import Connectome
+    from .pipeline import gains
+
+    g = gains()
+    bench_matrix(Connectome.load("flywire_fafb_v783"), "matrix", {n: g[n] for n in BENCH_SIZES}, BENCH_RATES, BENCH_SEEDS, BENCH_STEPS)
+
+
 STEPS = {"freeze-baseline": step_freeze_baseline, "profile-numpy": step_profile_numpy, "check-ts": step_check_ts,
-         "check-ed": step_check_ed}
+         "check-ed": step_check_ed, "baseline-rss": step_baseline_rss, "bench": step_bench}
 
 
 def run_step(name: str) -> int:

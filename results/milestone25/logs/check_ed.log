@@ -1,0 +1,46 @@
+[16:42:47] expand_1k 1e-05 s1: c_time_step 0.6, c_event_driven_touched 0.0, c_event_driven_dense 0.0, c_event_driven_copy 0.0, np_event_driven_auto 0.6 us/step; identical: [True, True, True]
+[16:42:47] expand_1k 1e-05 s2: c_event_driven_dense 0.0, c_event_driven_copy 0.0, np_event_driven_auto 0.7, c_time_step 0.6, c_event_driven_touched 0.0 us/step
+[16:42:47] expand_1k 1e-05 s3: c_time_step 0.6, c_event_driven_touched 0.0, c_event_driven_copy 0.0, c_event_driven_dense 0.0, np_event_driven_auto 0.8 us/step
+[16:42:47] expand_1k 0.0001 s1: c_time_step 0.6, np_event_driven_auto 4.3, c_event_driven_dense 0.3, c_event_driven_touched 0.1, c_event_driven_copy 0.1 us/step; identical: [True, True, True]
+[16:42:47] expand_1k 0.0001 s2: c_event_driven_touched 0.1, c_event_driven_copy 0.1, np_event_driven_auto 4.5, c_time_step 0.6, c_event_driven_dense 0.3 us/step
+[16:42:47] expand_1k 0.0001 s3: c_event_driven_dense 0.2, np_event_driven_auto 3.6, c_event_driven_touched 0.1, c_event_driven_copy 0.1, c_time_step 0.6 us/step
+[16:42:47] expand_1k 0.001 s1: c_time_step 0.7, c_event_driven_dense 1.4, np_event_driven_auto 21.9, c_event_driven_copy 0.6, c_event_driven_touched 0.5 us/step; identical: [True, True, True]
+[16:42:47] expand_1k 0.001 s2: c_time_step 0.7, c_event_driven_dense 1.6, np_event_driven_auto 25.0, c_event_driven_copy 0.7, c_event_driven_touched 0.6 us/step
+[16:42:47] expand_1k 0.001 s3: c_event_driven_dense 1.5, np_event_driven_auto 23.6, c_event_driven_touched 0.6, c_time_step 0.7, c_event_driven_copy 0.7 us/step
+[16:42:47] expand_1k 0.01 s1: np_event_driven_auto 51.8, c_event_driven_copy 2.3, c_event_driven_touched 2.1, c_time_step 1.2, c_event_driven_dense 3.4 us/step; identical: [True, True, True]
+[16:42:47] expand_1k 0.01 s2: c_time_step 1.3, np_event_driven_auto 52.7, c_event_driven_copy 2.4, c_event_driven_touched 2.1, c_event_driven_dense 3.4 us/step
+[16:42:47] expand_1k 0.01 s3: c_event_driven_dense 3.4, np_event_driven_auto 51.6, c_event_driven_copy 2.4, c_time_step 1.2, c_event_driven_touched 2.1 us/step
+[16:42:48] expand_1k 0.1 s1: c_event_driven_copy 9.0, np_event_driven_auto 92.3, c_event_driven_dense 6.3, c_event_driven_touched 9.0, c_time_step 4.0 us/step; identical: [True, True, True]
+[16:42:48] expand_1k 0.1 s2: c_time_step 4.1, np_event_driven_auto 94.7, c_event_driven_copy 9.3, c_event_driven_dense 6.2, c_event_driven_touched 8.2 us/step
+[16:42:48] expand_1k 0.1 s3: np_event_driven_auto 88.4, c_event_driven_copy 9.8, c_event_driven_dense 6.5, c_time_step 4.0, c_event_driven_touched 8.2 us/step
+[16:42:48] expand_10k 1e-05 s1: np_event_driven_auto 6.0, c_event_driven_dense 1.1, c_time_step 6.1, c_event_driven_copy 0.3, c_event_driven_touched 0.2 us/step; identical: [True, True, True]
+[16:42:48] expand_10k 1e-05 s2: np_event_driven_auto 6.2, c_event_driven_copy 0.3, c_time_step 5.9, c_event_driven_touched 0.3, c_event_driven_dense 1.1 us/step
+[16:42:48] expand_10k 1e-05 s3: c_time_step 6.0, c_event_driven_touched 0.1, np_event_driven_auto 3.9, c_event_driven_dense 0.7, c_event_driven_copy 0.1 us/step
+[16:42:48] expand_10k 0.0001 s1: c_event_driven_touched 3.3, np_event_driven_auto 53.9, c_time_step 6.8, c_event_driven_dense 7.6, c_event_driven_copy 3.2 us/step; identical: [True, True, True]
+[16:42:48] expand_10k 0.0001 s2: c_time_step 6.4, np_event_driven_auto 46.8, c_event_driven_copy 2.4, c_event_driven_touched 1.9, c_event_driven_dense 6.2 us/step
+[16:42:48] expand_10k 0.0001 s3: c_event_driven_dense 5.7, c_time_step 6.4, np_event_driven_auto 39.6, c_event_driven_touched 1.7, c_event_driven_copy 1.7 us/step
+[16:42:49] expand_10k 0.001 s1: c_event_driven_copy 18.5, c_time_step 10.2, np_event_driven_auto 253.3, c_event_driven_touched 16.4, c_event_driven_dense 28.5 us/step; identical: [True, True, True]
+[16:42:49] expand_10k 0.001 s2: c_event_driven_dense 34.2, np_event_driven_auto 335.0, c_event_driven_touched 21.5, c_event_driven_copy 23.6, c_time_step 12.2 us/step
+[16:42:50] expand_10k 0.001 s3: c_time_step 12.6, np_event_driven_auto 285.1, c_event_driven_copy 21.9, c_event_driven_touched 18.6, c_event_driven_dense 31.9 us/step
+[16:42:51] expand_10k 0.01 s1: c_event_driven_dense 38.0, c_event_driven_touched 39.6, c_event_driven_copy 44.7, c_time_step 19.7, np_event_driven_auto 541.2 us/step; identical: [True, True, True]
+[16:42:52] expand_10k 0.01 s2: c_event_driven_touched 41.8, c_event_driven_copy 46.4, c_event_driven_dense 38.4, c_time_step 20.9, np_event_driven_auto 575.2 us/step
+[16:42:52] expand_10k 0.01 s3: np_event_driven_auto 558.7, c_event_driven_dense 38.4, c_event_driven_copy 46.7, c_time_step 19.9, c_event_driven_touched 39.6 us/step
+[16:42:55] expand_10k 0.1 s1: c_event_driven_copy 149.1, np_event_driven_auto 1014.0, c_event_driven_touched 126.0, c_event_driven_dense 102.0, c_time_step 66.4 us/step; identical: [True, True, True]
+[16:42:57] expand_10k 0.1 s2: c_event_driven_dense 103.2, c_time_step 67.4, c_event_driven_touched 125.1, c_event_driven_copy 150.1, np_event_driven_auto 1077.5 us/step
+[16:42:58] expand_10k 0.1 s3: c_event_driven_dense 109.5, c_event_driven_copy 162.6, np_event_driven_auto 1082.8, c_time_step 68.8, c_event_driven_touched 128.2 us/step
+[16:43:01] expand_50k 1e-05 s1: c_event_driven_copy 124.4, np_event_driven_auto 743.3, c_event_driven_dense 142.6, c_time_step 59.1, c_event_driven_touched 98.4 us/step; identical: [True, True, True]
+[16:43:02] expand_50k 1e-05 s2: c_time_step 79.2, np_event_driven_auto 992.0, c_event_driven_touched 141.5, c_event_driven_copy 186.2, c_event_driven_dense 192.1 us/step
+[16:43:04] expand_50k 1e-05 s3: c_time_step 87.8, np_event_driven_auto 1071.0, c_event_driven_copy 209.1, c_event_driven_dense 213.3, c_event_driven_touched 169.1 us/step
+[16:43:09] expand_50k 0.0001 s1: c_time_step 100.5, c_event_driven_copy 244.4, np_event_driven_auto 1827.3, c_event_driven_dense 227.4, c_event_driven_touched 197.2 us/step; identical: [True, True, True]
+[16:43:12] expand_50k 0.0001 s2: c_event_driven_dense 245.3, c_event_driven_copy 206.1, c_event_driven_touched 153.1, c_time_step 84.4, np_event_driven_auto 1721.0 us/step
+[16:43:14] expand_50k 0.0001 s3: c_event_driven_copy 220.8, c_event_driven_dense 218.1, c_event_driven_touched 171.4, np_event_driven_auto 1772.0, c_time_step 88.9 us/step
+[16:43:20] expand_50k 0.001 s1: np_event_driven_auto 2028.2, c_event_driven_copy 244.3, c_time_step 98.4, c_event_driven_touched 189.9, c_event_driven_dense 274.0 us/step; identical: [True, True, True]
+[16:43:23] expand_50k 0.001 s2: np_event_driven_auto 2164.6, c_event_driven_dense 238.6, c_event_driven_touched 196.3, c_time_step 99.2, c_event_driven_copy 254.2 us/step
+[16:43:25] expand_50k 0.001 s3: c_time_step 105.2, c_event_driven_touched 191.7, c_event_driven_copy 246.0, np_event_driven_auto 1976.6, c_event_driven_dense 230.2 us/step
+[16:43:34] expand_50k 0.01 s1: np_event_driven_auto 3123.8, c_event_driven_touched 329.0, c_time_step 177.3, c_event_driven_dense 281.7, c_event_driven_copy 427.2 us/step; identical: [True, True, True]
+[16:43:38] expand_50k 0.01 s2: c_event_driven_copy 455.0, np_event_driven_auto 3254.1, c_time_step 174.6, c_event_driven_dense 261.0, c_event_driven_touched 306.8 us/step
+[16:43:43] expand_50k 0.01 s3: c_time_step 174.2, np_event_driven_auto 3147.7, c_event_driven_touched 314.8, c_event_driven_copy 412.6, c_event_driven_dense 264.4 us/step
+[16:44:00] expand_50k 0.1 s1: c_time_step 504.3, c_event_driven_touched 810.8, c_event_driven_dense 691.1, c_event_driven_copy 1112.1, np_event_driven_auto 5596.4 us/step; identical: [True, True, True]
+[16:44:09] expand_50k 0.1 s2: np_event_driven_auto 5658.9, c_event_driven_touched 805.2, c_time_step 504.2, c_event_driven_copy 1153.1, c_event_driven_dense 681.5 us/step
+[16:44:18] expand_50k 0.1 s3: c_event_driven_touched 816.1, np_event_driven_auto 5829.2, c_event_driven_copy 1159.7, c_time_step 573.1, c_event_driven_dense 754.4 us/step
+[16:44:18] selected compiled event-driven variant: touched ({'touched': 9.75, 'dense': 15.22, 'copy': 11.89} ms geo-mean)
