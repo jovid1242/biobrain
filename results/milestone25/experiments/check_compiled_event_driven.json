@@ -1,0 +1,1600 @@
+{
+ "rows": [
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 1e-05,
+   "seed": 1,
+   "steps": 1000,
+   "identical_to_numpy_event_driven": {
+    "touched": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "dense": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "copy": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "spikes": 18,
+   "synaptic_events": 1858,
+   "neuron_updates": 1667,
+   "unique_targets": 1658,
+   "peak_pending_events": 380,
+   "wall_s": {
+    "compiled_time_step": 0.0004689580018748529,
+    "compiled_event_driven_touched": 2.920899714808911e-05,
+    "compiled_event_driven_dense": 3.175000165356323e-05,
+    "compiled_event_driven_copy": 2.837499778252095e-05,
+    "numpy_event_driven_auto": 0.000585374997172039
+   },
+   "order": [
+    "compiled_time_step",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_dense",
+    "compiled_event_driven_copy",
+    "numpy_event_driven_auto"
+   ]
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 1e-05,
+   "seed": 2,
+   "steps": 1000,
+   "spikes": 30,
+   "synaptic_events": 3037,
+   "neuron_updates": 2545,
+   "unique_targets": 2534,
+   "peak_pending_events": 725,
+   "wall_s": {
+    "compiled_event_driven_dense": 5.3750001825392246e-05,
+    "compiled_event_driven_copy": 4.316600097808987e-05,
+    "numpy_event_driven_auto": 0.0007130829981178977,
+    "compiled_time_step": 0.0004692090005846694,
+    "compiled_event_driven_touched": 4.2084000597242266e-05
+   },
+   "order": [
+    "compiled_event_driven_dense",
+    "compiled_event_driven_copy",
+    "numpy_event_driven_auto",
+    "compiled_time_step",
+    "compiled_event_driven_touched"
+   ]
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 1e-05,
+   "seed": 3,
+   "steps": 1000,
+   "spikes": 73,
+   "synaptic_events": 7402,
+   "neuron_updates": 3408,
+   "unique_targets": 3399,
+   "peak_pending_events": 1812,
+   "wall_s": {
+    "compiled_time_step": 0.0004793330008396879,
+    "compiled_event_driven_touched": 6.48339992039837e-05,
+    "compiled_event_driven_copy": 6.012499943608418e-05,
+    "compiled_event_driven_dense": 6.366699381032959e-05,
+    "numpy_event_driven_auto": 0.0007092909945640713
+   },
+   "order": [
+    "compiled_time_step",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_copy",
+    "compiled_event_driven_dense",
+    "numpy_event_driven_auto"
+   ]
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.0001,
+   "seed": 1,
+   "steps": 1000,
+   "identical_to_numpy_event_driven": {
+    "touched": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "dense": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "copy": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "spikes": 561,
+   "synaptic_events": 60365,
+   "neuron_updates": 34454,
+   "unique_targets": 34375,
+   "peak_pending_events": 2988,
+   "wall_s": {
+    "compiled_time_step": 0.0005145420000189915,
+    "numpy_event_driven_auto": 0.004445333004696295,
+    "compiled_event_driven_dense": 0.0005597909985226579,
+    "compiled_event_driven_touched": 0.0005515000011655502,
+    "compiled_event_driven_copy": 0.0005323329969542101
+   },
+   "order": [
+    "compiled_time_step",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_dense",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_copy"
+   ]
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.0001,
+   "seed": 2,
+   "steps": 1000,
+   "spikes": 425,
+   "synaptic_events": 43471,
+   "neuron_updates": 29758,
+   "unique_targets": 29657,
+   "peak_pending_events": 1206,
+   "wall_s": {
+    "compiled_event_driven_touched": 0.000465915996755939,
+    "compiled_event_driven_copy": 0.0004466660029720515,
+    "numpy_event_driven_auto": 0.004389334004372358,
+    "compiled_time_step": 0.0005111249993206002,
+    "compiled_event_driven_dense": 0.0004896669997833669
+   },
+   "order": [
+    "compiled_event_driven_touched",
+    "compiled_event_driven_copy",
+    "numpy_event_driven_auto",
+    "compiled_time_step",
+    "compiled_event_driven_dense"
+   ]
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.0001,
+   "seed": 3,
+   "steps": 1000,
+   "spikes": 304,
+   "synaptic_events": 32733,
+   "neuron_updates": 21505,
+   "unique_targets": 21422,
+   "peak_pending_events": 1569,
+   "wall_s": {
+    "compiled_event_driven_dense": 0.0003439169959165156,
+    "numpy_event_driven_auto": 0.0034958749965880997,
+    "compiled_event_driven_touched": 0.00033720799547154456,
+    "compiled_event_driven_copy": 0.0003275839990237728,
+    "compiled_time_step": 0.0005494590004673228
+   },
+   "order": [
+    "compiled_event_driven_dense",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_copy",
+    "compiled_time_step"
+   ]
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.001,
+   "seed": 1,
+   "steps": 1000,
+   "identical_to_numpy_event_driven": {
+    "touched": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "dense": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "copy": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "spikes": 2690,
+   "synaptic_events": 285543,
+   "neuron_updates": 176903,
+   "unique_targets": 176112,
+   "peak_pending_events": 6189,
+   "wall_s": {
+    "compiled_time_step": 0.0006979169993428513,
+    "compiled_event_driven_dense": 0.0027955000041401945,
+    "numpy_event_driven_auto": 0.021868292002181988,
+    "compiled_event_driven_copy": 0.0027084999965154566,
+    "compiled_event_driven_touched": 0.0027644580040941946
+   },
+   "order": [
+    "compiled_time_step",
+    "compiled_event_driven_dense",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_copy",
+    "compiled_event_driven_touched"
+   ]
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.001,
+   "seed": 2,
+   "steps": 1000,
+   "spikes": 3121,
+   "synaptic_events": 329795,
+   "neuron_updates": 198333,
+   "unique_targets": 197513,
+   "peak_pending_events": 4554,
+   "wall_s": {
+    "compiled_time_step": 0.0007947499980218709,
+    "compiled_event_driven_dense": 0.0030772080062888563,
+    "numpy_event_driven_auto": 0.022756833001039922,
+    "compiled_event_driven_copy": 0.003054208995308727,
+    "compiled_event_driven_touched": 0.0031083329959074035
+   },
+   "order": [
+    "compiled_time_step",
+    "compiled_event_driven_dense",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_copy",
+    "compiled_event_driven_touched"
+   ]
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.001,
+   "seed": 3,
+   "steps": 1000,
+   "spikes": 3116,
+   "synaptic_events": 327649,
+   "neuron_updates": 192159,
+   "unique_targets": 191375,
+   "peak_pending_events": 5298,
+   "wall_s": {
+    "compiled_event_driven_dense": 0.003061415998672601,
+    "numpy_event_driven_auto": 0.022300166994682513,
+    "compiled_event_driven_touched": 0.0030369589949259534,
+    "compiled_time_step": 0.0007289999994100071,
+    "compiled_event_driven_copy": 0.00297145800141152
+   },
+   "order": [
+    "compiled_event_driven_dense",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_touched",
+    "compiled_time_step",
+    "compiled_event_driven_copy"
+   ]
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.01,
+   "seed": 1,
+   "steps": 1000,
+   "identical_to_numpy_event_driven": {
+    "touched": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "dense": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "copy": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "spikes": 12211,
+   "synaptic_events": 1253784,
+   "neuron_updates": 617159,
+   "unique_targets": 613452,
+   "peak_pending_events": 4980,
+   "wall_s": {
+    "numpy_event_driven_auto": 0.05231120900134556,
+    "compiled_event_driven_copy": 0.010529375002079178,
+    "compiled_event_driven_touched": 0.011020291996828746,
+    "compiled_time_step": 0.0013144590047886595,
+    "compiled_event_driven_dense": 0.010685665998607874
+   },
+   "order": [
+    "numpy_event_driven_auto",
+    "compiled_event_driven_copy",
+    "compiled_event_driven_touched",
+    "compiled_time_step",
+    "compiled_event_driven_dense"
+   ]
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.01,
+   "seed": 2,
+   "steps": 1000,
+   "spikes": 12828,
+   "synaptic_events": 1315828,
+   "neuron_updates": 625835,
+   "unique_targets": 622107,
+   "peak_pending_events": 7505,
+   "wall_s": {
+    "compiled_time_step": 0.001367292003124021,
+    "numpy_event_driven_auto": 0.053744999997434206,
+    "compiled_event_driven_copy": 0.010887124997680075,
+    "compiled_event_driven_touched": 0.011298124998575076,
+    "compiled_event_driven_dense": 0.010715500000515021
+   },
+   "order": [
+    "compiled_time_step",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_copy",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_dense"
+   ]
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.01,
+   "seed": 3,
+   "steps": 1000,
+   "spikes": 12390,
+   "synaptic_events": 1264799,
+   "neuron_updates": 618629,
+   "unique_targets": 614826,
+   "peak_pending_events": 3719,
+   "wall_s": {
+    "compiled_event_driven_dense": 0.010651625001628418,
+    "numpy_event_driven_auto": 0.052297665999503806,
+    "compiled_event_driven_copy": 0.010714999996707775,
+    "compiled_time_step": 0.0013137499990989454,
+    "compiled_event_driven_touched": 0.010843167001439724
+   },
+   "order": [
+    "compiled_event_driven_dense",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_copy",
+    "compiled_time_step",
+    "compiled_event_driven_touched"
+   ]
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.1,
+   "seed": 1,
+   "steps": 1000,
+   "identical_to_numpy_event_driven": {
+    "touched": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "dense": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "copy": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "spikes": 59789,
+   "synaptic_events": 5984673,
+   "neuron_updates": 970163,
+   "unique_targets": 966890,
+   "peak_pending_events": 16901,
+   "wall_s": {
+    "compiled_event_driven_copy": 0.02176595800119685,
+    "numpy_event_driven_auto": 0.0854409170060535,
+    "compiled_event_driven_dense": 0.021170791995245963,
+    "compiled_event_driven_touched": 0.022507792004034854,
+    "compiled_time_step": 0.00455708299705293
+   },
+   "order": [
+    "compiled_event_driven_copy",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_dense",
+    "compiled_event_driven_touched",
+    "compiled_time_step"
+   ]
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.1,
+   "seed": 2,
+   "steps": 1000,
+   "spikes": 59624,
+   "synaptic_events": 5941574,
+   "neuron_updates": 969448,
+   "unique_targets": 966087,
+   "peak_pending_events": 17513,
+   "wall_s": {
+    "compiled_time_step": 0.004433709000295494,
+    "numpy_event_driven_auto": 0.08536974999879021,
+    "compiled_event_driven_copy": 0.021473958004207816,
+    "compiled_event_driven_dense": 0.021188457998505328,
+    "compiled_event_driven_touched": 0.02224108300288208
+   },
+   "order": [
+    "compiled_time_step",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_copy",
+    "compiled_event_driven_dense",
+    "compiled_event_driven_touched"
+   ]
+  },
+  {
+   "subgraph": "expand_1k",
+   "neurons": 1000,
+   "input_rate": 0.1,
+   "seed": 3,
+   "steps": 1000,
+   "spikes": 61658,
+   "synaptic_events": 6127337,
+   "neuron_updates": 971113,
+   "unique_targets": 967936,
+   "peak_pending_events": 12397,
+   "wall_s": {
+    "numpy_event_driven_auto": 0.08606966700608609,
+    "compiled_event_driven_copy": 0.021925582994299475,
+    "compiled_event_driven_dense": 0.02122712499840418,
+    "compiled_time_step": 0.004629709001164883,
+    "compiled_event_driven_touched": 0.022353250002197456
+   },
+   "order": [
+    "numpy_event_driven_auto",
+    "compiled_event_driven_copy",
+    "compiled_event_driven_dense",
+    "compiled_time_step",
+    "compiled_event_driven_touched"
+   ]
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 1e-05,
+   "seed": 1,
+   "steps": 1000,
+   "identical_to_numpy_event_driven": {
+    "touched": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "dense": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "copy": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "spikes": 537,
+   "synaptic_events": 102734,
+   "neuron_updates": 56898,
+   "unique_targets": 56793,
+   "peak_pending_events": 14965,
+   "wall_s": {
+    "numpy_event_driven_auto": 0.0059633330020005815,
+    "compiled_event_driven_dense": 0.0014707089940202422,
+    "compiled_time_step": 0.0048829580046003684,
+    "compiled_event_driven_copy": 0.0010505410027690232,
+    "compiled_event_driven_touched": 0.0010433749994263053
+   },
+   "order": [
+    "numpy_event_driven_auto",
+    "compiled_event_driven_dense",
+    "compiled_time_step",
+    "compiled_event_driven_copy",
+    "compiled_event_driven_touched"
+   ]
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 1e-05,
+   "seed": 2,
+   "steps": 1000,
+   "spikes": 624,
+   "synaptic_events": 113965,
+   "neuron_updates": 69000,
+   "unique_targets": 68888,
+   "peak_pending_events": 11989,
+   "wall_s": {
+    "numpy_event_driven_auto": 0.006152207999548409,
+    "compiled_event_driven_copy": 0.0012898330023745075,
+    "compiled_time_step": 0.004876000006333925,
+    "compiled_event_driven_touched": 0.0012247080012457445,
+    "compiled_event_driven_dense": 0.0015800840046722442
+   },
+   "order": [
+    "numpy_event_driven_auto",
+    "compiled_event_driven_copy",
+    "compiled_time_step",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_dense"
+   ]
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 1e-05,
+   "seed": 3,
+   "steps": 1000,
+   "spikes": 166,
+   "synaptic_events": 28066,
+   "neuron_updates": 24568,
+   "unique_targets": 24484,
+   "peak_pending_events": 1463,
+   "wall_s": {
+    "compiled_time_step": 0.0049114579960587434,
+    "compiled_event_driven_touched": 0.00039158300205599517,
+    "numpy_event_driven_auto": 0.0037316250018193386,
+    "compiled_event_driven_dense": 0.000789249999797903,
+    "compiled_event_driven_copy": 0.0003941670001950115
+   },
+   "order": [
+    "compiled_time_step",
+    "compiled_event_driven_touched",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_dense",
+    "compiled_event_driven_copy"
+   ]
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.0001,
+   "seed": 1,
+   "steps": 1000,
+   "identical_to_numpy_event_driven": {
+    "touched": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "dense": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "copy": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "spikes": 7469,
+   "synaptic_events": 1352125,
+   "neuron_updates": 676928,
+   "unique_targets": 676027,
+   "peak_pending_events": 38551,
+   "wall_s": {
+    "compiled_event_driven_touched": 0.013183082999603357,
+    "numpy_event_driven_auto": 0.051242542002000846,
+    "compiled_time_step": 0.005818792000354733,
+    "compiled_event_driven_dense": 0.012852874999225605,
+    "compiled_event_driven_copy": 0.01311008400080027
+   },
+   "order": [
+    "compiled_event_driven_touched",
+    "numpy_event_driven_auto",
+    "compiled_time_step",
+    "compiled_event_driven_dense",
+    "compiled_event_driven_copy"
+   ]
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.0001,
+   "seed": 2,
+   "steps": 1000,
+   "spikes": 4262,
+   "synaptic_events": 830074,
+   "neuron_updates": 536694,
+   "unique_targets": 535733,
+   "peak_pending_events": 13759,
+   "wall_s": {
+    "compiled_time_step": 0.005729584001528565,
+    "numpy_event_driven_auto": 0.04481775000022026,
+    "compiled_event_driven_copy": 0.015731624996988103,
+    "compiled_event_driven_touched": 0.01868616699357517,
+    "compiled_event_driven_dense": 0.0176881660008803
+   },
+   "order": [
+    "compiled_time_step",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_copy",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_dense"
+   ]
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.0001,
+   "seed": 3,
+   "steps": 1000,
+   "spikes": 3669,
+   "synaptic_events": 637817,
+   "neuron_updates": 431740,
+   "unique_targets": 430796,
+   "peak_pending_events": 9609,
+   "wall_s": {
+    "compiled_event_driven_dense": 0.008529291000741068,
+    "compiled_time_step": 0.00529787500272505,
+    "numpy_event_driven_auto": 0.04067879100330174,
+    "compiled_event_driven_touched": 0.007772375000058673,
+    "compiled_event_driven_copy": 0.008174374997906853
+   },
+   "order": [
+    "compiled_event_driven_dense",
+    "compiled_time_step",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_copy"
+   ]
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.001,
+   "seed": 1,
+   "steps": 1000,
+   "identical_to_numpy_event_driven": {
+    "touched": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "dense": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "copy": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "spikes": 46850,
+   "synaptic_events": 8375098,
+   "neuron_updates": 3766479,
+   "unique_targets": 3760327,
+   "peak_pending_events": 26582,
+   "wall_s": {
+    "compiled_event_driven_copy": 0.07436774999951012,
+    "compiled_time_step": 0.010558084002695978,
+    "numpy_event_driven_auto": 0.2465939169997,
+    "compiled_event_driven_touched": 0.07667862499511102,
+    "compiled_event_driven_dense": 0.06501112500700401
+   },
+   "order": [
+    "compiled_event_driven_copy",
+    "compiled_time_step",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_dense"
+   ]
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.001,
+   "seed": 2,
+   "steps": 1000,
+   "spikes": 63006,
+   "synaptic_events": 11196392,
+   "neuron_updates": 4480466,
+   "unique_targets": 4474977,
+   "peak_pending_events": 29868,
+   "wall_s": {
+    "compiled_event_driven_dense": 0.08021183299570112,
+    "numpy_event_driven_auto": 0.295160792004026,
+    "compiled_event_driven_touched": 0.09617816700483672,
+    "compiled_event_driven_copy": 0.09309616599784931,
+    "compiled_time_step": 0.012596833003044594
+   },
+   "order": [
+    "compiled_event_driven_dense",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_copy",
+    "compiled_time_step"
+   ]
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.001,
+   "seed": 3,
+   "steps": 1000,
+   "spikes": 58651,
+   "synaptic_events": 10488894,
+   "neuron_updates": 4298188,
+   "unique_targets": 4292509,
+   "peak_pending_events": 28955,
+   "wall_s": {
+    "compiled_time_step": 0.012569582999276463,
+    "numpy_event_driven_auto": 0.2922950829961337,
+    "compiled_event_driven_copy": 0.09341891700023552,
+    "compiled_event_driven_touched": 0.09066783299931558,
+    "compiled_event_driven_dense": 0.07717408399912529
+   },
+   "order": [
+    "compiled_time_step",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_copy",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_dense"
+   ]
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.01,
+   "seed": 1,
+   "steps": 1000,
+   "identical_to_numpy_event_driven": {
+    "touched": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "dense": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "copy": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "spikes": 143281,
+   "synaptic_events": 24686393,
+   "neuron_updates": 7893062,
+   "unique_targets": 7871795,
+   "peak_pending_events": 42380,
+   "wall_s": {
+    "compiled_event_driven_dense": 0.15261166599520948,
+    "compiled_event_driven_touched": 0.17962812499899883,
+    "compiled_event_driven_copy": 0.17485387500346405,
+    "compiled_time_step": 0.021765707999293227,
+    "numpy_event_driven_auto": 0.5472801249998156
+   },
+   "order": [
+    "compiled_event_driven_dense",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_copy",
+    "compiled_time_step",
+    "numpy_event_driven_auto"
+   ]
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.01,
+   "seed": 2,
+   "steps": 1000,
+   "spikes": 143718,
+   "synaptic_events": 24829671,
+   "neuron_updates": 7933287,
+   "unique_targets": 7912421,
+   "peak_pending_events": 46701,
+   "wall_s": {
+    "compiled_event_driven_touched": 0.1789145410002675,
+    "compiled_event_driven_copy": 0.17576112499955343,
+    "compiled_event_driven_dense": 0.1561141249985667,
+    "compiled_time_step": 0.021803333998832386,
+    "numpy_event_driven_auto": 0.5593046669964679
+   },
+   "order": [
+    "compiled_event_driven_touched",
+    "compiled_event_driven_copy",
+    "compiled_event_driven_dense",
+    "compiled_time_step",
+    "numpy_event_driven_auto"
+   ]
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.01,
+   "seed": 3,
+   "steps": 1000,
+   "spikes": 145052,
+   "synaptic_events": 24908727,
+   "neuron_updates": 7950038,
+   "unique_targets": 7929162,
+   "peak_pending_events": 42493,
+   "wall_s": {
+    "numpy_event_driven_auto": 0.5693478750035865,
+    "compiled_event_driven_dense": 0.1569046669974341,
+    "compiled_event_driven_copy": 0.18023854099737946,
+    "compiled_time_step": 0.02371399999537971,
+    "compiled_event_driven_touched": 0.18299358299555024
+   },
+   "order": [
+    "numpy_event_driven_auto",
+    "compiled_event_driven_dense",
+    "compiled_event_driven_copy",
+    "compiled_time_step",
+    "compiled_event_driven_touched"
+   ]
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.1,
+   "seed": 1,
+   "steps": 1000,
+   "identical_to_numpy_event_driven": {
+    "touched": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "dense": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "copy": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "spikes": 651530,
+   "synaptic_events": 109507578,
+   "neuron_updates": 9888037,
+   "unique_targets": 9875837,
+   "peak_pending_events": 263141,
+   "wall_s": {
+    "compiled_event_driven_copy": 0.30344049999985145,
+    "numpy_event_driven_auto": 1.068755708001845,
+    "compiled_event_driven_touched": 0.2983084579973365,
+    "compiled_event_driven_dense": 0.29448879200208467,
+    "compiled_time_step": 0.0810681669972837
+   },
+   "order": [
+    "compiled_event_driven_copy",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_dense",
+    "compiled_time_step"
+   ]
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.1,
+   "seed": 2,
+   "steps": 1000,
+   "spikes": 653386,
+   "synaptic_events": 109891868,
+   "neuron_updates": 9889096,
+   "unique_targets": 9876725,
+   "peak_pending_events": 255831,
+   "wall_s": {
+    "compiled_event_driven_dense": 0.2714395000002696,
+    "compiled_time_step": 0.0737100000042119,
+    "compiled_event_driven_touched": 0.36010033400089014,
+    "compiled_event_driven_copy": 0.30558495800505625,
+    "numpy_event_driven_auto": 1.0936577089960338
+   },
+   "order": [
+    "compiled_event_driven_dense",
+    "compiled_time_step",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_copy",
+    "numpy_event_driven_auto"
+   ]
+  },
+  {
+   "subgraph": "expand_10k",
+   "neurons": 10000,
+   "input_rate": 0.1,
+   "seed": 3,
+   "steps": 1000,
+   "spikes": 650139,
+   "synaptic_events": 109374472,
+   "neuron_updates": 9887881,
+   "unique_targets": 9875717,
+   "peak_pending_events": 265264,
+   "wall_s": {
+    "compiled_event_driven_dense": 0.2692996249970747,
+    "compiled_event_driven_copy": 0.29641241599892965,
+    "numpy_event_driven_auto": 1.0320443340024212,
+    "compiled_time_step": 0.0776192080011242,
+    "compiled_event_driven_touched": 0.29622774999734247
+   },
+   "order": [
+    "compiled_event_driven_dense",
+    "compiled_event_driven_copy",
+    "numpy_event_driven_auto",
+    "compiled_time_step",
+    "compiled_event_driven_touched"
+   ]
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 1e-05,
+   "seed": 1,
+   "steps": 1000,
+   "identical_to_numpy_event_driven": {
+    "touched": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "dense": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "copy": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "spikes": 169259,
+   "synaptic_events": 40417189,
+   "neuron_updates": 15897586,
+   "unique_targets": 15897236,
+   "peak_pending_events": 180757,
+   "wall_s": {
+    "compiled_event_driven_copy": 0.36624904200289166,
+    "numpy_event_driven_auto": 0.7506265830015764,
+    "compiled_event_driven_dense": 0.3012629590011784,
+    "compiled_time_step": 0.05697087500448106,
+    "compiled_event_driven_touched": 0.3704710829988471
+   },
+   "order": [
+    "compiled_event_driven_copy",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_dense",
+    "compiled_time_step",
+    "compiled_event_driven_touched"
+   ]
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 1e-05,
+   "seed": 2,
+   "steps": 1000,
+   "spikes": 275645,
+   "synaptic_events": 65024596,
+   "neuron_updates": 21260029,
+   "unique_targets": 21259747,
+   "peak_pending_events": 199527,
+   "wall_s": {
+    "compiled_time_step": 0.07720141699974192,
+    "numpy_event_driven_auto": 0.9709738340025069,
+    "compiled_event_driven_touched": 0.5083792919976986,
+    "compiled_event_driven_copy": 0.5013080000062473,
+    "compiled_event_driven_dense": 0.4143742079977528
+   },
+   "order": [
+    "compiled_time_step",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_copy",
+    "compiled_event_driven_dense"
+   ]
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 1e-05,
+   "seed": 3,
+   "steps": 1000,
+   "spikes": 329783,
+   "synaptic_events": 77799720,
+   "neuron_updates": 23680314,
+   "unique_targets": 23680078,
+   "peak_pending_events": 237571,
+   "wall_s": {
+    "compiled_time_step": 0.08349100000486942,
+    "numpy_event_driven_auto": 1.0504253339968272,
+    "compiled_event_driven_copy": 0.5648024999973131,
+    "compiled_event_driven_dense": 0.46755504199973075,
+    "compiled_event_driven_touched": 0.5655028330002096
+   },
+   "order": [
+    "compiled_time_step",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_copy",
+    "compiled_event_driven_dense",
+    "compiled_event_driven_touched"
+   ]
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.0001,
+   "seed": 1,
+   "steps": 1000,
+   "identical_to_numpy_event_driven": {
+    "touched": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "dense": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "copy": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "spikes": 388128,
+   "synaptic_events": 93383047,
+   "neuron_updates": 23941288,
+   "unique_targets": 23938687,
+   "peak_pending_events": 199570,
+   "wall_s": {
+    "compiled_time_step": 0.09603812500427011,
+    "compiled_event_driven_copy": 0.604506957999547,
+    "numpy_event_driven_auto": 1.776190124997811,
+    "compiled_event_driven_dense": 0.4901313750015106,
+    "compiled_event_driven_touched": 0.5917865000010352
+   },
+   "order": [
+    "compiled_time_step",
+    "compiled_event_driven_copy",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_dense",
+    "compiled_event_driven_touched"
+   ]
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.0001,
+   "seed": 2,
+   "steps": 1000,
+   "spikes": 300905,
+   "synaptic_events": 70763644,
+   "neuron_updates": 23136511,
+   "unique_targets": 23133800,
+   "peak_pending_events": 161687,
+   "wall_s": {
+    "compiled_event_driven_dense": 0.4512162079990958,
+    "compiled_event_driven_copy": 0.5446525829975144,
+    "compiled_event_driven_touched": 0.54607991699595,
+    "compiled_time_step": 0.07826062499952968,
+    "numpy_event_driven_auto": 1.639534707996063
+   },
+   "order": [
+    "compiled_event_driven_dense",
+    "compiled_event_driven_copy",
+    "compiled_event_driven_touched",
+    "compiled_time_step",
+    "numpy_event_driven_auto"
+   ]
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.0001,
+   "seed": 3,
+   "steps": 1000,
+   "spikes": 348276,
+   "synaptic_events": 81648994,
+   "neuron_updates": 24113435,
+   "unique_targets": 24110832,
+   "peak_pending_events": 176039,
+   "wall_s": {
+    "compiled_event_driven_copy": 0.5806920420000097,
+    "compiled_event_driven_dense": 0.49404929199954495,
+    "compiled_event_driven_touched": 0.5827599579934031,
+    "numpy_event_driven_auto": 1.8310665839962894,
+    "compiled_time_step": 0.08953179200034356
+   },
+   "order": [
+    "compiled_event_driven_copy",
+    "compiled_event_driven_dense",
+    "compiled_event_driven_touched",
+    "numpy_event_driven_auto",
+    "compiled_time_step"
+   ]
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.001,
+   "seed": 1,
+   "steps": 1000,
+   "identical_to_numpy_event_driven": {
+    "touched": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "dense": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "copy": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "spikes": 374726,
+   "synaptic_events": 86846569,
+   "neuron_updates": 28191550,
+   "unique_targets": 28169880,
+   "peak_pending_events": 200586,
+   "wall_s": {
+    "numpy_event_driven_auto": 2.012208792002639,
+    "compiled_event_driven_copy": 0.6718027500028256,
+    "compiled_time_step": 0.09649479200015776,
+    "compiled_event_driven_touched": 0.7018215830030385,
+    "compiled_event_driven_dense": 0.5744334160044673
+   },
+   "order": [
+    "numpy_event_driven_auto",
+    "compiled_event_driven_copy",
+    "compiled_time_step",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_dense"
+   ]
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.001,
+   "seed": 2,
+   "steps": 1000,
+   "spikes": 386165,
+   "synaptic_events": 88907010,
+   "neuron_updates": 28357093,
+   "unique_targets": 28335594,
+   "peak_pending_events": 237641,
+   "wall_s": {
+    "numpy_event_driven_auto": 2.047899959005008,
+    "compiled_event_driven_dense": 0.5685700419999193,
+    "compiled_event_driven_touched": 0.6774569580011303,
+    "compiled_time_step": 0.09740008300286718,
+    "compiled_event_driven_copy": 0.7166260419980972
+   },
+   "order": [
+    "numpy_event_driven_auto",
+    "compiled_event_driven_dense",
+    "compiled_event_driven_touched",
+    "compiled_time_step",
+    "compiled_event_driven_copy"
+   ]
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.001,
+   "seed": 3,
+   "steps": 1000,
+   "spikes": 383786,
+   "synaptic_events": 87604152,
+   "neuron_updates": 27508692,
+   "unique_targets": 27486327,
+   "peak_pending_events": 273045,
+   "wall_s": {
+    "compiled_time_step": 0.10992579099547584,
+    "compiled_event_driven_touched": 0.6767017919992213,
+    "compiled_event_driven_copy": 0.7134982920033508,
+    "numpy_event_driven_auto": 1.9878682919952553,
+    "compiled_event_driven_dense": 0.5584668750016135
+   },
+   "order": [
+    "compiled_time_step",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_copy",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_dense"
+   ]
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.01,
+   "seed": 1,
+   "steps": 1000,
+   "identical_to_numpy_event_driven": {
+    "touched": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "dense": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "copy": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "spikes": 709857,
+   "synaptic_events": 154028150,
+   "neuron_updates": 40629158,
+   "unique_targets": 40534500,
+   "peak_pending_events": 343425,
+   "wall_s": {
+    "numpy_event_driven_auto": 3.164750333999109,
+    "compiled_event_driven_touched": 1.0730993339966517,
+    "compiled_time_step": 0.16177899999456713,
+    "compiled_event_driven_dense": 0.8774628750034026,
+    "compiled_event_driven_copy": 1.0787686669937102
+   },
+   "order": [
+    "numpy_event_driven_auto",
+    "compiled_event_driven_touched",
+    "compiled_time_step",
+    "compiled_event_driven_dense",
+    "compiled_event_driven_copy"
+   ]
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.01,
+   "seed": 2,
+   "steps": 1000,
+   "spikes": 717929,
+   "synaptic_events": 156097209,
+   "neuron_updates": 40672142,
+   "unique_targets": 40577165,
+   "peak_pending_events": 512149,
+   "wall_s": {
+    "compiled_event_driven_copy": 1.1517001250031171,
+    "numpy_event_driven_auto": 3.446913500003575,
+    "compiled_time_step": 0.22090337500412716,
+    "compiled_event_driven_dense": 0.9019855419974192,
+    "compiled_event_driven_touched": 1.126043917000061
+   },
+   "order": [
+    "compiled_event_driven_copy",
+    "numpy_event_driven_auto",
+    "compiled_time_step",
+    "compiled_event_driven_dense",
+    "compiled_event_driven_touched"
+   ]
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.01,
+   "seed": 3,
+   "steps": 1000,
+   "spikes": 740941,
+   "synaptic_events": 160340652,
+   "neuron_updates": 40863900,
+   "unique_targets": 40771439,
+   "peak_pending_events": 475450,
+   "wall_s": {
+    "compiled_time_step": 0.16562012500071432,
+    "numpy_event_driven_auto": 3.149995542000397,
+    "compiled_event_driven_touched": 1.1015775830019265,
+    "compiled_event_driven_copy": 1.0868002089991933,
+    "compiled_event_driven_dense": 0.8649570830020821
+   },
+   "order": [
+    "compiled_time_step",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_copy",
+    "compiled_event_driven_dense"
+   ]
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.1,
+   "seed": 1,
+   "steps": 1000,
+   "identical_to_numpy_event_driven": {
+    "touched": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "dense": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    },
+    "copy": {
+     "raster_identical": true,
+     "per_step_and_per_neuron_counters_identical": true,
+     "counters_identical": true,
+     "final_v_bit_identical": true,
+     "max_abs_final_v_difference": 0.0,
+     "identical": true
+    }
+   },
+   "spikes": 2915329,
+   "synaptic_events": 513849083,
+   "neuron_updates": 49279528,
+   "unique_targets": 49199588,
+   "peak_pending_events": 1806078,
+   "wall_s": {
+    "compiled_time_step": 0.5733966659972793,
+    "compiled_event_driven_touched": 1.7123868750059046,
+    "compiled_event_driven_dense": 1.4743933330028085,
+    "compiled_event_driven_copy": 1.8415375000040513,
+    "numpy_event_driven_auto": 5.59976079199987
+   },
+   "order": [
+    "compiled_time_step",
+    "compiled_event_driven_touched",
+    "compiled_event_driven_dense",
+    "compiled_event_driven_copy",
+    "numpy_event_driven_auto"
+   ]
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.1,
+   "seed": 2,
+   "steps": 1000,
+   "spikes": 2926073,
+   "synaptic_events": 515409318,
+   "neuron_updates": 49284798,
+   "unique_targets": 49205329,
+   "peak_pending_events": 1762954,
+   "wall_s": {
+    "numpy_event_driven_auto": 5.644427375002124,
+    "compiled_event_driven_touched": 1.6911045830056537,
+    "compiled_time_step": 0.5355298340000445,
+    "compiled_event_driven_copy": 1.8625590000010561,
+    "compiled_event_driven_dense": 1.4900112500035902
+   },
+   "order": [
+    "numpy_event_driven_auto",
+    "compiled_event_driven_touched",
+    "compiled_time_step",
+    "compiled_event_driven_copy",
+    "compiled_event_driven_dense"
+   ]
+  },
+  {
+   "subgraph": "expand_50k",
+   "neurons": 50000,
+   "input_rate": 0.1,
+   "seed": 3,
+   "steps": 1000,
+   "spikes": 2918331,
+   "synaptic_events": 513212304,
+   "neuron_updates": 49279823,
+   "unique_targets": 49199502,
+   "peak_pending_events": 1600279,
+   "wall_s": {
+    "compiled_event_driven_touched": 1.7497618330016849,
+    "numpy_event_driven_auto": 5.772928332997253,
+    "compiled_event_driven_copy": 1.8283071249970817,
+    "compiled_time_step": 0.5257305420018383,
+    "compiled_event_driven_dense": 1.4406467910011997
+   },
+   "order": [
+    "compiled_event_driven_touched",
+    "numpy_event_driven_auto",
+    "compiled_event_driven_copy",
+    "compiled_time_step",
+    "compiled_event_driven_dense"
+   ]
+  }
+ ],
+ "geometric_mean_wall_s": {
+  "compiled_time_step": 0.012732345835077428,
+  "compiled_event_driven_touched": 0.03726504151316481,
+  "compiled_event_driven_dense": 0.035353833466380886,
+  "compiled_event_driven_copy": 0.03732263605062156,
+  "numpy_event_driven_auto": 0.15735984349100487
+ },
+ "selected_variant": "dense",
+ "selection_rule": "lowest geometric mean over (size, input) cells of the per-cell median wall; tie keeps touched",
+ "compile_or_cache_load_s": 0.09822595799778355,
+ "run": {
+  "timestamp_utc": "2026-09-17T11:38:52+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "96899abde2183644b9d342844e7b87e9c7a74b26",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "m25",
+   "check-ed"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2",
+   "numba": "0.67.0",
+   "llvmlite": "0.49.0"
+  }
+ }
+}
