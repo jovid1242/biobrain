@@ -1,10 +1,16 @@
 # BioBrain
 
+<p align="center">
+  <img src="public_asstes/m1.png" alt="BioBrain: an illustrated Drosophila brain and the project roadmap M1–M7" width="100%">
+  <br>
+  <sub>Иллюстрация, а не визуализация данных FlyWire.</sub>
+</p>
+
 **English summary.** BioBrain is a research project that asks whether the real wiring diagram of the adult
 *Drosophila* brain (FlyWire, 139,255 neurons) can serve as the starting architecture for a sparse, event-driven,
 trainable spiking neural network that solves AI tasks with far fewer synaptic operations than a suitable
 baseline. It is not an LLM, not a Transformer, not an AGI attempt and not a fly simulator. Negative results are
-treated as results. **Milestone 1 (official data, validation, graph analysis, memory measurements) is complete**; Milestone 2 (a minimal spiking simulator) has not started.
+treated as results. **Milestone 1 (official data, validation, graph analysis, memory measurements) is complete**; Milestone 2 (a minimal spiking simulator) is in progress.
 
 ---
 
@@ -65,7 +71,7 @@ FlyWire с синаптическим разрешением, спайковым
 | этап | содержание | статус |
 |---|---|---|
 | **M1** | официальные данные, воспроизводимая загрузка, валидация, компактный граф, анализатор, замеры памяти | **завершён** 2026-09-17 |
-| M2 | минимальный SNN-симулятор: 100 → 1k → 10k нейронов; event-driven против time-step (бенчмарком) | после подтверждения M1 |
+| M2 | минимальный SNN-симулятор: 100 → 1k → 10k нейронов; event-driven против time-step (бенчмарком) | **в работе** |
 | M3 | первая правило пластичности; обучение простой temporal/pattern задаче; checkpoint → restart → навык сохранён | |
 | M4 | Fly topology vs random vs shuffled при одинаковом бюджете | |
 | M5 | функциональная ablation и pruning на мультизадачном бенчмарке | |
