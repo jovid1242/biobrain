@@ -102,6 +102,12 @@ def cmd_m2(args) -> int:
     return pipeline.run_step(args.step)
 
 
+def cmd_m25(args) -> int:
+    from .snn import m25
+
+    return m25.run_step(args.step)
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="biobrain", description=__doc__)
     parser.add_argument("--memory-budget", default=None,
@@ -149,6 +155,10 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("step", choices=["subgraphs", "calibrate", "calibrate-pb-glutamate", "long-equivalence", "baseline-regime", "equivalence", "baseline-rss", "bench", "bench-50k",
                                     "bench-neuropils", "patterns", "sensitivity", "nulls", "profile", "energy", "estimate", "figures", "summary"])
     p.set_defaults(func=cmd_m2)
+
+    p = sub.add_parser("m25", help="Milestone 2.5: compiled backend and full-connectome validation, one step at a time")
+    p.add_argument("step")
+    p.set_defaults(func=cmd_m25)
 
     p = sub.add_parser("neuron", help="look up one neuron: annotations, degrees, strongest partners")
     p.add_argument("root_id", type=int)

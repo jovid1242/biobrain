@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import ctypes
 import os
+import re
 import subprocess
 import sys
 
@@ -92,4 +93,18 @@ def power_state() -> dict:
         return {}
     low = [line.split()[-1] for line in cfg.splitlines() if "lowpowermode" in line]
     source = "battery" if "Battery Power" in batt else "ac" if "AC Power" in batt else "unknown"
-    return {"power_source": source, "low_power_mode": low[0] == "1" if low else None}
+    level = re.search(r"(\d+)%", batt)
+    return {"power_source": source, "low_power_mode": low[0] == "1" if low else None,
+            "battery_percent": int(level.group(1)) if level else None, **thermal_state()}
+
+
+def thermal_state() -> dict:
+    """OS thermal/performance warnings from `pmset -g therm` (notifications only; no temperatures without root)."""
+    if sys.platform != "darwin":
+        return {}
+    try:
+        out = subprocess.run(["pmset", "-g", "therm"], capture_output=True, text=True, timeout=5).stdout
+    except (OSError, subprocess.SubprocessError):
+        return {}
+    warnings = [line.strip() for line in out.splitlines() if line.strip() and "No " not in line]
+    return {"thermal_warnings": warnings}

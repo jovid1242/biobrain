@@ -13,7 +13,7 @@ import psutil
 
 from . import __version__, paths
 
-_PACKAGES = ("numpy", "scipy", "pyarrow", "python-igraph", "matplotlib", "psutil")
+_PACKAGES = ("numpy", "scipy", "pyarrow", "python-igraph", "matplotlib", "psutil", "numba", "llvmlite")
 
 
 def _run(*cmd: str) -> str | None:
