@@ -232,7 +232,73 @@ def step_check_ts(sizes=("expand_100", "expand_1k", "expand_10k", "expand_50k"),
             "note": "in-process check (min of 2 runs each); the isolated benchmark matrix is separate"})
 
 
-STEPS = {"freeze-baseline": step_freeze_baseline, "profile-numpy": step_profile_numpy, "check-ts": step_check_ts}
+
+def step_check_ed(sizes=("expand_1k", "expand_10k", "expand_50k"), rates=(0.00001, 0.0001, 0.001, 0.01, 0.1), seeds=(1, 2, 3),
+                  steps: int = 1000) -> None:
+    """Compiled event-driven variants against NumPy event-driven (auto), in-process.
+
+    Seed 1 of each cell is recorded and compared bit by bit with NumPy. Timing runs (no recording) go in a shuffled
+    order. Selection rule for the default variant, fixed before this step runs: the lowest geometric mean over all
+    (size, input) cells of the per-cell median wall time; a tie keeps `touched`."""
+    import random
+
+    from ..connectome.store import Connectome
+    from . import compiled, engine
+    from .pipeline import BASE, gains
+
+    conn = Connectome.load("flywire_fafb_v783")
+    g = gains()
+    compile_s = compiled.warmup("float32", variants=compiled.VARIANTS)
+    rows = []
+    for name in sizes:
+        for rate in rates:
+            for seed in seeds:
+                cfg = BASE.replace(weights={"gain": g[name]}, inputs={"rate": rate}, run={"steps": steps, "seed": seed})
+                net, sched, _ = experiments.load_prepared(experiments.prepare(conn, name, cfg))
+                p = cfg.neuron
+                runners = {"numpy_event_driven_auto": lambda **kw: engine.run(net, sched, p, steps, "event_driven", aggregation="auto", **kw),
+                           "compiled_time_step": lambda **kw: engine.run(net, sched, p, steps, "time_step", backend="numba", **kw)}
+                for variant in compiled.VARIANTS:
+                    runners[f"compiled_event_driven_{variant}"] = (
+                        lambda variant=variant, **kw: engine.run(net, sched, p, steps, "event_driven", backend="numba", variant=variant, **kw))
+                row = {"subgraph": name, "neurons": net.n, "input_rate": rate, "seed": seed, "steps": steps}
+                if seed == seeds[0]:
+                    ref = runners["numpy_event_driven_auto"](record_spikes=True)
+                    row["identical_to_numpy_event_driven"] = {
+                        v: _identical(ref, runners[f"compiled_event_driven_{v}"](record_spikes=True)) for v in compiled.VARIANTS}
+                order = list(runners)
+                random.Random(f"{name}-{rate}-{seed}").shuffle(order)
+                walls = {}
+                for key in order:
+                    res = runners[key]()
+                    walls[key] = res.wall_s
+                    if key == "compiled_event_driven_touched":
+                        row.update(spikes=res.counters["spikes"], synaptic_events=res.counters["synaptic_events"],
+                                   neuron_updates=res.counters["neuron_updates"], unique_targets=res.extra["unique_targets"],
+                                   peak_pending_events=res.extra["peak_pending_events"])
+                row["wall_s"] = walls
+                row["order"] = order
+                rows.append(row)
+                ident = row.get("identical_to_numpy_event_driven")
+                _log(f"{name} {rate:g} s{seed}: " + ", ".join(f"{k.replace('compiled_', 'c_').replace('numpy_', 'np_')} "
+                                                              f"{1e6 * w / steps:.1f}" for k, w in walls.items())
+                     + " us/step" + (f"; identical: {[v['identical'] for v in ident.values()]}" if ident else ""))
+    cells = {}
+    for r in rows:
+        for key, wall in r["wall_s"].items():
+            cells.setdefault(key, {}).setdefault((r["subgraph"], r["input_rate"]), []).append(wall)
+    geo = {key: float(np.exp(np.mean([np.log(np.median(w)) for w in per.values()]))) for key, per in cells.items()}
+    ed = {v: geo[f"compiled_event_driven_{v}"] for v in compiled.VARIANTS}
+    best = min(ed, key=lambda v: (ed[v], v != "touched"))
+    _write("experiments/check_compiled_event_driven.json",
+           {"rows": rows, "geometric_mean_wall_s": geo, "selected_variant": best,
+            "selection_rule": "lowest geometric mean over (size, input) cells of the per-cell median wall; tie keeps touched",
+            "compile_or_cache_load_s": compile_s, "run": runinfo.collect()})
+    _log(f"selected compiled event-driven variant: {best} ({ {k: round(v * 1e3, 2) for k, v in ed.items()} } ms geo-mean)")
+
+
+STEPS = {"freeze-baseline": step_freeze_baseline, "profile-numpy": step_profile_numpy, "check-ts": step_check_ts,
+         "check-ed": step_check_ed}
 
 
 def run_step(name: str) -> int:

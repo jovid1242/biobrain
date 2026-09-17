@@ -1,0 +1,16 @@
+[16:35:41] expand_100 0.0001: NumPy 1.8 us/step, compiled 0.1 us/step (33.2x), identical True
+[16:35:41] expand_100 0.001: NumPy 2.3 us/step, compiled 0.1 us/step (35.5x), identical True
+[16:35:41] expand_100 0.01: NumPy 5.7 us/step, compiled 0.1 us/step (43.3x), identical True
+[16:35:41] expand_100 0.1: NumPy 8.4 us/step, compiled 0.2 us/step (33.8x), identical True
+[16:35:41] expand_1k 0.0001: NumPy 3.1 us/step, compiled 0.5 us/step (6.1x), identical True
+[16:35:41] expand_1k 0.001: NumPy 7.3 us/step, compiled 0.7 us/step (10.7x), identical True
+[16:35:41] expand_1k 0.01: NumPy 12.5 us/step, compiled 1.3 us/step (9.5x), identical True
+[16:35:42] expand_1k 0.1: NumPy 26.4 us/step, compiled 4.4 us/step (6.0x), identical True
+[16:35:42] expand_10k 0.0001: NumPy 17.3 us/step, compiled 5.7 us/step (3.1x), identical True
+[16:35:42] expand_10k 0.001: NumPy 41.1 us/step, compiled 10.1 us/step (4.1x), identical True
+[16:35:42] expand_10k 0.01: NumPy 86.5 us/step, compiled 20.3 us/step (4.3x), identical True
+[16:35:43] expand_10k 0.1: NumPy 330.1 us/step, compiled 74.7 us/step (4.4x), identical True
+[16:35:44] expand_50k 0.0001: NumPy 349.8 us/step, compiled 93.7 us/step (3.7x), identical True
+[16:35:45] expand_50k 0.001: NumPy 374.3 us/step, compiled 114.6 us/step (3.3x), identical True
+[16:35:47] expand_50k 0.01: NumPy 596.4 us/step, compiled 166.8 us/step (3.6x), identical True
+[16:35:53] expand_50k 0.1: NumPy 2160.3 us/step, compiled 685.6 us/step (3.2x), identical True
