@@ -1,10 +1,13 @@
 """Memory / time benchmark of graph representations (feeds docs/MEMORY.md).
 
-Every case runs in a fresh subprocess, so RSS and peak RSS belong to that representation alone.
-Each case reports exact structure bytes where they can be computed, RSS growth, build time, and three
-access costs: random neighbour lookups, one propagation pass (1 % of neurons spike, their outgoing
-synapses are delivered), and a full scan. Python-object cases are built on 1,000,000 edges and
-extrapolated linearly — they are marked as such.
+Every case runs in a fresh subprocess, so RSS belongs to that representation alone. Per case:
+- `structure_bytes`: exact size of the representation's buffers (tracemalloc for Python objects);
+- `rss_after_build_bytes`: RSS growth right after building it (source arrays are read without memory mapping
+  and freed, so file-backed pages and temporaries do not inflate the number);
+- `rss_after_access_bytes` / `peak_rss_growth_bytes`: after, and at the worst point of, build + access tests;
+- access costs: random neighbour lookups, one propagation pass (1 % of neurons spike and their outgoing
+  synapses are delivered), and a full scan.
+Python-object cases are built on 1,000,000 edges and extrapolated linearly — they are marked as such.
 """
 
 from __future__ import annotations
@@ -56,36 +59,42 @@ def _csr_gather(indptr, indices, weights, rows):
 def worker(case: str, dataset: str, seed: int) -> dict:
     from ..connectome.store import Connectome
 
-    conn = Connectome.load(dataset)
+    conn = Connectome.load(dataset)  # memory-mapped, untouched
     n, e = conn.n_neurons, conn.n_edges
     rng = np.random.default_rng(seed)
     active = np.sort(rng.choice(n, size=n // 100, replace=False))
     queries = rng.integers(0, n, 10_000)
-    gc.collect()
-    base_rss, base_peak = _rss(), _peak()
-    res: dict = {"case": case}
-    access: dict = {}
 
-    def csr_access(indptr, indices, weights):
+    def eager(name: str) -> np.ndarray:
+        return np.load(conn.root / conn.manifest["arrays"][name]["file"])
+
+    def csr_access(indptr, indices, weights) -> dict:
         def lookups():
             for i in queries:
                 indices[indptr[i]:indptr[i + 1]], weights[indptr[i]:indptr[i + 1]]
         _, t_lookup = _timed(lookups)
-        (tg, wg), t_prop = _timed(lambda: _csr_gather(indptr, indices, weights, active), 5)
-        _, t_deliver = _timed(lambda: np.bincount(tg, weights=wg, minlength=n), 5)
+        (targets, w), t_gather = _timed(lambda: _csr_gather(indptr, indices, weights, active), 5)
+        _, t_deliver = _timed(lambda: np.bincount(targets, weights=w, minlength=n), 5)
         _, t_scan = _timed(lambda: np.bincount(indices, weights=weights, minlength=n), 3)
-        return {"lookup_us": 1e6 * t_lookup / queries.size, "propagate_ms": 1e3 * (t_prop + t_deliver),
-                "synaptic_events_per_pass": int(tg.size), "full_scan_ms": 1e3 * t_scan}
+        return {"lookup_us": 1e6 * t_lookup / queries.size, "propagate_ms": 1e3 * (t_gather + t_deliver),
+                "synaptic_events_per_pass": int(targets.size), "full_scan_ms": 1e3 * t_scan}
 
+    gc.collect()
+    base_rss, base_peak = _rss(), _peak()
+    res: dict = {"case": case, "baseline_rss_bytes": base_rss}
+    keep: list = []  # the representation, alive while RSS is measured
+    access = None
+    structure: int | None = 0
     t0 = time.perf_counter()
-    if case == "baseline":
-        structure = 0
-    elif case in ("python_slots_objects", "python_dict_of_dicts"):
+
+    if case in ("python_slots_objects", "python_dict_of_dicts"):
         import tracemalloc
 
-        src = conn.edge_sources()[:SAMPLE_EDGES].tolist()
-        dst = conn["out_indices"][:SAMPLE_EDGES].tolist()
-        w = conn["syn_count"][:SAMPLE_EDGES].tolist()
+        indptr = eager("out_indptr")
+        src = np.repeat(np.arange(n), np.diff(indptr))[:SAMPLE_EDGES].tolist()
+        dst = eager("out_indices")[:SAMPLE_EDGES].tolist()
+        w = eager("syn_count")[:SAMPLE_EDGES].tolist()
+        del indptr
         tracemalloc.start()
         if case == "python_slots_objects":
             class Edge:
@@ -101,15 +110,16 @@ def worker(case: str, dataset: str, seed: int) -> dict:
                 edges.setdefault(a + 1_000_000, {})[b + 1_000_000] = {"weight": c}
         current, _ = tracemalloc.get_traced_memory()
         tracemalloc.stop()
-        structure = current * e / SAMPLE_EDGES
+        del src, dst, w
+        keep.append(edges)
+        structure = int(current * e / SAMPLE_EDGES)
         res["extrapolated_from_edges"] = SAMPLE_EDGES
         if case == "python_dict_of_dicts":
-            keys = list(edges)
-            def lookups():
-                for k in keys[:10_000]:
-                    [(p, d["weight"]) for p, d in edges[k].items()]
-            _, t = _timed(lookups)
-            access["lookup_us"] = 1e6 * t / min(10_000, len(keys))
+            keys = list(edges)[:10_000]
+
+            def access():
+                _, t = _timed(lambda: [[(p, d["weight"]) for p, d in edges[k].items()] for k in keys])
+                return {"lookup_us": 1e6 * t / len(keys)}
     elif case == "arrow_raw_rows":
         import pyarrow as pa
         import pyarrow.feather as feather
@@ -119,84 +129,102 @@ def worker(case: str, dataset: str, seed: int) -> dict:
         before = pa.total_allocated_bytes()
         table = feather.read_table(load_catalog(dataset).local_path("connections"))
         structure = pa.total_allocated_bytes() - before
+        keep.append(table)
         res["rows"] = table.num_rows
     elif case in ("coo_int64", "coo_compact"):
         wide = case == "coo_int64"
-        pre = conn.edge_sources().astype(np.int64 if wide else np.int32)
-        post = np.array(conn["out_indices"], dtype=np.int64 if wide else np.int32)
-        weight = np.array(conn["syn_count"], dtype=np.int64 if wide else np.uint16)
+        indptr = eager("out_indptr")
+        pre = np.repeat(np.arange(n, dtype=np.int64 if wide else np.int32), np.diff(indptr))
+        del indptr
+        post = eager("out_indices").astype(np.int64 if wide else np.int32)
+        weight = eager("syn_count").astype(np.int64 if wide else np.uint16)
+        keep += [pre, post, weight]
         structure = pre.nbytes + post.nbytes + weight.nbytes
-        mask = np.zeros(n, dtype=bool)
-        mask[active] = True
-        def propagate():
-            sel = mask[pre]
-            return np.bincount(post[sel], weights=weight[sel], minlength=n)
-        _, t_prop = _timed(propagate, 3)
-        _, t_lookup = _timed(lambda: [post[pre == i] for i in queries[:20]])
-        _, t_scan = _timed(lambda: np.bincount(post, weights=weight, minlength=n), 3)
-        access = {"lookup_us": 1e6 * t_lookup / 20, "propagate_ms": 1e3 * t_prop, "full_scan_ms": 1e3 * t_scan,
-                  "note": "unsorted COO: a neighbour lookup scans all edges"}
+
+        def access():
+            mask = np.zeros(n, dtype=bool)
+            mask[active] = True
+            def propagate():
+                sel = mask[pre]
+                return np.bincount(post[sel], weights=weight[sel], minlength=n)
+            _, t_prop = _timed(propagate, 3)
+            _, t_lookup = _timed(lambda: [post[pre == i] for i in queries[:20]])
+            _, t_scan = _timed(lambda: np.bincount(post, weights=weight, minlength=n), 3)
+            return {"lookup_us": 1e6 * t_lookup / 20, "propagate_ms": 1e3 * t_prop, "full_scan_ms": 1e3 * t_scan,
+                    "note": "unsorted COO: a neighbour lookup scans all edges"}
     elif case in ("csr", "csr_csc"):
-        indptr = np.array(conn["out_indptr"])
-        indices = np.array(conn["out_indices"])
-        weights = np.array(conn["syn_count"])
+        indptr, indices, weights = eager("out_indptr"), eager("out_indices"), eager("syn_count")
+        keep += [indptr, indices, weights]
         structure = indptr.nbytes + indices.nbytes + weights.nbytes
         if case == "csr_csc":
-            in_indptr, in_indices, in_edge = (np.array(conn[k]) for k in ("in_indptr", "in_indices", "in_edge"))
+            in_indptr, in_indices, in_edge = eager("in_indptr"), eager("in_indices"), eager("in_edge")
+            keep += [in_indptr, in_indices, in_edge]
             structure += in_indptr.nbytes + in_indices.nbytes + in_edge.nbytes
-            def in_lookups():
-                for i in queries:
-                    s = slice(in_indptr[i], in_indptr[i + 1])
-                    in_indices[s], weights[in_edge[s]]
-            _, t = _timed(in_lookups)
-            access["in_lookup_us"] = 1e6 * t / queries.size
-        access.update(csr_access(indptr, indices, weights))
+
+        def access():
+            out = csr_access(indptr, indices, weights)
+            if case == "csr_csc":
+                def in_lookups():
+                    for i in queries:
+                        s = slice(in_indptr[i], in_indptr[i + 1])
+                        in_indices[s], weights[in_edge[s]]
+                out["in_lookup_us"] = 1e6 * _timed(in_lookups)[1] / queries.size
+            return out
     elif case == "store_mmap":
         structure = sum(conn.manifest["arrays"][k]["bytes"] for k in conn.arrays)
-        res["rss_after_open"] = _rss() - base_rss
-        access = csr_access(conn["out_indptr"], conn["out_indices"], conn["syn_count"])
-        res["rss_after_csr_access"] = _rss() - base_rss
-        for array in conn.arrays.values():
-            np.asarray(array).sum()  # touches every page of the mapping
-        res["rss_after_touching_everything"] = _rss() - base_rss
+
+        def access():
+            return csr_access(conn["out_indptr"], conn["out_indices"], conn["syn_count"])
     elif case == "store_eager":
-        eager = Connectome.load(dataset, mmap=False)
-        structure = sum(a.nbytes for a in eager.arrays.values())
-        access = csr_access(eager["out_indptr"], eager["out_indices"], eager["syn_count"])
+        loaded = Connectome.load(dataset, mmap=False)
+        keep.append(loaded)
+        structure = sum(a.nbytes for a in loaded.arrays.values())
+
+        def access():
+            return csr_access(loaded["out_indptr"], loaded["out_indices"], loaded["syn_count"])
     elif case == "delta_varint":
         from .varint import DeltaVarintCSR
 
-        indptr, indices, weights = (np.array(conn[k]) for k in ("out_indptr", "out_indices", "syn_count"))
-        enc, t_build = _timed(lambda: DeltaVarintCSR(indptr, indices, weights))
+        indices, weights = eager("out_indices"), eager("syn_count")
+        enc = DeltaVarintCSR(eager("out_indptr"), indices, weights)
         del indices, weights
-        gc.collect()
+        keep.append(enc)
         structure = enc.nbytes
-        res["encode_s"] = t_build
-        _, t_lookup = _timed(lambda: [enc.rows(np.array([i])) for i in queries[:2000]])
-        (tg, wg), t_prop = _timed(lambda: enc.rows(active), 5)
-        _, t_deliver = _timed(lambda: np.bincount(tg, weights=wg.astype(np.float64), minlength=n), 5)
-        _, t_scan = _timed(lambda: enc.rows(np.arange(n)))
-        access = {"lookup_us": 1e6 * t_lookup / 2000, "propagate_ms": 1e3 * (t_prop + t_deliver),
-                  "synaptic_events_per_pass": int(tg.size), "full_scan_ms": 1e3 * t_scan,
-                  "bytes_index_stream": int(enc.idx_stream.nbytes), "bytes_weight_stream": int(enc.w_stream.nbytes)}
+        res["bytes_index_stream"] = int(enc.idx_stream.nbytes)
+        res["bytes_weight_stream"] = int(enc.w_stream.nbytes)
+
+        def access():
+            _, t_lookup = _timed(lambda: [enc.rows(np.array([i])) for i in queries[:2000]])
+            (targets, w), t_decode = _timed(lambda: enc.rows(active), 5)
+            _, t_deliver = _timed(lambda: np.bincount(targets, weights=w.astype(np.float64), minlength=n), 5)
+            _, t_scan = _timed(lambda: enc.rows(np.arange(n)))
+            return {"lookup_us": 1e6 * t_lookup / 2000, "propagate_ms": 1e3 * (t_decode + t_deliver),
+                    "synaptic_events_per_pass": int(targets.size), "full_scan_ms": 1e3 * t_scan}
     elif case == "zstd_csr":
         import pyarrow as pa
 
-        arrays = {k: np.array(conn[k]) for k in ("out_indptr", "out_indices", "syn_count")}
-        compressed = {k: pa.compress(a.tobytes(), codec="zstd", asbytes=True) for k, a in arrays.items()}
+        sizes, compressed = {}, {}
+        for k in ("out_indptr", "out_indices", "syn_count"):
+            array = eager(k)
+            sizes[k] = array.nbytes
+            compressed[k] = pa.compress(array.tobytes(), codec="zstd", asbytes=True)
+            del array
+        keep.append(compressed)
         structure = sum(len(c) for c in compressed.values())
-        _, t = _timed(lambda: {k: pa.decompress(c, decompressed_size=arrays[k].nbytes, codec="zstd", asbytes=True)
-                               for k, c in compressed.items()}, 3)
-        access = {"full_decompress_ms": 1e3 * t, "note": "whole-array compression: no random access without chunking"}
-        res["uncompressed_bytes"] = int(sum(a.nbytes for a in arrays.values()))
+        res["uncompressed_bytes"] = int(sum(sizes.values()))
+
+        def access():
+            _, t = _timed(lambda: {k: pa.decompress(c, decompressed_size=sizes[k], codec="zstd", asbytes=True)
+                                   for k, c in compressed.items()}, 3)
+            return {"full_decompress_ms": 1e3 * t, "note": "whole-array compression: no random access without chunking"}
     elif case == "weights_quantized":
-        w = np.array(conn["syn_count"], dtype=np.int64)
+        structure = None
+        w = eager("syn_count").astype(np.int64)
         total = w.sum()
         u8 = np.minimum(w, 255)
         log_levels = np.round(np.log2(w) * 8).astype(np.int64)  # 1/8-octave log bins
         log_back = np.round(2 ** (log_levels / 8)).astype(np.int64)
         f16 = np.minimum(w, 65504).astype(np.float16).astype(np.int64)  # float16 max is 65504
-        structure = 0
         res["variants"] = {
             "uint32": {"bytes_per_edge": 4, "lossless": True},
             "uint16": {"bytes_per_edge": 2, "lossless": bool(w.max() <= 65535), "max_count": int(w.max())},
@@ -209,36 +237,40 @@ def worker(case: str, dataset: str, seed: int) -> dict:
             "float16": {"bytes_per_edge": 2, "edges_changed": int(np.sum(f16 != w))},
             "float32": {"bytes_per_edge": 4, "lossless_for_integers_below": 2 ** 24},
         }
+        del w, u8, log_levels, log_back, f16
     elif case == "region_local_ids":
         from ..analysis.regions import home_blocks
 
         blocks, _ = home_blocks(conn)
-        src_block = blocks[conn.edge_sources()]
-        dst_block = blocks[np.asarray(conn["out_indices"])]
-        intra = int(np.sum(src_block == dst_block))
+        indptr = eager("out_indptr")
+        intra = int(np.sum(blocks[np.repeat(np.arange(n), np.diff(indptr))] == blocks[eager("out_indices")]))
         sizes = np.bincount(blocks)
-        fits = bool(sizes.max() <= 65536)
-        structure = (intra * 2 + (e - intra) * 4) + conn["syn_count"].nbytes + (n + 1) * 8 + n * 4 + n * 4
-        res["size_only"] = True
-        res["intra_block_edges"] = intra
-        res["intra_block_fraction"] = intra / e
-        res["largest_block_neurons"] = int(sizes.max())
-        res["uint16_local_ids_possible"] = fits
-        res["layout"] = "per row: intra-block targets as uint16 local ids, then inter-block targets as int32 global ids; " \
-                        "+ int64 indptr, int32 split pointer per row, int32 local-id map; weights uint16"
-    else:
+        structure = intra * 2 + (e - intra) * 4 + 2 * e + (n + 1) * 8 + n * 4 + n * 4
+        res.update({"size_only": True, "intra_block_edges": intra, "intra_block_fraction": intra / e,
+                    "largest_block_neurons": int(sizes.max()), "uint16_local_ids_possible": bool(sizes.max() <= 65536),
+                    "layout": "per row: intra-block targets as uint16 local ids, then inter-block targets as int32 "
+                              "global ids; + int64 indptr, int32 split pointer per row, int32 local-id map; uint16 weights"})
+        del indptr, blocks
+    elif case != "baseline":
         raise ValueError(case)
-    res["build_s"] = time.perf_counter() - t0 if "encode_s" not in res else res["encode_s"]
-    res["structure_bytes"] = int(structure)
-    res["rss_growth_bytes"] = _rss() - base_rss
+
+    res["build_s"] = time.perf_counter() - t0
+    gc.collect()
+    res["rss_after_build_bytes"] = _rss() - base_rss
+    res["access"] = access() if access else {}
+    gc.collect()
+    res["rss_after_access_bytes"] = _rss() - base_rss
+    if case == "store_mmap":
+        for array in conn.arrays.values():
+            np.asarray(array).sum()  # touches every page of every mapping
+        res["rss_after_touching_everything_bytes"] = _rss() - base_rss
     res["peak_rss_growth_bytes"] = _peak() - base_peak
-    res["baseline_rss_bytes"] = base_rss
-    res["access"] = access
-    synapses = conn.manifest["counts"]["synapses"]
+    res["structure_bytes"] = structure
     if structure:
         res["bytes_per_neuron"] = structure / n
         res["bytes_per_edge"] = structure / e
-        res["bytes_per_synapse"] = structure / synapses
+        res["bytes_per_synapse"] = structure / conn.manifest["counts"]["synapses"]
+    del keep
     return res
 
 
@@ -257,8 +289,9 @@ def run(dataset: str, out_dir: Path, cases: tuple[str, ...] = CASES, seed: int =
             log(f"{case}: FAILED {results[-1]['error']}")
             continue
         results.append(json.loads(proc.stdout.strip().splitlines()[-1]))
-        log(f"{case}: {results[-1].get('bytes_per_edge', 0):.2f} B/edge, RSS +{results[-1]['rss_growth_bytes'] / 2**20:.0f} MiB "
-            f"({time.monotonic() - t:.0f} s)")
+        r = results[-1]
+        log(f"{case}: {r.get('bytes_per_edge', 0):.2f} B/edge, RSS after build +{r['rss_after_build_bytes'] / 2**20:.0f} MiB, "
+            f"peak +{r['peak_rss_growth_bytes'] / 2**20:.0f} MiB ({time.monotonic() - t:.0f} s)")
     catalog = load_catalog(dataset)
     conn = Connectome.load(dataset)
     raw = {e.id: catalog.local_path(e).stat().st_size for e in catalog.files if catalog.local_path(e).exists()}
