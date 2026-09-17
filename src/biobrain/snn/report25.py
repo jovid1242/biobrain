@@ -287,6 +287,33 @@ def full_connectome(rows, records) -> dict | None:
     return out
 
 
+def ideal_event_driven_bound(rows) -> dict:
+    """Upper bound on the time-step / event-driven ratio for ANY event-driven implementation on this CPU: it must still
+    deliver the same synaptic events, so it cannot take less than the time-step delivery phase.
+    profile-based: 1 / (delivery share of compiled time-step), from the compiled profile runs;
+    model-based: (c_N·N + c_E·E) / (c_E·E) with the compiled time-step cost model (base term 0)."""
+    out = {"profile_based": [], "model_based": []}
+    prof = _json("profile/profile_compiled.json")
+    if prof:
+        for r in prof["rows"]:
+            if r["mode"] == "time_step" and r["phases_s"]["delivery"] > 0:
+                share = r["phases_s"]["delivery"] / sum(r["phases_s"].values())
+                out["profile_based"].append({"subgraph": r["subgraph"], "input_rate": r["input_rate"], "delivery_share": share,
+                                             "bound": 1 / share})
+    model = m25.cost_models([r for r in _records() if r["subgraph"]["name"] != m25.FULL]).get("compiled_time_step")
+    if model:
+        _, c_n, c_e = model["seconds"]
+        for r in rows:
+            e = r["events_per_neuron_per_step"] * r["neurons"]
+            if e > 0:
+                measured = r["event_driven_advantage"]["compiled"]
+                out["model_based"].append({"subgraph": r["subgraph"], "input_rate": r["input_rate"],
+                                           "events_per_neuron_per_step": r["events_per_neuron_per_step"],
+                                           "bound": (c_n * r["neurons"] + c_e * e) / (c_e * e),
+                                           "measured_compiled_advantage": measured["median"] if measured else None})
+    return out
+
+
 def summary() -> str:
     records = _records()
     rows = table(records)
@@ -301,6 +328,7 @@ def summary() -> str:
         "m2_reproduction": m2_reproduction(records),
         "cost_models": m25.cost_models([r for r in records if r["subgraph"]["name"] != m25.FULL]),
         "cost_models_with_full": m25.cost_models(records),
+        "ideal_event_driven_bound": ideal_event_driven_bound(rows),
         "equivalence": _equivalence_summary(),
         "full_connectome": full_connectome(rows, records),
         "empty_worker_peak_rss": _json("experiments/empty_process_rss.json"),
@@ -348,8 +376,15 @@ def _plt():
     return plt
 
 
-STYLE = {"numpy_time_step": ("tab:blue", "--", "o"), "numpy_event_driven": ("tab:orange", "--", "s"),
-         "compiled_time_step": ("tab:blue", "-", "o"), "compiled_event_driven": ("tab:orange", "-", "s")}
+STYLE = {"numpy_time_step": ("#6baed6", "--", "o"), "numpy_event_driven": ("#fdae6b", "--", "s"),
+         "compiled_time_step": ("#08519c", "-", "o"), "compiled_event_driven": ("#d94801", "-", "s")}
+
+
+def _plain_log_axes(ax) -> None:
+    from matplotlib.ticker import NullFormatter
+
+    ax.xaxis.set_minor_formatter(NullFormatter())
+    ax.yaxis.set_minor_formatter(NullFormatter())
 
 
 def figures() -> list[str]:
@@ -395,7 +430,7 @@ def figures() -> list[str]:
                                   ("3_synaptic_throughput_vs_size.png", "million_events_per_wall_s", "million synaptic events per wall second"),
                                   ("4_peak_rss_vs_size.png", "peak_rss_mib", "peak RSS of the worker (MiB)")):
         fig, axes = plt.subplots(1, 3, figsize=(14, 4.4), sharey=True)
-        for ax, rate in zip(axes, (0.0001, 0.01, 0.1 if fname.startswith("3") else 0.5)):
+        for ax, rate in zip(axes, (0.0001, 0.01, 0.1)):
             for label in LABELS:
                 pts = sorted((r["neurons"], r[label][metric]["median"]) for r in rows if r["input_rate"] == rate and label in r)
                 if pts:
@@ -407,6 +442,7 @@ def figures() -> list[str]:
                     if backend in empty:
                         ax.axhline(empty[backend] / MIB, color="gray", ls=ls, lw=1, label=f"empty {backend} worker")
             ax.set(xscale="log", yscale="log", xlabel="neurons", title=f"input {rate:g}")
+            _plain_log_axes(ax)
         axes[0].set_ylabel(ylabel)
         axes[0].legend(fontsize=6)
         save(fig, fname)
@@ -434,6 +470,7 @@ def figures() -> list[str]:
                 color, ls, marker = STYLE[label]
                 ax.plot(*zip(*pts), ls=ls, marker=marker, color=color, ms=4, label=label)
         ax.set(xscale="log", yscale="log", xlabel="events per neuron per step", title=name)
+        _plain_log_axes(ax)
     axes[0][0].set_ylabel("wall ns per synaptic event (all step costs included)")
     axes[0][0].legend(fontsize=6)
     save(fig, "6_time_per_synaptic_event_vs_activity.png")
