@@ -245,7 +245,7 @@ def markdown(out: dict, made: list[str], tables: dict[str, list[dict]]) -> str:
             ("share of total degree held by the top 1 % of neurons", lambda g: g["degrees_all_neurons"]["top1pct_share_of_total_degree"])]
     L += ["| metric | " + " | ".join(cols) + " |", "|---|" + "---:|" * len(cols)]
     for label, fn in rows:
-        L.append(f"| {label} | " + " | ".join(_cell(fn(out["graphs"][c])) for c in cols) + " |")
+        L.append(f"| {_cell(label)} | " + " | ".join(_cell(fn(out["graphs"][c])) for c in cols) + " |")
     L += ["", "Path lengths use sampled sources (see `summary.json` for the sample size and the standard error).", "",
           "## Published reference values (for comparison, not for tuning)", "",
           "| quantity | published | source |", "|---|---|---|"]
