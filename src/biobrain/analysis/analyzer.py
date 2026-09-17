@@ -199,14 +199,9 @@ class ConnectomeAnalyzer:
             norm = phi / phi_null
         deg = g.in_degree() + g.out_degree()
         n_k = deg.size - np.searchsorted(np.sort(deg), ks, side="right")
-        valid = n_k >= 10
-        above = (norm > self.s.rich_club_ratio) | ~valid
-        cut = next((int(k) for j, k in enumerate(ks) if valid[j] and np.all(above[j:])), None)
         out["rich_club"] = {"ks": ks.tolist(), "phi": phi.tolist(), "phi_null_mean": phi_null.tolist(),
                             "phi_normalized": norm.tolist(), "neurons_above_k": n_k.tolist(),
-                            "rule": f"smallest k with phi_norm > {self.s.rich_club_ratio} for every larger k (N_k >= 10)",
-                            "cutoff_total_degree": cut,
-                            "neurons_in_rich_club": int(np.sum(deg > cut)) if cut is not None else None}
+                            "regime": stats.rich_club_regime(ks, norm, n_k, self.s.rich_club_ratio)}
         return out
 
     def communities(self, g: Graph, blocks: np.ndarray, super_class: np.ndarray) -> dict:

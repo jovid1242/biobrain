@@ -173,3 +173,12 @@ def test_gini_and_summary():
     assert stats.gini(np.ones(10)) == pytest.approx(0)
     assert stats.gini(np.r_[np.zeros(9), 1]) == pytest.approx(0.9)
     assert stats.summary(np.array([0, 1, 2, 3]))["zeros"] == 1
+
+
+def test_rich_club_regime_describes_the_whole_curve():
+    ks = [1, 10, 20, 40, 80, 160, 320]
+    norm = [1.0, 1.005, 1.02, 1.03, 0.99, 0.6, 0.3]
+    n_k = [1000, 800, 500, 200, 60, 20, 5]  # the last point has too few neurons and is ignored
+    r = stats.rich_club_regime(ks, norm, n_k)
+    assert r["first_k_above"] == 20 and r["neurons_above_first_k"] == 500 and r["k_range_above"] == [20, 40]
+    assert r["max"]["k"] == 40 and r["first_k_below_1_after_max"] == 80 and r["min"]["k"] == 160 and r["contiguous"]

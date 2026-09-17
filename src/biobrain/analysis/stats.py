@@ -159,6 +159,27 @@ def rich_club(g: Graph, ks: np.ndarray) -> np.ndarray:
         return np.where(n_k > 1, e_k / (n_k * (n_k - 1.0)), np.nan)
 
 
+def rich_club_regime(ks, normalized, neurons_above, ratio: float = 1.01, min_neurons: int = 10) -> dict:
+    """Describe a normalized rich-club curve instead of reducing it to one cut-off.
+    Only points with at least `min_neurons` neurons above k are considered."""
+    rows = [(int(k), float(v), int(n)) for k, v, n in zip(ks, normalized, neurons_above)
+            if v is not None and np.isfinite(v) and n >= min_neurons]
+    above = [r for r in rows if r[1] > ratio]
+    peak = max(rows, key=lambda r: r[1]) if rows else None
+    after_peak = [r for r in rows if peak and r[0] > peak[0] and r[1] < 1.0]
+    lowest = min(rows, key=lambda r: r[1]) if rows else None
+    return {
+        "rule": f"normalized coefficient > {ratio} (Lin et al. 2024 criterion); points with N_k >= {min_neurons}",
+        "first_k_above": above[0][0] if above else None,
+        "neurons_above_first_k": above[0][2] if above else None,
+        "k_range_above": [above[0][0], above[-1][0]] if above else None,
+        "contiguous": bool(above) and all(r[1] > ratio for r in rows if above[0][0] <= r[0] <= above[-1][0]),
+        "max": {"k": peak[0], "normalized": peak[1], "neurons_above": peak[2]} if peak else None,
+        "first_k_below_1_after_max": after_peak[0][0] if after_peak else None,
+        "min": {"k": lowest[0], "normalized": lowest[1], "neurons_above": lowest[2]} if lowest else None,
+    }
+
+
 def leiden(n: int, lo: np.ndarray, hi: np.ndarray, weights: np.ndarray | None, seed: int,
            max_iterations: int = 20, min_gain: float = 1e-4, time_limit_s: float = 900) -> dict:
     """Modularity Leiden on an undirected graph, one iteration at a time until the gain stalls."""

@@ -126,9 +126,8 @@ def figures(out: dict, analyzer, conn, fig_dir: Path) -> list[str]:
     fig, ax = plt.subplots(figsize=(5, 4))
     ax.semilogx(rc["ks"], rc["phi_normalized"], "o-", ms=3)
     ax.axhline(1.0, color="k", lw=0.8)
-    if rc["cutoff_total_degree"]:
-        ax.axvline(rc["cutoff_total_degree"], color="r", ls="--", lw=0.8, label=f"cut-off k = {rc['cutoff_total_degree']}")
-        ax.legend()
+    ax.axhline(1.01, color="r", ls="--", lw=0.8, label="1.01 (Lin et al. 2024 criterion)")
+    ax.legend()
     ax.set(title=f"normalized rich-club coefficient, {out['nulls']['graph']}", xlabel="total degree k", ylabel="phi / phi_null")
     save(fig, "rich_club.png")
 
@@ -186,7 +185,14 @@ def _cell(value) -> str:
 
 def rerender(out_dir: Path) -> Path:
     """Rebuild REPORT.md from summary.json and tables/*.csv without re-running the analysis."""
+    from .stats import rich_club_regime
+
     out = json.loads((out_dir / "summary.json").read_text())
+    rc = out["nulls"]["summary"]["rich_club"]  # derived fields follow the current code; the curve itself is stored data
+    rc.pop("rule", None), rc.pop("cutoff_total_degree", None), rc.pop("neurons_in_rich_club", None)
+    rc["regime"] = rich_club_regime(rc["ks"], rc["phi_normalized"], rc["neurons_above_k"],
+                                    out["settings"]["rich_club_ratio"])
+    (out_dir / "summary.json").write_text(json.dumps(out, indent=1) + "\n")
     tables = {}
     for path in sorted((out_dir / "tables").glob("*.csv")):
         with open(path, newline="") as fh:
@@ -263,9 +269,16 @@ def markdown(out: dict, made: list[str], tables: dict[str, list[dict]]) -> str:
         for name, m in s["motifs"].items():
             L.append(f"| {name} | {m['real']:,} | {m['er']:,} | {m['null_mean']:,.0f} | {_f(m['ratio_to_null'], 3)} | "
                      f"{_f(m['ratio_to_er'], 3)} | {_f(m['z_null'], 3)} |")
-    rc = s["rich_club"]
-    L += ["", f"Rich club: {rc['rule']} → cut-off total degree **{rc['cutoff_total_degree']}**, "
-              f"**{_f(rc['neurons_in_rich_club'])}** neurons above it."]
+    rc = s["rich_club"]["regime"]
+    if rc["first_k_above"] is None:
+        L += ["", f"Rich club ({rc['rule']}): never above the criterion."]
+    else:
+        L += ["", f"Rich club ({rc['rule']}): above the criterion for total degree {rc['k_range_above'][0]}–{rc['k_range_above'][1]} "
+                  f"(contiguous: {rc['contiguous']}); first crossing k = {rc['first_k_above']} with {rc['neurons_above_first_k']:,} "
+                  f"neurons above it; maximum {rc['max']['normalized']:.3f} at k = {rc['max']['k']}; back below 1 from "
+                  f"k = {rc['first_k_below_1_after_max']}; lowest {rc['min']['normalized']:.3f} at k = {rc['min']['k']} "
+                  f"({rc['min']['neurons_above']:,} neurons). A value below 1 means the highest-degree neurons connect to each "
+                  "other less than the degree-preserving null predicts."]
 
     com = out["communities"]
     L += ["", f"## Communities ({com['graph']})", "",
@@ -301,9 +314,12 @@ def markdown(out: dict, made: list[str], tables: dict[str, list[dict]]) -> str:
     if b.get("skipped"):
         L.append("Skipped by the cost gate.")
     else:
+        unstable = b["stability"]["top100_jaccard"] < 0.8
         L += [f"{b['method']} ({b['graph']}; samples: {[m['sources'] for m in b['samples']]} sources). "
               f"Stability between the two samples: top-100 Jaccard {b['stability']['top100_jaccard']:.2f}, Spearman on the "
-              f"union of top-1000 {b['stability']['spearman_on_union_of_top1000']:.2f}.", "",
+              f"union of top-1000 {b['stability']['spearman_on_union_of_top1000']:.2f}."
+              + (" **At this sample size only the very top of the ranking is reproducible; do not read the order below it "
+                 "as a finding.**" if unstable else ""), "",
               "Top 1 % by betweenness — super-class share [in top 1 %, among all neurons]: "
               + ", ".join(f"{k} {v[0]:.1%} vs {v[1]:.1%}" for k, v in b["top1pct_super_class_share_vs_all_neurons"].items()), ""]
         L += _table(b["top"])
@@ -313,7 +329,10 @@ def markdown(out: dict, made: list[str], tables: dict[str, list[dict]]) -> str:
     L += ["", "## Cost control", "", f"Calibration ({out['calibration']['graph']}): triad census "
           f"{out['calibration']['triad_census_wedges_per_s']:.2e} wedges/s, clustering {out['calibration']['clustering_wedges_per_s']:.2e} wedges/s; "
           f"safety factor {out['settings']['safety_factor']}, step limit {out['settings']['step_time_limit_s']:.0f} s.", ""]
-    L += _table([{k: row.get(k, "") for k in ("step", "estimate_s", "actual_s", "decision", "wedges", "sources_used")}
-                 for row in out["costs"]])
+    L += _table([{**{k: row.get(k) for k in ("step", "estimate_s", "actual_s")},
+                  "actual / estimate": round(row["actual_s"] / row["estimate_s"], 2) if row.get("actual_s") and row.get("estimate_s") else None,
+                  **{k: row.get(k) for k in ("decision", "wedges", "sources_used")}} for row in out["costs"]])
+    L += ["", "The wedge-based estimate is calibrated on a random graph. Where actual / estimate exceeds 1, the "
+              "heavy-tailed degree distribution made the step slower than the calibration predicts."]
     L += ["", "## Figures", ""] + [f"![{name}](figures/{name})" for name in made]
     return "\n".join(L) + "\n"
