@@ -1,0 +1,16 @@
+community,neurons,top_super_class,top_home_neuropil
+0,20723,"optic 88%, sensory 7%, visual_projection 4%","ME_R 42%, LOP_R 32%, LO_R 16%"
+6,20172,"optic 92%, sensory 5%, visual_projection 3%","ME_L 49%, LOP_L 28%, LO_L 17%"
+4,15551,"central 85%, sensory 15%, ascending 0%","MB_ML_L 16%, MB_ML_R 13%, SLP_R 10%"
+5,12696,"optic 90%, sensory 9%, visual_projection 1%","ME_L 62%, LO_L 18%, LOP_L 11%"
+12,10628,"central 69%, visual_projection 12%, ascending 7%","GNG 16%, SPS_R 8%, SMP_L 6%"
+11,9879,"optic 75%, visual_projection 15%, central 5%","ME_L 49%, LO_L 39%, PLP_L 4%"
+1,9016,"optic 72%, visual_projection 15%, sensory 8%","ME_R 55%, LO_R 33%, PLP_R 5%"
+2,7521,"optic 88%, sensory 11%, visual_projection 1%","ME_R 67%, LO_R 19%, LA_R 11%"
+3,7297,"optic 89%, sensory 9%, visual_projection 2%","ME_R 66%, LO_R 20%, LA_R 8%"
+17,4558,"sensory 41%, central 37%, ascending 9%","GNG 74%, PRW 12%, SMP_R 5%"
+13,4367,"central 50%, visual_projection 23%, optic 22%","AVLP_L 32%, LO_L 24%, PVLP_L 22%"
+16,4108,"central 58%, visual_projection 24%, optic 12%","AVLP_R 41%, PVLP_R 20%, LO_R 14%"
+19,3201,"central 96%, visual_projection 4%, optic 0%","FB 61%, EB 12%, SMP_L 5%"
+9,2498,"central 60%, sensory 28%, descending 6%","SAD 30%, AMMC_R 12%, GNG 10%"
+209,81,"sensory 59%, optic 41%",LA_L 100%

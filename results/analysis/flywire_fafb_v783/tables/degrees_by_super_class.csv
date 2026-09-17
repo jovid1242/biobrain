@@ -1,0 +1,12 @@
+super_class,neurons,median_in_degree >=1 synapse,median_out_degree >=1 synapse,median_in_degree >=5 synapses,median_out_degree >=5 synapses
+(no annotation),14,38.5,22.5,1.0,1.0
+ascending,1750,19.0,88.0,1.0,19.0
+central,32383,117.0,115.0,16.0,16.0
+descending,1303,173.0,82.0,41.0,13.0
+endocrine,80,66.5,5.0,9.0,0.0
+motor,110,180.5,21.5,65.0,0.0
+optic,77537,62.0,72.0,9.0,12.0
+sensory,16904,4.0,5.0,0.0,2.0
+sensory_ascending,612,4.0,16.0,0.0,1.0
+visual_centrifugal,524,149.0,287.5,14.0,38.0
+visual_projection,8038,177.0,117.0,24.0,18.0

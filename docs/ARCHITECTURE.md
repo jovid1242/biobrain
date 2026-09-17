@@ -68,7 +68,7 @@ data/processed/flywire_fafb_v783/   arrays/*.npy + manifest.json (схема, sh
 
 ## Тесты
 
-`tests/` — 50+ тестов, без сети:
+`tests/` — 49 тестов, без сети:
 - загрузчик: file://-URL, подменённый `urlopen` (Range, 5xx, 404), размер-политика, lock;
 - preprocess/validate: крошечный релиз того же формата с заложенными аномалиями (фрагмент, self-connection, unassigned neuropil, нейрон без аннотации);
 - статистика: сравнение с перебором (reciprocity, SCC/WCC, clustering, пути, все 16 классов triad census по определениям igraph, rich club, NMI/ARI, Leiden на заложенных сообществах);
