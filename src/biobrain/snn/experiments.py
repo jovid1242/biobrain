@@ -124,23 +124,32 @@ def make_record(kind: str, cfg: SimConfig, meta: dict, res: engine.RunResult, ex
     }
 
 
-def simulate(path: Path, cfg: SimConfig, kind: str = "benchmark") -> dict:
+def simulate(path: Path, cfg: SimConfig, kind: str = "benchmark", tag: str = "") -> dict:
+    from . import energy
+
     rss0 = _rss()
     t0 = time.perf_counter()
     net, sched, meta = load_prepared(path)
     setup_s = time.perf_counter() - t0
     rss_loaded = _rss()
+    e0 = energy.snapshot()
     res = engine.run(net, sched, cfg.neuron, cfg.run.steps, cfg.run.mode, aggregation=cfg.run.aggregation,
                      profile=cfg.run.profile, record_voltage_every=cfg.run.record_voltage_every)
+    e1 = energy.snapshot()
     gc.collect()
     process = {"baseline_rss": rss0, "rss_after_load": rss_loaded, "rss_after_run": _rss(), "peak_rss": _peak_rss(),
-               "setup_s": setup_s}
-    return make_record(kind, cfg, meta, res, {"process": process, "prepared": path.name})
+               "setup_s": setup_s, **energy.power_state()}
+    record = make_record(kind, cfg, meta, res, {"process": process, "prepared": path.name,
+                                                "os_cpu_energy_estimate": energy.delta(e0, e1, res.wall_s)})
+    if tag:
+        record["experiment_id"] += f"-{tag}"
+        record["tag"] = tag
+    return record
 
 
-def run_isolated(path: Path, cfg: SimConfig, kind: str = "benchmark", timeout: float = 3600) -> dict:
+def run_isolated(path: Path, cfg: SimConfig, kind: str = "benchmark", timeout: float = 3600, tag: str = "") -> dict:
     proc = subprocess.run([sys.executable, "-m", "biobrain.snn.experiments", "--prepared", str(path),
-                           "--config", json.dumps(cfg.to_dict()), "--kind", kind],
+                           "--config", json.dumps(cfg.to_dict()), "--kind", kind, "--tag", tag],
                           capture_output=True, text=True, timeout=timeout)
     if proc.returncode != 0:
         raise RuntimeError(f"worker failed: {proc.stderr.strip()[-2000:]}")
@@ -365,9 +374,11 @@ if __name__ == "__main__":
     parser.add_argument("--prepared")
     parser.add_argument("--config")
     parser.add_argument("--kind", default="benchmark")
+    parser.add_argument("--tag", default="")
     parser.add_argument("--baseline", action="store_true")
     args = parser.parse_args()
     if args.baseline:
         print(json.dumps({"peak_rss": _peak_rss(), "rss": _rss()}))
     else:
-        print(json.dumps(simulate(Path(args.prepared), SimConfig.from_dict(json.loads(args.config)), args.kind), default=float))
+        print(json.dumps(simulate(Path(args.prepared), SimConfig.from_dict(json.loads(args.config)), args.kind, args.tag),
+                         default=float))

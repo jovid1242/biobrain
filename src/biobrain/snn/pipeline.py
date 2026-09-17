@@ -31,10 +31,11 @@ def _log(msg: str) -> None:
 
 
 def gains() -> dict[str, float]:
+    """Baseline gains calibrated under the DEFAULT model only (variant calibrations are not used)."""
     out = {}
     for path in sorted(_exp_dir().glob("calibration_*.json")):
         data = json.loads(path.read_text())
-        if data["baseline_gain"] is not None:
+        if path.name == f"calibration_{data['subgraph']}.json" and "variant" not in data and data["baseline_gain"] is not None:
             out[data["subgraph"]] = data["baseline_gain"]
     return out
 
@@ -132,6 +133,30 @@ def step_profile(conn: Connectome) -> None:
     _log(f"profile rows: {len(rows)}")
 
 
+ENERGY_LEVELS = {0.00001: 300_000, 0.001: 40_000, 0.1: 6_000}  # input rate -> steps (>= ~2 s for the faster mode)
+
+
+def step_energy(conn: Connectome, name: str = "expand_10k", repeats: int = 5) -> None:
+    """Interleaved repeats of time-step vs event-driven(auto); records the OS CPU energy ESTIMATE next to wall and CPU time."""
+    g = gains()
+    out = experiments.results_dir() / "benchmarks" / "energy_estimate.jsonl"
+    done = experiments._done(out)
+    for repeat in range(1, repeats + 1):
+        for rate, steps in ENERGY_LEVELS.items():
+            cfg = BASE.replace(weights={"gain": g[name]}, inputs={"rate": rate}, run={"steps": steps, "seed": 1})
+            path = experiments.prepare(conn, name, cfg)
+            for mode, aggregation in (("time_step", "sparse"), ("event_driven", "auto")):
+                run_cfg = cfg.replace(run={"mode": mode, "aggregation": aggregation})
+                tag = f"r{repeat}"
+                if experiments.experiment_id("energy", name, "real", run_cfg) + f"-{tag}" in done:
+                    continue
+                record = experiments.run_isolated(path, run_cfg, kind="energy", tag=tag)
+                experiments._append(out, record)
+                e = record["os_cpu_energy_estimate"] or {}
+                _log(f"  repeat {repeat} rate {rate:g} {mode}: wall {record['metrics']['wall_s']:.2f}s cpu {e.get('cpu_time_s', 0):.2f}s "
+                     f"estimate {e.get('energy_nj', 0) / 1e9:.2f} J ({record['process'].get('power_source')})")
+
+
 def step_baseline_rss() -> None:
     experiments._write(_exp_dir() / "empty_process_rss.json", {"peak_rss": experiments.empty_process_rss(),
                                                                   "what": "peak RSS of a worker process that imports the simulator and exits"})
@@ -141,7 +166,7 @@ STEPS_ORDER = {
     "subgraphs": step_subgraphs, "calibrate": step_calibrate, "calibrate-pb-glutamate": step_calibrate_pb_glutamate,
     "equivalence": step_equivalence, "baseline-rss": step_baseline_rss,
     "bench": step_bench, "bench-50k": step_bench_50k, "bench-neuropils": step_bench_neuropils, "patterns": step_patterns,
-    "sensitivity": step_sensitivity, "nulls": step_nulls, "profile": step_profile,
+    "sensitivity": step_sensitivity, "nulls": step_nulls, "profile": step_profile, "energy": step_energy,
 }
 
 

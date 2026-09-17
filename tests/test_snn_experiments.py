@@ -76,3 +76,27 @@ def test_null_controls_and_equivalence_helpers(setup):
     assert all(r["equivalence"]["equivalent"] for r in nulls["rows"])
     rows = experiments.equivalence(conn, "toy_400", base, rates=(0.005, 0.05), steps=150)
     assert all(r["equivalent"] for r in rows) and len(rows) == 8
+
+
+def test_os_energy_estimate_is_labelled_and_never_claimed_as_measured():
+    from biobrain.snn import energy
+
+    before = energy.snapshot()
+    sum(i * i for i in range(200_000))
+    after = energy.snapshot()
+    result = energy.delta(before, after, wall_s=0.01)
+    if before is None:  # not macOS: the estimate is simply absent
+        assert result is None
+    else:
+        assert result["energy_nj"] >= 0 and result["cpu_time_s"] > 0
+        assert "NOT a measurement" in result["label"] and result["reliable_window"] is False
+
+
+def test_gains_ignore_variant_calibrations(tmp_path, monkeypatch):
+    from biobrain.snn import pipeline
+
+    monkeypatch.setattr(experiments, "results_dir", lambda: tmp_path)
+    (tmp_path / "experiments").mkdir()
+    (tmp_path / "experiments" / "calibration_a.json").write_text(json.dumps({"subgraph": "a", "baseline_gain": 0.1}))
+    (tmp_path / "experiments" / "calibration_variant_b.json").write_text(json.dumps({"subgraph": "b", "baseline_gain": 0.2, "variant": "x"}))
+    assert pipeline.gains() == {"a": 0.1}
