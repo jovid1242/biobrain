@@ -13,20 +13,23 @@ IDS = [720575940000000050, 720575940000000010, 720575940000000040,
        720575940000000020, 720575940000000060, 720575940000000030]  # unsorted on purpose
 FRAGMENT = 720575940999999999  # a segment that is not a proofread neuron
 
-# (pre, post, neuropil, syn_count, dominant transmitter index)
+# (pre, post, neuropil, syn_count, dominant transmitter index or None = no prediction, all six NaN)
 ROWS = [
     (IDS[0], IDS[1], "AL_L", 3, 0),
     (IDS[0], IDS[1], "LH_L", 7, 1),     # same pair, second neuropil, different transmitter profile
+    (IDS[0], IDS[1], "SMP_L", 5, None),  # same pair, no prediction: must not dilute the mean
     (IDS[1], IDS[0], "LH_L", 2, 0),     # reciprocal edge
     (IDS[2], IDS[2], "MB_CA_L", 4, 2),  # self-connection
-    (IDS[3], IDS[4], "FB", 12, 1),
-    (IDS[4], IDS[5], None, 1, 3),       # unassigned neuropil
+    (IDS[3], IDS[4], "FB", 12, None),   # edge without any prediction
+    (IDS[4], IDS[5], "UNASGD", 1, 3),   # the release's spelling of "no neuropil"
     (IDS[5], IDS[3], "FB", 5, 0),
     (FRAGMENT, IDS[3], "FB", 9, 1),     # pre is not a proofread neuron -> dropped, counted
 ]
 
 
-def nt_probs(dominant: int) -> list[float]:
+def nt_probs(dominant: int | None) -> list[float]:
+    if dominant is None:
+        return [float("nan")] * 6
     p = np.full(6, 0.04)
     p[dominant] = 0.8
     return list(p)
@@ -46,13 +49,13 @@ def write_release(raw):
             cols[f"{t}_avg"].append(p)
     feather.write_feather(pa.table(cols), raw / "proofread_connections_783.feather", compression="zstd")
     # all-partner totals are >= the synapses each neuron has inside the proofread graph
-    feather.write_feather(pa.table({"pre_pt_root_id": [IDS[0], IDS[0], FRAGMENT, IDS[3], IDS[1], IDS[2], IDS[4], IDS[5]],
-                                    "neuropil": ["AL_L", "LH_L", "FB", None, "LH_L", "MB_CA_L", "FB", "FB"],
-                                    "count": [30, 7, 100, 12, 2, 4, 1, 5]}),
+    feather.write_feather(pa.table({"pre_pt_root_id": [IDS[0], IDS[0], FRAGMENT, IDS[3], IDS[1], IDS[2], IDS[4], IDS[5], IDS[0]],
+                                    "neuropil": ["AL_L", "LH_L", "FB", "None", "LH_L", "MB_CA_L", "FB", "FB", "SMP_L"],
+                                    "count": [30, 7, 100, 12, 2, 4, 1, 5, 5]}),
                           raw / "per_neuron_neuropil_count_pre_783.feather", chunksize=3)
-    feather.write_feather(pa.table({"post_pt_root_id": [IDS[1], FRAGMENT, IDS[4], IDS[1], IDS[0], IDS[2], IDS[5], IDS[3]],
-                                    "neuropil": ["LH_L", "FB", "FB", "AL_L", "LH_L", "MB_CA_L", "FB", "FB"],
-                                    "count": [10, 50, 12, 3, 2, 4, 1, 14]}),
+    feather.write_feather(pa.table({"post_pt_root_id": [IDS[1], FRAGMENT, IDS[4], IDS[1], IDS[0], IDS[2], IDS[5], IDS[3], IDS[1]],
+                                    "neuropil": ["LH_L", "FB", "FB", "AL_L", "LH_L", "MB_CA_L", "FB", "FB", "SMP_L"],
+                                    "count": [10, 50, 12, 3, 2, 4, 1, 14, 5]}),
                           raw / "per_neuron_neuropil_count_post_783.feather")
     ann = raw / "annotations" / "v3.1.0"
     ann.mkdir(parents=True)
@@ -60,8 +63,9 @@ def write_release(raw):
     lines = ["\t".join(header)]
     # IDS[5] deliberately has no annotation row
     for k, rid in enumerate(IDS[:5]):
+        nucleus = "" if k == 2 else (f"{2453924 + k}.0" if k == 3 else str(2453924 + k))  # v2.1.0 prints ids as floats
         lines.append("\t".join([str(78112261444987077 + k), str(rid), f"{100.5 + k}", "" if k == 2 else str(10 + k),
-                                "" if k == 2 else str(2453924 + k), "intrinsic", ["central", "optic", "central", "sensory", "optic"][k],
+                                nucleus, "intrinsic", ["central", "optic", "central", "sensory", "optic"][k],
                                 "" if k == 4 else f"T{k % 2}", "acetylcholine", "0.9", f"fw{k}"]))
     (ann / "Supplemental_file1_neuron_annotations.tsv").write_text("\n".join(lines) + "\n")
 

@@ -28,7 +28,7 @@ def cmd_download(args) -> int:
 
     return download.run(load_catalog(args.dataset), only=args.only, include_optional=args.include_optional,
                         allow_large=args.allow_large, max_file=parse_bytes(args.max_file_size), dry_run=args.dry_run,
-                        retries=args.retries)
+                        retries=args.retries, parallel=args.parallel)
 
 
 def cmd_preprocess(args) -> int:
@@ -108,6 +108,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--max-file-size", default="2GB")
     p.add_argument("--dry-run", action="store_true", help="show the plan (sizes, state, purpose) and stop")
     p.add_argument("--retries", type=int, default=8, help="retries per file on timeouts / HTTP 5xx (resumes)")
+    p.add_argument("--parallel", type=int, default=3, help="files downloaded at the same time (one connection each)")
     p.set_defaults(func=cmd_download)
 
     p = sub.add_parser("preprocess", help="build the compact processed store (CSR/CSC + annotations + manifest)")

@@ -43,7 +43,9 @@ def describe(conn: Connectome, root_id: int, top: int = 10) -> dict:
         order = np.argsort(counts)[::-1]
         return {names[codes[o]] or "(unassigned)": int(counts[o]) for o in order}
 
-    nt_mean = (out_nt * out_syn[:, None]).sum(axis=0) / max(out_syn.sum(), 1) / 255
+    predicted = out_nt.sum(axis=1) > 0  # an all-zero row means no synapse of that edge has a prediction
+    weights = out_syn[predicted]
+    nt_mean = (out_nt[predicted] * weights[:, None]).sum(axis=0) / max(weights.sum(), 1) / 255
     return {
         "root_id": int(root_id), "index": i, "annotations": annotations,
         "home_neuropil": names[blocks[i]] or None,

@@ -33,10 +33,12 @@ SOURCES = {
     "invariant": "structural invariant of the data model",
 }
 
-# Superclass counts as printed in Schlegel et al. 2024 (Results). NOTE: they sum to 127,864, not
-# 139,255 — see the check note; they are compared, not assumed to describe release 783.
+# Superclass counts as printed in Schlegel et al. 2024 (Results). The sentence lists "5,512 sensory" neurons
+# as the central brain's afferent input, i.e. the non-visual sensory neurons; visual sensory neurons are not
+# in that sentence, which is why the printed numbers sum to 127,864 rather than 139,255.
 SCHLEGEL_SUPERCLASS = {"central": 32388, "optic": 77536, "visual_projection": 8053, "visual_centrifugal": 524,
-                       "sensory": 5512, "ascending": 2362, "descending": 1303, "endocrine": 80, "motor": 106}
+                       "sensory (non-visual)": 5512, "ascending": 2362, "descending": 1303, "endocrine": 80, "motor": 106}
+VISUAL_SENSORY_CLASSES = ("visual", "ocellar")
 
 
 @dataclass
@@ -120,8 +122,10 @@ def check_store(conn: Connectome, report: Report) -> None:
                bool(np.all(np.diff(row_edge) >= 0) and np.unique(row_edge).size == e
                     and np.array_equal(per_edge.astype(np.int64), conn["syn_count"].astype(np.int64))), True, source="invariant")
     q_sum = conn["nt_prob_q"].sum(axis=1, dtype=np.int64)
-    report.add("E6", "store", "quantized transmitter probabilities of an edge sum to 255 +/- 3 (rounding)",
-               int(np.sum(np.abs(q_sum - 255) > 3)), 0, source="invariant")
+    report.add("E6", "store", "quantized transmitter probabilities of a predicted edge sum to 255 +/- 3 (rounding)",
+               int(np.sum((q_sum != 0) & (np.abs(q_sum - 255) > 3))), 0, source="invariant")
+    report.add("E6b", "store", "edges stored without prediction (all zeros) = edges without any predicted row",
+               int(np.sum(q_sum == 0)), conn.manifest["observed"]["transmitters"]["edges_without_prediction"], source="invariant")
     bad = [name for name, meta in conn.manifest["arrays"].items() if sha256_file(conn.root / meta["file"]) != meta["sha256"]]
     report.add("E7", "store", "every array matches its manifest sha256", bad, [], source="invariant")
 
@@ -174,15 +178,24 @@ def run(catalog: Catalog, *, budget: MemoryBudget, out_dir: Path | None = None, 
     report.add("C4", "rows", "rows with syn_count <= 0", co["rows_syn_count_le_0"], 0, source="zenodo",
                note='"one entry per neuron-neuron pair and neuropil if there is 1 or more synapses"')
     report.add("C5", "rows", "duplicate (pre, post, neuropil) rows", co["duplicate_pre_post_neuropil_rows"], 0, source="invariant")
-    report.add("C6", "rows", "rows without a neuropil assignment", co["rows_unassigned_neuropil"],
-               note="Dorkenwald 2024: synapses farther than 10 um from any neuropil 'were left unassigned'")
-    report.add("C7", "rows", "distinct neuropil names in the connection table", co["neuropil_names_in_table"], 78,
-               source="dorkenwald2024", note='"78 fly brain regions known as neuropils"')
+    report.add("C6", "rows", "rows without a neuropil assignment (release label per spelling)",
+               {"rows": co["rows_unassigned_neuropil"], "rows_by_label": co["unassigned_neuropil_labels_rows"],
+                "synapses_by_label": co["unassigned_neuropil_labels_synapses"], "null_rows": co["null_neuropil_rows"]},
+               note="Dorkenwald 2024: synapses farther than 10 um from any neuropil 'were left unassigned'; "
+                    "the release spells this UNASGD here and 'None' in the per-neuron count files")
+    report.add("C7", "rows", "distinct neuropil names in the connection table (unassigned label excluded)",
+               co["neuropil_names_in_table"], 78, source="dorkenwald2024", note='"78 fly brain regions known as neuropils"')
     tr = obs["transmitters"]
-    report.add("C8", "rows", "transmitter probabilities outside [0, 1] or NaN", tr["values_outside_0_1_or_nan"], 0, source="invariant")
-    report.add("C9", "rows", "rows whose six mean transmitter probabilities do not sum to 1 (|dev| > 1e-3)",
-               tr["rows_sum_dev_gt_1e-3"], 0, source="invariant", on_mismatch="WARN",
-               note=f"max |sum - 1| = {tr['row_sum_max_abs_dev_from_1']:.2e}")
+    report.add("C8", "rows", "predicted transmitter probabilities outside [0, 1]", tr["predicted_values_outside_0_1"], 0,
+               source="invariant")
+    report.add("C8b", "rows", "rows without a transmitter prediction (all six probabilities NaN)",
+               {"rows": tr["rows_without_prediction"], "rows_partially_nan": tr["rows_partially_nan"],
+                "synapses": tr["synapses_without_prediction"], "edges_without_any_prediction": tr["edges_without_prediction"],
+                "edges_partially_predicted": tr["edges_partially_predicted"]},
+               note="not described in the Zenodo record; excluded from the synapse-weighted mean of their edge")
+    report.add("C9", "rows", "predicted rows whose six mean probabilities do not sum to 1 (|dev| > 1e-3)",
+               tr["predicted_rows_sum_dev_gt_1e-3"], 0, source="invariant", on_mismatch="WARN",
+               note=f"max |sum - 1| = {tr['predicted_row_sum_max_abs_dev_from_1']:.2e}")
 
     # ---- aggregated graph --------------------------------------------------------------------------
     ed = obs["edges"]
@@ -224,9 +237,10 @@ def run(catalog: Catalog, *, budget: MemoryBudget, out_dir: Path | None = None, 
                    o["synapses_all_segments"] - o["synapses_unassigned_neuropil_all_segments"], 130038118,
                    source="codex_stats", on_mismatch="WARN")
         expected = 121904312 if side == "pre" else 58096025
-        report.add(f"{k}c", "completeness", f"synapses whose {side}synaptic side lies on a proofread neuron",
-                   o["synapses_proofread_neurons"], expected, source="codex_stats", on_mismatch="WARN",
-                   note="attachment rates 93.7 % pre / 44.7 % post (Dorkenwald 2024)")
+        report.add(f"{k}c", "completeness", f"synapses in a neuropil whose {side}synaptic side lies on a proofread neuron",
+                   o["synapses_proofread_neurons_assigned_neuropil"], expected, source="codex_stats", on_mismatch="WARN",
+                   note=f"{o['synapses_proofread_neurons']:,} including unassigned; "
+                        "attachment rates 93.7 % pre / 44.7 % post (Dorkenwald 2024)")
         ip = conn[f"np_{side}_indptr"]
         cum = np.concatenate([[0], np.cumsum(conn[f"np_{side}_count"], dtype=np.int64)])
         totals = cum[ip[1:]] - cum[ip[:-1]]
@@ -246,8 +260,10 @@ def run(catalog: Catalog, *, budget: MemoryBudget, out_dir: Path | None = None, 
     an = obs["annotations"]
     report.add("G1", "annotations", f"annotation rows ({m['annotation_version']}) vs proofread neurons", an["rows"], n,
                on_mismatch="WARN", note=f"{an['neurons_without_row']} neurons have no row; see G1b")
-    report.add("G2", "annotations", "annotation rows whose root id is not a proofread neuron", an["rows_not_in_root_ids"], 0,
-               source="invariant")
+    report.add("G2", "annotations", "annotation rows whose root id is not in the 783 proofread-neuron list",
+               an["rows_not_in_root_ids"], 0, on_mismatch="WARN",
+               note="the repository README states root ids are from release 783; such rows cannot be joined to the graph "
+                    f"and are dropped. Ids: {an.get('rows_not_in_root_ids_ids', [])}")
     report.add("G3", "annotations", "neurons with more than one annotation row", an["duplicate_rows_same_neuron"], 0,
                source="invariant")
     has_row = conn["ann_has_row"]
@@ -265,25 +281,28 @@ def run(catalog: Catalog, *, budget: MemoryBudget, out_dir: Path | None = None, 
         pos, hit = map_ids(conn["root_id"], pids)
         report.add("H1", "annotations-paper", "v2.1.0 rows / rows that are proofread neurons / unique",
                    [paper.num_rows, int(hit.sum()), int(np.unique(pids).size)], [n, n, n], source="invariant")
-        p_super = np.array([s or "" for s in paper.column("super_class").to_pylist()], dtype=object)
-        pv, pc_ = np.unique(p_super.astype(str), return_counts=True)
-        paper_counts = dict(zip(pv.tolist(), pc_.tolist()))
+        text = lambda c: np.array([s or "" for s in paper.column(c).to_pylist()], dtype=object)
+        p_super, p_class, cell_type, hemibrain_type = text("super_class"), text("cell_class"), text("cell_type"), text("hemibrain_type")
+        visual = np.isin(p_class, VISUAL_SENSORY_CLASSES)
+        counts = {k: int(np.sum(p_super == k.split(" ")[0])) for k in SCHLEGEL_SUPERCLASS}
+        counts["sensory (non-visual)"] = int(np.sum((p_super == "sensory") & ~visual))
         report.add("H2", "annotations-paper", "v2.1.0 super_class counts vs the counts printed in Schlegel 2024",
-                   {k: paper_counts.get(k, 0) for k in SCHLEGEL_SUPERCLASS}, SCHLEGEL_SUPERCLASS, source="schlegel2024",
-                   on_mismatch="WARN",
-                   note="the printed counts sum to 127,864 (release 783 has 139,255; release 630 had 127,978), "
-                        f"so they most likely describe an earlier snapshot — inference, not stated. All v2.1.0 values: {paper_counts}")
-        cell_type = np.array(paper.column("cell_type").to_pylist(), dtype=object)
-        typed = np.array([bool(t) for t in cell_type])
-        report.add("H3", "annotations-paper", "v2.1.0 distinct cell_type values", int(np.unique(cell_type[typed].astype(str)).size),
-                   8453, source="schlegel2024", on_mismatch="WARN", note='"8,453 annotated cell types"')
-        report.add("H4", "annotations-paper", "v2.1.0 share of neurons with a cell_type", round(float(typed.mean()), 4), 0.964,
-                   source="schlegel2024", tolerance=0.0005, on_mismatch="WARN", note='"cell types for 96.4% of all neurons"')
+                   counts, SCHLEGEL_SUPERCLASS, source="schlegel2024", on_mismatch="WARN",
+                   note=f"sensory neurons of cell_class visual/ocellar ({int(np.sum((p_super == 'sensory') & visual)):,}) are not "
+                        "part of the printed sentence")
+        either = np.where(cell_type != "", cell_type, hemibrain_type)
+        report.add("H3", "annotations-paper", "v2.1.0 distinct types, counting cell_type or else hemibrain_type",
+                   len(set(either) - {""}), 8453, source="schlegel2024", on_mismatch="WARN",
+                   note=f'"8,453 annotated cell types" = 3,643 hemibrain-derived + 4,581 new + 229 other; cell_type alone has '
+                        f"{len(set(cell_type) - {''}):,} distinct values")
+        report.add("H4", "annotations-paper", "v2.1.0 share of neurons with cell_type or hemibrain_type",
+                   round(float(np.mean(either != "")), 4), 0.964, source="schlegel2024", tolerance=0.0005, on_mismatch="WARN",
+                   note='"cell types for 96.4% of all neurons"; the denominator behind 96.4 % is not stated, not resolved here')
         missing = conn["root_id"][~has_row]
         in_paper = np.isin(pids, missing)
         report.add("G1b", "annotations", f"neurons without a {m['annotation_version']} row, as annotated in v2.1.0",
-                   [{"root_id": int(r), "super_class": s, "cell_type": t} for r, s, t in
-                    zip(pids[in_paper], p_super[in_paper], cell_type[in_paper])])
+                   [{"root_id": int(r), "super_class": s, "cell_class": k, "cell_type": t} for r, s, k, t in
+                    zip(pids[in_paper], p_super[in_paper], p_class[in_paper], cell_type[in_paper])])
 
     # ---- distributions ---------------------------------------------------------------------------
     edges = [1, 2, 3, 4, 5, 10, 20, 50, 100, 1000]

@@ -16,5 +16,37 @@
     "size": 27015208,
     "url": "https://raw.githubusercontent.com/flyconnectome/flywire_annotations/ebd66db2596fcc39c6950fb54ea3efa00f7fe8a0/supplemental_files/Supplemental_file1_neuron_annotations.tsv",
     "verified_utc": "2026-09-16T16:57:04+00:00"
+  },
+  "connections": {
+    "filename": "proofread_connections_783.feather",
+    "md5": "f48f972d262323a102aed49af1396b8a",
+    "sha256": "24f960ae3e7d4f8cd30db3b62e99fb5179cc3d1e76d8c155bfb441e9737d3faf",
+    "size": 852022274,
+    "url": "https://zenodo.org/api/records/10676866/files/proofread_connections_783.feather/content",
+    "verified_utc": "2026-09-17T07:16:17+00:00"
+  },
+  "neuropil_counts_post": {
+    "filename": "per_neuron_neuropil_count_post_783.feather",
+    "md5": "bb5999f10920ade803d9f37097a43a56",
+    "sha256": "e2418f4794fe47984bb4bc15ffc194003ea8e349a428551f30af94947d85d712",
+    "size": 233843050,
+    "url": "https://zenodo.org/api/records/10676866/files/per_neuron_neuropil_count_post_783.feather/content",
+    "verified_utc": "2026-09-17T07:13:49+00:00"
+  },
+  "neuropil_counts_pre": {
+    "filename": "per_neuron_neuropil_count_pre_783.feather",
+    "md5": "90fcdb42c1ba05ed92820840fa1e6ba0",
+    "sha256": "35442a46f076892dff91bd6e55fa1489b3acc64fda1d35cee7dbbbbc509a3dff",
+    "size": 16853770,
+    "url": "https://zenodo.org/api/records/10676866/files/per_neuron_neuropil_count_pre_783.feather/content",
+    "verified_utc": "2026-09-17T07:09:22+00:00"
+  },
+  "root_ids": {
+    "filename": "proofread_root_ids_783.npy",
+    "md5": "e0e6c19732fd8c7a4e39a2d170105421",
+    "sha256": "7c7b7e818e9232e5ab64793d52ba20574dbe9da3a6509fbc74193b0f259a01be",
+    "size": 1114168,
+    "url": "https://zenodo.org/api/records/10676866/files/proofread_root_ids_783.npy/content",
+    "verified_utc": "2026-09-16T18:08:32+00:00"
   }
 }

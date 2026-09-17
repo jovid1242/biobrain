@@ -11,9 +11,11 @@ from __future__ import annotations
 import datetime as dt
 import hashlib
 import shutil
+import threading
 import time
 import urllib.error
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from .. import paths
@@ -139,9 +141,9 @@ def select(catalog: Catalog, only: list[str] | None = None, include_optional: bo
 
 def run(catalog: Catalog, *, only: list[str] | None = None, include_optional: bool = False,
         allow_large: bool = False, max_file: int = DEFAULT_MAX_FILE, dry_run: bool = False,
-        retries: int = 8, log=print) -> int:
-    """Fetch/verify the selected files. A failing file does not stop the others; all failures are
-    reported together at the end (exit code 1)."""
+        retries: int = 8, parallel: int = 3, log=print) -> int:
+    """Fetch/verify the selected files, up to `parallel` at a time (one thread owns one file). A failing
+    file does not stop the others; all failures are reported together at the end (exit code 1)."""
     entries = select(catalog, only, include_optional)
     lock = catalog.load_lock()
     blocked = {e.id for e in entries if (e.large or e.size > max_file) and not allow_large}
@@ -170,9 +172,9 @@ def run(catalog: Catalog, *, only: list[str] | None = None, include_optional: bo
         raise DownloadError(f"not enough disk space: need {fmt_bytes(need)} + margin, have {fmt_bytes(free)}")
 
     failed = {}
-    for entry in entries:
-        if entry.id in blocked:
-            continue
+    guard = threading.Lock()
+
+    def process(entry: FileEntry) -> None:
         path = catalog.local_path(entry)
         if path.exists():
             digests = hash_file(path, entry)
@@ -191,13 +193,18 @@ def run(catalog: Catalog, *, only: list[str] | None = None, include_optional: bo
                 digests = fetch(entry, path, retries=retries, log=log)
             except DownloadError as exc:
                 log(f"FAILED   {entry.id}: {exc}")
-                failed[entry.id] = str(exc)
-                continue
+                with guard:
+                    failed[entry.id] = str(exc)
+                return
             log(f"ok       {entry.id}: {fmt_bytes(entry.size)} in {time.monotonic() - t0:.0f} s, checksums verified")
         record = {"filename": str(path.relative_to(catalog.raw_dir)), "url": entry.url, "size": entry.size, **digests}
-        if {k: v for k, v in lock.get(entry.id, {}).items() if k != "verified_utc"} != record:
-            lock[entry.id] = {**record, "verified_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")}
-            catalog.write_lock(lock)
+        with guard:
+            if {k: v for k, v in lock.get(entry.id, {}).items() if k != "verified_utc"} != record:
+                lock[entry.id] = {**record, "verified_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")}
+                catalog.write_lock(lock)
+
+    with ThreadPoolExecutor(max_workers=max(1, parallel)) as pool:
+        list(pool.map(process, [e for e in entries if e.id not in blocked]))
     if blocked:
         log(f"skipped (size policy): {', '.join(sorted(blocked))} — rerun with --allow-large if really needed")
     for file_id, reason in failed.items():

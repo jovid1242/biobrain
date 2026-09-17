@@ -26,6 +26,6 @@ def test_validation_on_toy_release_flags_what_is_wrong(toy_catalog, budget, tmp_
 
 def test_independent_totals_match_bruteforce(toy_catalog, budget):
     totals = validate.independent_totals(toy_catalog.local_path("connections"), budget)
-    # 8 rows -> pairs: (0,1) (1,0) (2,2) (3,4) (4,5) (5,3) (fragment,3)
-    assert totals == {"rows": 8, "pairs": 7, "synapses": 43, "pairs_ge_5": 4, "neurons_in_pairs_ge_5": 6,
+    # 9 rows -> pairs: (0,1) (1,0) (2,2) (3,4) (4,5) (5,3) (fragment,3)
+    assert totals == {"rows": 9, "pairs": 7, "synapses": 48, "pairs_ge_5": 4, "neurons_in_pairs_ge_5": 6,
                       "self_connection_pairs": 1}
