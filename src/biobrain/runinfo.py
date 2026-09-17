@@ -37,7 +37,9 @@ def collect(**extra) -> dict:
         "timestamp_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
         "biobrain_version": __version__,
         "git_commit": commit,
-        "git_dirty": bool(_run("git", "status", "--porcelain")) if commit else None,
+        # dirty = code or data definitions differ from the commit (regenerated results/docs do not count)
+        "git_dirty": bool(_run("git", "status", "--porcelain", "--", "src", "catalog", "pyproject.toml",
+                               "requirements.lock")) if commit else None,
         "command": sys.argv,
         "python": platform.python_version(),
         "platform": platform.platform(),
