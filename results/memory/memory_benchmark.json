@@ -1,0 +1,354 @@
+{
+ "dataset": "flywire_fafb_v783",
+ "counts": {
+  "neurons": 139255,
+  "edges": 15091983,
+  "rows": 16847997,
+  "synapses": 54492922
+ },
+ "disk": {
+  "raw_files": {
+   "root_ids": 1114168,
+   "connections": 852022274,
+   "neuropil_counts_pre": 16853770,
+   "neuropil_counts_post": 233843050,
+   "annotations": 31718505,
+   "annotations_paper": 27015208
+  },
+  "raw_total": 1162566975,
+  "processed_total": 437905422,
+  "processed_arrays": {
+   "root_id": 1114040,
+   "out_indptr": 1114048,
+   "out_indices": 60367932,
+   "syn_count": 30183966,
+   "row_edge": 67391988,
+   "row_neuropil": 16847997,
+   "row_syn_count": 33695994,
+   "nt_prob_q": 90551898,
+   "in_indptr": 1114048,
+   "in_indices": 60367932,
+   "in_edge": 60367932,
+   "np_pre_indptr": 1114048,
+   "np_pre_neuropil": 396364,
+   "np_pre_count": 1585456,
+   "np_post_indptr": 1114048,
+   "np_post_neuropil": 422882,
+   "np_post_count": 845764,
+   "ann_has_row": 139255,
+   "ann_supervoxel_id": 1114040,
+   "ann_pos_x": 557020,
+   "ann_pos_y": 557020,
+   "ann_pos_z": 557020,
+   "ann_soma_x": 557020,
+   "ann_soma_y": 557020,
+   "ann_soma_z": 557020,
+   "ann_nucleus_id": 1114040,
+   "ann_flow": 139255,
+   "ann_super_class": 139255,
+   "ann_cell_class": 139255,
+   "ann_cell_sub_class": 139255,
+   "ann_supertype": 278510,
+   "ann_cell_type": 278510,
+   "ann_hemibrain_type": 278510,
+   "ann_ito_lee_hemilineage": 139255,
+   "ann_hartenstein_hemilineage": 139255,
+   "ann_top_nt": 139255,
+   "ann_top_nt_conf": 557020,
+   "ann_known_nt": 139255,
+   "ann_known_nt_source": 139255,
+   "ann_side": 139255,
+   "ann_nerve": 139255,
+   "ann_status": 139255,
+   "ann_dimorphism": 139255,
+   "ann_fru_dsx": 139255
+  }
+ },
+ "results": [
+  {
+   "case": "baseline",
+   "baseline_rss_bytes": 52363264,
+   "build_s": 1.1250012903474271e-06,
+   "rss_after_build_bytes": 0,
+   "access": {},
+   "rss_after_access_bytes": 0,
+   "peak_rss_growth_bytes": 0,
+   "structure_bytes": 0
+  },
+  {
+   "case": "python_slots_objects",
+   "baseline_rss_bytes": 52379648,
+   "extrapolated_from_edges": 1000000,
+   "build_s": 1.7945282500004396,
+   "rss_after_build_bytes": 433258496,
+   "access": {},
+   "rss_after_access_bytes": 433258496,
+   "peak_rss_growth_bytes": 579420160,
+   "structure_bytes": 1938574392,
+   "bytes_per_neuron": 13921.039761588452,
+   "bytes_per_edge": 128.4506079817344,
+   "bytes_per_synapse": 35.574792484058754
+  },
+  {
+   "case": "python_dict_of_dicts",
+   "baseline_rss_bytes": 52363264,
+   "extrapolated_from_edges": 1000000,
+   "build_s": 2.341464625002118,
+   "rss_after_build_bytes": 567361536,
+   "access": {
+    "lookup_us": 3.7987194324948548
+   },
+   "rss_after_access_bytes": 576225280,
+   "peak_rss_growth_bytes": 652066816,
+   "structure_bytes": 3858271007,
+   "bytes_per_neuron": 27706.516871925603,
+   "bytes_per_edge": 255.65036794700868,
+   "bytes_per_synapse": 70.80315874784618
+  },
+  {
+   "case": "arrow_raw_rows",
+   "baseline_rss_bytes": 52445184,
+   "rows": 16847997,
+   "build_s": 0.3482611250001355,
+   "rss_after_build_bytes": 1411317760,
+   "access": {},
+   "rss_after_access_bytes": 1411317760,
+   "peak_rss_growth_bytes": 1411219456,
+   "structure_bytes": 1368984128,
+   "bytes_per_neuron": 9830.771807116442,
+   "bytes_per_edge": 90.70936059230918,
+   "bytes_per_synapse": 25.122237489852353
+  },
+  {
+   "case": "coo_int64",
+   "baseline_rss_bytes": 52363264,
+   "build_s": 0.03055879099701997,
+   "rss_after_build_bytes": 426082304,
+   "access": {
+    "lookup_us": 3598.4937501780223,
+    "propagate_ms": 10.722750004788395,
+    "full_scan_ms": 24.6546250054962,
+    "note": "unsorted COO: a neighbour lookup scans all edges"
+   },
+   "rss_after_access_bytes": 566820864,
+   "peak_rss_growth_bytes": 566673408,
+   "structure_bytes": 362207592,
+   "bytes_per_neuron": 2601.0383253743134,
+   "bytes_per_edge": 24.0,
+   "bytes_per_synapse": 6.64687410229167
+  },
+  {
+   "case": "coo_compact",
+   "baseline_rss_bytes": 52428800,
+   "build_s": 0.020082666000234894,
+   "rss_after_build_bytes": 213630976,
+   "access": {
+    "lookup_us": 3934.5312499790452,
+    "propagate_ms": 15.731584004242904,
+    "full_scan_ms": 25.157165997370612,
+    "note": "unsorted COO: a neighbour lookup scans all edges"
+   },
+   "rss_after_access_bytes": 474251264,
+   "peak_rss_growth_bytes": 474120192,
+   "structure_bytes": 150919830,
+   "bytes_per_neuron": 1083.765968905964,
+   "bytes_per_edge": 10.0,
+   "bytes_per_synapse": 2.7695308759548625
+  },
+  {
+   "case": "csr",
+   "baseline_rss_bytes": 52412416,
+   "build_s": 0.008040749999054242,
+   "rss_after_build_bytes": 91848704,
+   "access": {
+    "lookup_us": 0.3049083003134001,
+    "propagate_ms": 0.5140409994055517,
+    "synaptic_events_per_pass": 143676,
+    "full_scan_ms": 25.031208999280352
+   },
+   "rss_after_access_bytes": 338575360,
+   "peak_rss_growth_bytes": 338444288,
+   "structure_bytes": 91665946,
+   "bytes_per_neuron": 658.259638792144,
+   "bytes_per_edge": 6.073817204803372,
+   "bytes_per_synapse": 1.6821624283608796
+  },
+  {
+   "case": "csr_csc",
+   "baseline_rss_bytes": 52494336,
+   "build_s": 0.018204874999355525,
+   "rss_after_build_bytes": 213762048,
+   "access": {
+    "lookup_us": 0.32447080011479557,
+    "propagate_ms": 0.516042004164774,
+    "synaptic_events_per_pass": 143676,
+    "full_scan_ms": 25.206833000993356,
+    "in_lookup_us": 1.1285582993878052
+   },
+   "rss_after_access_bytes": 460963840,
+   "peak_rss_growth_bytes": 460849152,
+   "structure_bytes": 213515858,
+   "bytes_per_neuron": 1533.2724713654807,
+   "bytes_per_edge": 14.147634409606743,
+   "bytes_per_synapse": 3.9182310319127316
+  },
+  {
+   "case": "store_mmap",
+   "baseline_rss_bytes": 52396032,
+   "build_s": 5.750000127591193e-06,
+   "rss_after_build_bytes": 0,
+   "access": {
+    "lookup_us": 1.00185000046622,
+    "propagate_ms": 0.5152090088813566,
+    "synaptic_events_per_pass": 143676,
+    "full_scan_ms": 25.287333002779633
+   },
+   "rss_after_access_bytes": 338411520,
+   "rss_after_touching_everything_bytes": 684883968,
+   "peak_rss_growth_bytes": 684752896,
+   "structure_bytes": 437647912,
+   "bytes_per_neuron": 3142.780596746975,
+   "bytes_per_edge": 28.998701628540132,
+   "bytes_per_synapse": 8.031279952284445
+  },
+  {
+   "case": "store_eager",
+   "baseline_rss_bytes": 52068352,
+   "build_s": 0.040007499999774154,
+   "rss_after_build_bytes": 438566912,
+   "access": {
+    "lookup_us": 0.33207500018761493,
+    "propagate_ms": 0.5124590097693726,
+    "synaptic_events_per_pass": 143676,
+    "full_scan_ms": 25.381040999491233
+   },
+   "rss_after_access_bytes": 687980544,
+   "peak_rss_growth_bytes": 687849472,
+   "structure_bytes": 437647912,
+   "bytes_per_neuron": 3142.780596746975,
+   "bytes_per_edge": 28.998701628540132,
+   "bytes_per_synapse": 8.031279952284445
+  },
+  {
+   "case": "delta_varint",
+   "baseline_rss_bytes": 52297728,
+   "bytes_index_stream": 27136619,
+   "bytes_weight_stream": 15100347,
+   "build_s": 0.44318091600143816,
+   "rss_after_build_bytes": 907837440,
+   "access": {
+    "lookup_us": 25.047708499187138,
+    "propagate_ms": 3.2724590055295266,
+    "synaptic_events_per_pass": 143676,
+    "full_scan_ms": 369.07274999975925
+   },
+   "rss_after_access_bytes": 2077229056,
+   "peak_rss_growth_bytes": 2077147136,
+   "structure_bytes": 45579110,
+   "bytes_per_neuron": 327.30681124555673,
+   "bytes_per_edge": 3.020087552444235,
+   "bytes_per_synapse": 0.8364225724581259
+  },
+  {
+   "case": "zstd_csr",
+   "baseline_rss_bytes": 52281344,
+   "uncompressed_bytes": 91665946,
+   "build_s": 0.16071683300106088,
+   "rss_after_build_bytes": 191561728,
+   "access": {
+    "full_decompress_ms": 53.2816660052049,
+    "note": "whole-array compression: no random access without chunking"
+   },
+   "rss_after_access_bytes": 282427392,
+   "peak_rss_growth_bytes": 282329088,
+   "structure_bytes": 49591291,
+   "bytes_per_neuron": 356.1185666582887,
+   "bytes_per_edge": 3.2859360496231673,
+   "bytes_per_synapse": 0.9100501345844512
+  },
+  {
+   "case": "weights_quantized",
+   "baseline_rss_bytes": 52477952,
+   "variants": {
+    "uint32": {
+     "bytes_per_edge": 4,
+     "lossless": true
+    },
+    "uint16": {
+     "bytes_per_edge": 2,
+     "lossless": true,
+     "max_count": 2405
+    },
+    "uint8_saturating": {
+     "bytes_per_edge": 1,
+     "edges_clipped": 1095,
+     "synapse_mass_lost_fraction": 0.002762138539753842
+    },
+    "uint8_log_1/8_octave": {
+     "bytes_per_edge": 1,
+     "max_level": 90,
+     "edges_changed": 337756,
+     "max_relative_error": 0.07142857142857142,
+     "synapse_mass_error_fraction": -0.0006826207631148867
+    },
+    "float16": {
+     "bytes_per_edge": 2,
+     "edges_changed": 1
+    },
+    "float32": {
+     "bytes_per_edge": 4,
+     "lossless_for_integers_below": 16777216
+    }
+   },
+   "build_s": 0.2506814580046921,
+   "rss_after_build_bytes": 875905024,
+   "access": {},
+   "rss_after_access_bytes": 875905024,
+   "peak_rss_growth_bytes": 875790336,
+   "structure_bytes": null
+  },
+  {
+   "case": "region_local_ids",
+   "baseline_rss_bytes": 52068352,
+   "size_only": true,
+   "intra_block_edges": 7178857,
+   "intra_block_fraction": 0.4756735413762393,
+   "largest_block_neurons": 23786,
+   "uint16_local_ids_possible": true,
+   "layout": "per row: intra-block targets as uint16 local ids, then inter-block targets as int32 global ids; + int64 indptr, int32 split pointer per row, int32 local-id map; uint16 weights",
+   "build_s": 0.31695562499953667,
+   "rss_after_build_bytes": 389431296,
+   "access": {},
+   "rss_after_access_bytes": 389431296,
+   "peak_rss_growth_bytes": 389283840,
+   "structure_bytes": 78422272,
+   "bytes_per_neuron": 563.1558795016336,
+   "bytes_per_edge": 5.1962867967715045,
+   "bytes_per_synapse": 1.4391276723975273
+  }
+ ],
+ "run": {
+  "timestamp_utc": "2026-09-17T07:38:12+00:00",
+  "biobrain_version": "0.1.0",
+  "git_commit": "d47ea8ed10e91ecb256280e5181d697fe785df40",
+  "git_dirty": false,
+  "command": [
+   ".venv/bin/biobrain",
+   "bench-memory"
+  ],
+  "python": "3.14.6",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "ram_total_bytes": 17179869184,
+  "packages": {
+   "numpy": "2.5.3",
+   "scipy": "1.18.1",
+   "pyarrow": "25.0.1",
+   "python-igraph": "1.0.0",
+   "matplotlib": "3.11.2",
+   "psutil": "7.2.2"
+  },
+  "seed": 20260916
+ }
+}

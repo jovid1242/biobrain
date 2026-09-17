@@ -2,7 +2,7 @@
 
 **Overall: PASS** — {'PASS': 38, 'FAIL': 0, 'WARN': 3, 'INFO': 13}
 
-Generated 2026-09-17T07:21:28+00:00 · commit `aaee2c2a0f9b6783574c3222c6d671c28d060531` (dirty) · Apple M5 · 5.4 s · peak RSS 3.5 GiB
+Generated 2026-09-17T07:38:02+00:00 · commit `d47ea8ed10e91ecb256280e5181d697fe785df40` · Apple M5 · 5.5 s · peak RSS 3.5 GiB
 
 Statuses: PASS = matches; FAIL = invariant broken or unexplained mismatch; WARN = known/explained difference or quality flag; INFO = observation.
 

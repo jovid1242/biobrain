@@ -790,10 +790,10 @@
   }
  ],
  "run": {
-  "timestamp_utc": "2026-09-17T07:21:28+00:00",
+  "timestamp_utc": "2026-09-17T07:38:02+00:00",
   "biobrain_version": "0.1.0",
-  "git_commit": "aaee2c2a0f9b6783574c3222c6d671c28d060531",
-  "git_dirty": true,
+  "git_commit": "d47ea8ed10e91ecb256280e5181d697fe785df40",
+  "git_dirty": false,
   "command": [
    ".venv/bin/biobrain",
    "validate"
@@ -811,7 +811,7 @@
    "matplotlib": "3.11.2",
    "psutil": "7.2.2"
   },
-  "seconds": 5.4,
-  "peak_rss": 3806920704
+  "seconds": 5.5,
+  "peak_rss": 3761668096
  }
 }
